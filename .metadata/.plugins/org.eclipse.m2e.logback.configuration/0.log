@@ -11,3 +11,4 @@
 2022-03-14 15:53:55,712 [Worker-28: Building] INFO  o.e.m.w.i.f.ResourceFilteringBuildParticipant - Executing resource filtering for JAVA_CAMP
 2022-03-14 16:47:32,934 [Worker-22: Updating Maven Project] INFO  o.e.m.w.i.f.ResourceFilteringBuildParticipant - Cleaning filtered folder for JAVA_CAMP
 2022-03-14 16:47:33,476 [Worker-48: Building] INFO  o.e.m.w.i.f.ResourceFilteringBuildParticipant - Changed resources require a complete clean of filtered resources of JAVA_CAMP
+2022-03-14 16:47:33,476 [Worker-48: Building] INFO  o.e.m.w.i.f.ResourceFilteringBuildParticipant - Executing resource filtering for JAVA_CAMP
