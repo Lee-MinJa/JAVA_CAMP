@@ -31,11 +31,11 @@ const theme = createTheme({
 
 ReactDOM.render(
   <React.StrictMode>
-    <ThemeProvider theme={theme}>
+  <ThemeProvider theme={theme}>
     <BrowserRouter>
     <App />
     </BrowserRouter>
-    </ThemeProvider>
+  </ThemeProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

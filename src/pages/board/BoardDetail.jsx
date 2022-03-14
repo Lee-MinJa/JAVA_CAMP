@@ -9,6 +9,7 @@ import {
   Button,
   Container
 } from '@mui/material'
+import Header from '../../components/board/boardComponent/Header';
 
 function BoardDetail() {
   const location = useLocation();
@@ -52,6 +53,7 @@ function BoardDetail() {
     {/* <h2>Hi Camping</h2> */}
     </Box>
     <h2>자유게시판</h2>
+    <Header />
     <Divider variant="inset"
       sx={{
         marginLeft : '-0px',
