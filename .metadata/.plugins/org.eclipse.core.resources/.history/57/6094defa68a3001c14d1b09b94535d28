@@ -1,0 +1,13 @@
+package com.dev.demo.PrBoard;
+
+import java.util.List;
+import java.util.Map;
+
+public class PrBoardLogic {
+
+	public List<Map<String, Object>> PrBoardList(Map<String, Object> pMap) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}
