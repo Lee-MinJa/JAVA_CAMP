@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Card, CardContent, CardMedia, createTheme, Divider, Grid, Link, List, ListItem, ListItemButton, ListItemText, ThemeProvider, Typography } from '@mui/material';
 import Footer from '../components/main/Footer';
-import ImgCarousel from '../components/main/ImgCarousel';
+import MainCarousel from '../components/main/MainCarousel';
 
 
 const theme = createTheme({
@@ -22,11 +22,13 @@ function Home() {
       <ThemeProvider theme={theme}>
       <Box>
         <Typography align="left" variant="h2" gutterBottom sx={{ mb:4, ml:4}}>
-          <br/>Hi, Camping(확인중)
+          <br/>Hi, Camping
         </Typography>
       </Box>
-      {/* <ImgCarousel /> */}
-       <Card variant="none" sx={{ pb:10 }}>
+      {<MainCarousel />}
+
+{/*        케로셀 대체
+          <Card variant="none" sx={{ pb:10 }}>
           <Typography variant="h1" align="left" sx={{position: 'absolute', color: 'palette.lb', mt: 10, ml:5}}>
           캠핑,<br/>
           나만의 자연을 찾다
@@ -38,7 +40,7 @@ function Home() {
             alt="The picture of two people camping"
             sx={{bgcolor:'palette.no'}}
           />
-          </Card> 
+          </Card>  */}
           <Grid container spacing={2} sx={{ pt:10, pr:7, pb:20,pl:7}}>
           <Grid item xs={6} style={{ display: "flex", alignItems: "center" }}>
           <Typography variant="h3" align="left" sx={{color: 'palette.nb', ml: 8}}>

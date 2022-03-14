@@ -19,7 +19,7 @@ import PersonalInfo from './pages/join/Personal_info'
 import Biz_info from './pages/join_business/Biz_info';
 import Home from './pages/Home'
 import JoinCompl from './pages/join_business/JoinCompl';
-import SignIn from './pages/login/SignIn'
+import SignIn from './pages/signin/SignIn'
 import FindAcct from './pages/lostInfo/FindAcct'
 import NavBar from './components/nav/NavBar';
 import FindAcctId from './components/lostInfo/FindAcctId';
