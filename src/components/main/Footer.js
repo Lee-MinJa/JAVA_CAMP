@@ -22,7 +22,7 @@ function Footer(props) {
   return (
     <div>
     <ThemeProvider theme={theme}>
-    <Box height="100px" sx={{ bgcolor: 'palette.db', bottom: 0}} display="flex" >
+    <Box height="100px" sx={{ bgcolor: 'palette.db', bottom: 0, width: 'auto'}}>
           <Typography variant="body1" sx={{pt:5, pl: 5, color:'white'}}>
           Copyright © Team JavaCamp 2022
           </Typography>

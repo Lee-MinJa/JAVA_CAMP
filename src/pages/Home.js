@@ -22,7 +22,7 @@ function Home() {
       <ThemeProvider theme={theme}>
       <Box>
         <Typography align="left" variant="h2" gutterBottom sx={{ mb:4, ml:4}}>
-          <br/>Hi, Camping
+          <br/>Hi, Camping(확인중)
         </Typography>
       </Box>
       {/* <ImgCarousel /> */}

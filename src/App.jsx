@@ -36,6 +36,7 @@ function App() {
   return (
     <Provider store={store}>
       <NavBar />
+      
     <Routes>
       {/* ------------ 지훈 작업 -------------*/}
       {/* 메인 페이지 */}
