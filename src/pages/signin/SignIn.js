@@ -51,7 +51,7 @@ function SignIn(props) {
       setCookie('MEM_NICK',response.data[0].MEM_NICK,3);
       window.location.href='/'
     })
-        return console.log(signinInfo);
+        return alert(signinInfo);
     }
 
 

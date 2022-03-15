@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useRef } from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
@@ -18,9 +18,13 @@ const style = {
 };
 
 export default function FindAcctPw() {
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const [openForm, setOpenForm] = React.useState(false);
+  const handleOpenForm = () => setOpenForm(true);
+  const handleCloseForm = () => setOpenForm(false);
+  
+  const [openResult, setOpenResult] = React.useState(false);
+  const handleOpenResult = () => setOpenResult(true);
+  const handleCloseResult = () => setOpenResult(false);
 
 
   const handleSubmit = (event) => {
@@ -34,16 +38,22 @@ export default function FindAcctPw() {
     });
   }
 
+  const updatedPw = useRef('') 
+  const updatedPwCk = useRef('')
+  const sendValue = () => {
+    const updatedPwFin = updatedPw.current.value;
+       return alert(updatedPwFin);
+   }
+
+
   return (
     <div>
-      <Box onClick={handleOpen}>
+      <Box onClick={handleOpenForm}>
         <Typography align="center" variant="h5">비밀번호 찾기</Typography>
       </Box>
       <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
+        open={openForm}
+        onClose={handleCloseForm}
       >
         <Box sx={style} component="form" onSubmit={handleSubmit}>
           <Typography align="center" variant="h4">
@@ -100,16 +110,59 @@ export default function FindAcctPw() {
 />
  </Grid>
 </Grid>
-
           <Grid container>
           <Grid item xs >
-          <Button type="submit" variant="contained"
+          <Button type="submit" variant="contained" onClick={handleOpenResult}
           sx={{ mt: 3, mb: 2, color: "000",bgcolor:"palette.lo",'&:hover': {bgcolor: 'palette.no'}}}>
           비밀번호 찾기
           </Button>
+          {/* /// 결과있음: 비밀번호 수정 Modal  ////////////////////////*/}
+          <Modal
+              open={openResult}
+              onClose={handleCloseForm}
+              >
+                 <Box sx={style} >
+                   <Box component="form" sx={{display: 'flex', alignItems: 'center', flexDirection: 'column'}}>
+                   <Typography align="center">비밀번호를 변경해주세요.</Typography>
+                   <Grid container spacing={3} sx={{pt:4}}>
+                     <Grid item xs={12}>
+                     <TextField 
+          required
+          fullWidth
+          type="password"
+          id="updatedPw"
+          inputRef={updatedPw}
+          label="새 비밀번호"
+          />
+                     </Grid>
+                     <Grid item xs={12}>
+                     <TextField 
+          required
+          fullWidth
+          type="password"
+          id="updatedPwCk"
+          inputRef={updatedPwCk}
+          label="비밀번호 확인"
+          />
+                     </Grid>
+                   </Grid>
+          {/* R: 비번과 비번확인 일치하는지 확인메시지 필요 */}
+                <Button
+                onClick={sendValue}
+                href='/signin' 
+                variant="contained"
+                sx={{ mt: 4, bgcolor:"palette.lo",'&:hover': {bgcolor: 'palette.no'}}}>
+                  변경</Button>
+                   </Box>
+                 </Box>
+          </Modal>
+          {/* /// 결과없음: 가입or아이디 찾기 modal: DB연결후 조건부로 수정 ////////////////////////*/}
+          <Modal>
+            {/* 결과 없는 경우, 가인창으로? 아이디찾기로? 창종료/ */}
+          </Modal>
           </Grid>  
           <Grid item>
-          <Button onClick={handleClose} variant="contained"
+          <Button onClick={handleCloseForm} variant="contained"
           sx={{ mt: 3, mb: 2, bgcolor:"palette.lo",'&:hover': {bgcolor: 'palette.no'}}}>
           취소
           </Button>

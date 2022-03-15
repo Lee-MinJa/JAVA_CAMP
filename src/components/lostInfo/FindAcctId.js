@@ -18,10 +18,13 @@ const style = {
 };
 
 export default function FindAcctId() {
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-
+  const [openForm, setOpenForm] = React.useState(false);
+  const handleOpenForm = () => setOpenForm(true);
+  const handleCloseForm = () => setOpenForm(false);
+  
+  const [openResult, setOpenResult] = React.useState(false);
+  const handleOpenResult = () => setOpenResult(true);
+  const handleCloseResult = () => setOpenResult(false);
 
   const handleSubmit = (event) => {
     const findInfo = new FormData(event.currentTarget);
@@ -35,14 +38,13 @@ export default function FindAcctId() {
 
   return (
     <div>
-      <Box onClick={handleOpen}>
+      <Box onClick={handleOpenForm}>
         <Typography align="center" variant="h5">아이디 찾기</Typography>
       </Box>
+       {/* 찾기 modal */}
       <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
+        open={openForm}
+        onClose={handleCloseForm}
       >
         <Box sx={style} component="form" onSubmit={handleSubmit}>
           <Typography align="center" variant="h4">
@@ -90,16 +92,49 @@ export default function FindAcctId() {
 />
  </Grid>
 </Grid>
-
           <Grid container>
           <Grid item xs >
-          <Button type="submit" variant="contained"
+          <Button onClick={handleOpenResult} type="submit" variant="contained"
           sx={{ mt: 3, mb: 2, color: "000",bgcolor:"palette.lo",'&:hover': {bgcolor: 'palette.no'}}}>
           아이디 찾기
           </Button>
+             {/* //// 결과있음 modal  /////////////////// */}
+              <Modal
+              open={openResult}
+              onClose={handleCloseForm}
+              >
+                 <Box sx={style} >
+                   <Box sx={{display: 'flex', alignItems: 'center', flexDirection: 'column'}}>
+                   <Typography align="center">회원님의 아이디입니다.</Typography>
+                <Typography align="center">Camper111</Typography>
+                <Button  
+                href='/signin' 
+                variant="contained"
+                sx={{bgcolor:"palette.lo",'&:hover': {bgcolor: 'palette.no'}}}>
+                  로그인하러 가기</Button>
+                   </Box>
+                 </Box>
+              </Modal>
+              {/* //// 결과없음 modal: DB연결후 조건부로 수정 ///////////////////////////////
+              <Modal
+              open={openResult}
+              onClose={handleCloseResult}
+              >
+                 <Box sx={style} >
+                   <Box sx={{display: 'flex', alignItems: 'center', flexDirection: 'column'}}>
+                   <Typography align="center">존재하지 않는 계정입니다.</Typography>
+                     <Button  
+                href='/가입페이지' 
+                variant="contained"
+                sx={{bgcolor:"palette.lo",'&:hover': {bgcolor: 'palette.no'}}}>
+                  가입하러 가기</Button>          
+                   </Box>
+                 </Box>
+              </Modal> 
+              ////////////////////////////////////////////////////////////////////////////*/}
           </Grid>  
           <Grid item>
-          <Button onClick={handleClose} variant="contained"
+          <Button onClick={handleCloseForm} variant="contained"
           sx={{ mt: 3, mb: 2, bgcolor:"palette.lo",'&:hover': {bgcolor: 'palette.no'}}}>
           취소
           </Button>
@@ -107,6 +142,8 @@ export default function FindAcctId() {
           </Grid>
         </Box>
       </Modal>
+   
+
     </div>
   );
 }
