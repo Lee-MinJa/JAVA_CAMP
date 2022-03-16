@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
@@ -38,12 +38,36 @@ export default function FindAcctPw() {
     });
   }
 
-  const updatedPw = useRef('') 
-  const updatedPwCk = useRef('')
+// 비밀번호 확인시 데이터 전달 확인용 
+ // const updatedPw = useRef('') 
+  // const updatedPwCk = useRef('')
   const sendValue = () => {
     const updatedPwFin = updatedPw.current.value;
        return alert(updatedPwFin);
    }
+
+
+   /* 비밀번호 확인 */
+   const [updatedPw, setUpdatedPw] = useState('')
+   const [updatedPwCk, setUpdatedPwCk] = useState('')
+   const [passwordConfirm, setPasswordConfirm] = useState('')
+   const [passwordConfirmMessage, setPasswordConfirmMessage] = useState('')
+   const [isPasswordConfirm, setIsPasswordConfirm] = useState(false)
+   const onChangePasswordConfirm = (
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const pwConfirmCurrent = e.target.value
+      setPasswordConfirm(pwConfirmCurrent)
+
+      if (updatedPw === pwConfirmCurrent) {
+        setPasswordConfirmMessage('비밀번호 일치 ')
+        setIsPasswordConfirm(true)
+      } else {
+        setPasswordConfirmMessage('비밀번호 불일치')
+        setIsPasswordConfirm(false)
+      }
+    },
+    [updatedPw]
+  )
 
 
   return (
@@ -137,6 +161,7 @@ export default function FindAcctPw() {
                      </Grid>
                      <Grid item xs={12}>
                      <TextField 
+                     onChange={onChangePasswordConfirm}
           required
           fullWidth
           type="password"
@@ -144,6 +169,9 @@ export default function FindAcctPw() {
           inputRef={updatedPwCk}
           label="비밀번호 확인"
           />
+           {passwordConfirm.length > 0 && (
+            <span className={`message ${isPasswordConfirm ? 'success' : 'error'}`}>{passwordConfirmMessage}</span>
+          )}
                      </Grid>
                    </Grid>
           {/* R: 비번과 비번확인 일치하는지 확인메시지 필요 */}
@@ -157,9 +185,21 @@ export default function FindAcctPw() {
                  </Box>
           </Modal>
           {/* /// 결과없음: 가입or아이디 찾기 modal: DB연결후 조건부로 수정 ////////////////////////*/}
-          <Modal>
-            {/* 결과 없는 경우, 가인창으로? 아이디찾기로? 창종료/ */}
-          </Modal>
+{/*           <Modal
+              open={openResult}
+              onClose={handleCloseForm}
+              >
+                 <Box sx={style} >
+                   <Box sx={{display: 'flex', alignItems: 'center', flexDirection: 'column'}}>
+                   <Typography align="center">존재하지 않는 계정입니다.</Typography>
+                <Button  
+                href='/findacct' 
+                variant="contained"
+                sx={{bgcolor:"palette.lo",'&:hover': {bgcolor: 'palette.no'}}}>
+                  아이디 찾기</Button>
+                   </Box>
+                 </Box>
+              </Modal> */}
           </Grid>  
           <Grid item>
           <Button onClick={handleCloseForm} variant="contained"

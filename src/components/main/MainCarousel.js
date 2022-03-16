@@ -46,7 +46,7 @@ function Item(props)
 {
     return ( 
         <Paper >
-            <Grid container sx={{height:600}}>
+            <Grid container sx={{height:400}}>
                 <Grid item xs={7} sx={{bgcolor:'palette.db'}}>
                 <Typography sx={{color:'white'}}>(캠핑장 이미지 삽입)</Typography>    
                 </Grid>
