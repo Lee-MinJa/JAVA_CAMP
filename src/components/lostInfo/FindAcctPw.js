@@ -54,8 +54,6 @@ export default function FindAcctPw() {
     }
 }
 
-
-
   return (
     <div>
       <Box onClick={handleOpenForm}>
@@ -136,11 +134,57 @@ export default function FindAcctPw() {
                 비밀번호 찾기
               </Button>
               {/* /// 결과있음: 비밀번호 수정 Modal  ////////////////////////*/}
-             
-
-
-
-             
+              <Modal open={openResult} onClose={handleCloseForm}>
+                <Box sx={style}>
+                  <Box
+                    component="form"
+                    sx={{
+                      display: "flex",
+                      alignItems: "center",
+                      flexDirection: "column",
+                    }}
+                  >
+                    <Typography align="center">
+                      비밀번호를 변경해주세요.
+                    </Typography>
+                    <Grid container spacing={3} sx={{ pt: 4 }}>
+                      <Grid item xs={12}>
+                        <TextField
+                          required
+                          fullWidth
+                          type="password"
+                          id="updatedPw"
+                          inputRef={updatedPw}
+                          label="새 비밀번호"
+                        />
+                      </Grid>
+                      <Grid item xs={12}>
+                        <TextField
+                          required
+                          fullWidth
+                          type="password"
+                          id="updatedPwCk"
+                          inputRef={updatedPwCk}
+                          label="비밀번호 확인"
+                        />
+                      </Grid>
+                    </Grid>
+                    {/* R: 비번과 비번확인 일치하는지 확인메시지 필요 */}
+                    <Button
+                      onClick={onSubmit}
+                      href="/signin"
+                      variant="contained"
+                      sx={{
+                        mt: 4,
+                        bgcolor: "palette.lo",
+                        "&:hover": { bgcolor: "palette.no" },
+                      }}
+                    >
+                      변경
+                    </Button>
+                  </Box>
+                </Box>
+              </Modal>
               {/* /// 결과없음: 가입or아이디 찾기 modal: DB연결후 조건부로 수정 ////////////////////////*/}
               {/*           <Modal
               open={openResult}

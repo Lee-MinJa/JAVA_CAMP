@@ -55,7 +55,7 @@ function Biz_info() {
      const signupInfo = {
        isignupId: signupId.current.value
        , signupPw: signupPw.current.value
-       ,signupBiznum: signupBiznum.current.value
+       , signupBiznum: signupBiznum.current.value
        , signupBizname: signupBizname.current.value
        , signupBizowner: signupBizowner.current.value
        , signupMobile: signupMobile.current.value 
@@ -69,7 +69,7 @@ function Biz_info() {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const id= "camper1111";
+  const id= signupId.current.value;
 
   return (
     <div>
@@ -103,8 +103,6 @@ function Biz_info() {
 <Modal
     open={open}
     onClose={handleClose}
-    aria-labelledby="modal-modal-title"
-    aria-describedby="modal-modal-description"
   >
     <Box sx={style} component="form" 
     // onSubmit={handleSubmit}
@@ -115,7 +113,7 @@ function Biz_info() {
       <Typography align="center" variant="h5">
         {id}
       </Typography>
-      <Typography align="center" variant="h5" sx={{mt:2}}>
+      <Typography align="center" variant="h6" sx={{mt:2}}>
         사용이 가능한 아이디입니다.
       </Typography>
         </Grid>  
