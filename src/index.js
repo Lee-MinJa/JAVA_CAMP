@@ -17,11 +17,11 @@ const theme = createTheme({
       main: '#FF6D00',
       darker : '##ff6f00',
     },
-    jinOrainge: {
-      main: '#FF6D00',
+    secondary: {
+      main: '#00B4D8',
     },
-    orangeSeconds: {
-      main: '#FF8500',
+    success: {
+      main: '#023E8A',
     },
     blueFirst: {
       main: '#00B4D8',

@@ -6,7 +6,7 @@ function Search({ onSubmit }) {
   const handleSubmit = (event) => {
     event.preventDefault();
     onSubmit(event.target.elements.filter.value);
-    //console.log('서치 submmit')
+    console.log('서치 submmit')
   };
 
   return (

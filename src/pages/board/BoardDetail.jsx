@@ -9,7 +9,7 @@ import {
   Button,
   Container
 } from '@mui/material'
-import Header from '../../components/board/boardComponent/Header';
+import Setter from '../../components/board/boardComponent/Setter';
 
 function BoardDetail() {
   const location = useLocation();
@@ -42,7 +42,7 @@ function BoardDetail() {
   return (
       <Container
       sx={{
-        width : '90vw'
+        width : '90vw',
       }}
       maxWidth="lg">
     <Box
@@ -53,7 +53,7 @@ function BoardDetail() {
     {/* <h2>Hi Camping</h2> */}
     </Box>
     <h2>자유게시판</h2>
-    <Header />
+    <Setter id={boardNumber}/>
     <Divider variant="inset"
       sx={{
         marginLeft : '-0px',
