@@ -24,6 +24,7 @@ import FindAcct from './pages/lostInfo/FindAcct'
 import NavBar from './components/nav/NavBar';
 import FindAcctId from './components/lostInfo/FindAcctId';
 
+
 function App() {
 
   // const [boards,setBoards] = useState('');
