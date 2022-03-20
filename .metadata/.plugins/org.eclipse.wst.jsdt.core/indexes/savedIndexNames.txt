@@ -1,10 +1,6 @@
-INDEX VERSION 1.4+C:\JAVA_CAMP\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
-3812190936.index
-2599330237.index
-3773117476.index
-2998235169.index
-2635570699.index
-2812622412.index
-4042055757.index
-3082398799.index
+INDEX VERSION 1.4+C:\Users\COSMOS\Desktop\JC\JAVA_CAMP\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
 103704732.index
+88444480.index
+1503089118.index
+1125164156.index
+3007222019.index

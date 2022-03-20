@@ -22,11 +22,10 @@ export default function FindAcctPw() {
   const [openForm, setOpenForm] = React.useState(false);
   const handleOpenForm = () => setOpenForm(true);
   const handleCloseForm = () => setOpenForm(false);
-  
+
   /* ////// 결과 Modal창 여닫기 ////// */
   const [openResult, setOpenResult] = React.useState(false);
   const handleOpenResult = () => setOpenResult(true);
-
 
   /* (임시)비번찾기시 입력한 정보 제출하기 */
   const handleSubmit = (event) => {
@@ -41,18 +40,22 @@ export default function FindAcctPw() {
   };
 
   /* ////// 변경한 비밀번호 일치여부 확인 ////// */
-  const updatedPw = useRef('')
-  const updatedPwCk = useRef('')
+  const updatedPw = useRef("");
+  const updatedPwCk = useRef("");
   const onSubmit = (event) => {
-    event.preventDefault()
-    const updatedPwFin =updatedPw.current.value
-    const updatedPwCkFin =updatedPwCk.current.value
-    if(updatedPwFin !== updatedPwCkFin) {
-      return alert("비밀번호가 일치하지 않습니다.")
+    event.preventDefault();
+    const updatedPwFin = updatedPw.current.value;
+    const updatedPwCkFin = updatedPwCk.current.value;
+    if (updatedPwFin !== updatedPwCkFin) {
+      return alert("비밀번호가 일치하지 않습니다.");
     } else {
-      return setOpenForm(false)
+      return (
+        window.confirm("비밀번호가 변경되었습니다."),
+        setOpenForm(false),
+        (window.location.href = "/signin")
+      );
     }
-}
+  };
 
   return (
     <div>
