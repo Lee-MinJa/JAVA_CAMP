@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -83,7 +85,8 @@ public class PrBoardController {
 	//홍보게시판의 글 작성은 사업자에게만 권한을 줘야 하는데 멤버 코드를 어디서 호출을 해서 권한을 줘야할까?
 	@PostMapping("PrBoardInsert")
 	public String PrBoardInsert(@RequestParam Map<String,Object> pMap, Model model , 
-				@RequestParam(value="IMAGE_FILENAME", required=false) MultipartFile IMAGE_FILENAME) {
+				@RequestParam(value="IMAGE_FILENAME", required=false) MultipartFile IMAGE_FILENAME,
+				HttpServletRequest request) {
 //		if(Integer.parseInt(memberDao.MemberList(pMap).get(0).get("MEM_CODE").toString()) == 1) {
 		logger.info("PrBoardInsert 호출 성공");
 		logger.info("사용자가 입력한 정보 ==> "+pMap);
@@ -117,13 +120,16 @@ public class PrBoardController {
 		TngResult = prBoardLogic.PrBoardTngInsert(PrBoardTag);
 		}
 		
+		String root_path = request.getSession().getServletContext().getRealPath("/");  
 		Map<String,Object> PrBoardImg = new HashMap();
-		PrBoardImg.put("IMAGE_FILENAME", pMap.get("IMAGE_FILENAME"));
-		PrBoardImg.put("PROMO_NUM", pMap.get("PROMO_NUM"));
-		PrBoardImg.put("IMAGE_FILEPATH", "C:\\\\Users\\\\gk478\\\\Desktop\\\\demo\\\\demo\\\\src\\\\main\\\\webapp\\\\image\\");
+		PrBoardImg.put("IMAGE_FILENAME", IMAGE_FILENAME.getOriginalFilename());
 		
-		logger.info("IMAGE_FILENAME : "+IMAGE_FILENAME);
-		String savePath = PrBoardImg.get("IMAGE_FILEPATH").toString();
+		
+//		logger.info("root_path 1111111111111: "+root_path);
+//		logger.info("root_path 222222222222222: "+root_path+"image");
+//		logger.info("root_path 3333333333333333333: "+root_path+"image"+IMAGE_FILENAME.getOriginalFilename());
+		logger.info("IMAGE_FILENAME : "+IMAGE_FILENAME.getOriginalFilename());
+		String savePath = root_path+"image";
 		String filename = null;
 		String fullPath = null;
 		if(IMAGE_FILENAME !=null) {
@@ -148,13 +154,16 @@ public class PrBoardController {
 				long size = file.length();
 				double d_size = Math.floor(size/1024.0);
 				logger.info("size : "+ size);
-				PrBoardImg.put("IMAGE_FILENAME", filename);
+				PrBoardImg.put("IMAGE_FILEPATH", fullPath);
+				logger.info("IMAGE_FILEFULLPATH : "+fullPath);
 				PrBoardImg.put("IMAGE_SIZE", d_size);
-				logger.info(pMap.get("IMAGE_FILENAME")+", "+pMap.get("IMAGE_SIZE"));
+				logger.info(PrBoardImg.get("IMAGE_FILENAME")+", "
+				+PrBoardImg.get("IMAGE_SIZE")+", "+ PrBoardImg.get("PROMO_NUM") +","
+				+PrBoardImg.get("IMAGE_FILEPATH"));
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			ImgResult = prBoardLogic.PrBoardImgInsert(pMap);
+			ImgResult = prBoardLogic.PrBoardImgInsert(PrBoardImg);
 		}
 		
 		Map<String,Object> PrBoardList = new HashMap();
@@ -169,7 +178,9 @@ public class PrBoardController {
 	}
 	
 	@GetMapping("PrBoardUpdate")
-	public String PrBoardUpdate(@RequestParam Map<String,Object> pMap, Model model) {
+	public String PrBoardUpdate(@RequestParam Map<String,Object> pMap, Model model , 
+			@RequestParam(value="IMAGE_FILENAME", required=false) MultipartFile IMAGE_FILENAME,
+			HttpServletRequest request) {
 //		if(Integer.parseInt(memberDao.MemberList(pMap).get(0).get("MEM_CODE").toString()) == 1) {
 		logger.info("PrBoardUpdate 호출 성공");
 		logger.info("사용자가 입력한 정보 ==> "+pMap);
@@ -207,16 +218,45 @@ public class PrBoardController {
 			
 		}
 		
-		
+		String root_path = request.getSession().getServletContext().getRealPath("/");  
 		Map<String,Object> PrBoardImg = new HashMap();
-		PrBoardImg.put("IMAGE_FILENAME", pMap.get("IMAGE_FILENAME"));
+		PrBoardImg.put("IMAGE_FILENAME", IMAGE_FILENAME.getOriginalFilename());
 		PrBoardImg.put("PROMO_NUM", pMap.get("PROMO_NUM"));
-		PrBoardImg.put("IMAGE_FILEPATH", "\\src\\main\\webapp\\image");
 		
-		int ImgResult= 0;
-		ImgResult = prBoardLogic.PrBoardImgUpdate(PrBoardImg);
-		
-		
+		logger.info("IMAGE_FILENAME : "+IMAGE_FILENAME.getOriginalFilename());
+		String savePath = root_path+"image";
+		String filename = null;
+		String fullPath = null;
+		if(IMAGE_FILENAME !=null) {
+			filename =  IMAGE_FILENAME.getOriginalFilename();
+			fullPath = savePath+"\\"+filename;
+		}
+		int ImgResult = 0;
+		if(IMAGE_FILENAME !=null && !IMAGE_FILENAME.isEmpty()) {
+			try {
+				logger.info("fullPath : " + fullPath);
+				File file = new File(fullPath);//내용은 아직 들어있지 않은.... 상태
+				logger.info("file : "+ file);
+				byte[] bytes = IMAGE_FILENAME.getBytes();
+				BufferedOutputStream bos = 
+						new BufferedOutputStream(new FileOutputStream(file));
+				bos.write(bytes);
+				bos.close();
+				long size = file.length();
+				double d_size = Math.floor(size/1024.0);
+				logger.info("size : "+ size);
+				PrBoardImg.put("IMAGE_FILEPATH", fullPath);
+				logger.info("IMAGE_FILEFULLPATH : "+fullPath);
+				PrBoardImg.put("IMAGE_SIZE", d_size);
+				logger.info(PrBoardImg.get("IMAGE_FILENAME")+", "
+				+PrBoardImg.get("IMAGE_SIZE")+", "+ PrBoardImg.get("PROMO_NUM") +","
+				+PrBoardImg.get("IMAGE_FILEPATH"));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			ImgResult = prBoardLogic.PrBoardImgInsert(PrBoardImg);
+		}
+
 		Map<String,Object> PrBoardList = new HashMap();
 		PrBoardList.put("result", result);
 		PrBoardList.put("TResult", TResult);

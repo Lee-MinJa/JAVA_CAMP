@@ -77,8 +77,8 @@ VALUES((SELECT MAX(TAG_CODE)+1 FROM tag), #{TAG_NAME})
 </insert>
 
 <insert id ="PrBoardImgInsert" parameterType="map">
-INSERT INTO image(image_num,image_clsfc_code,promo_num,image_filename,image_filepath,image_regdate)
-     values(seq_image.nextval,1,(SELECT max(promo_num) FROM PROMO_BOARD),#{IMAGE_FILENAME},#{IMAGE_FILEPATH},TO_CHAR(sysdate,'YYYY-MM-DD'))
+INSERT INTO image(image_num,image_clsfc_code,promo_num,image_filename,image_filepath,image_regdate,image_size)
+     values(seq_image.nextval,1,(SELECT max(promo_num) FROM PROMO_BOARD),#{IMAGE_FILENAME},#{IMAGE_FILEPATH},TO_CHAR(sysdate,'YYYY-MM-DD'),#{IMAGE_SIZE})
 </insert>
 <!--mem_num 은 로그인을 통해서 값을 받아와야함  -->
 
