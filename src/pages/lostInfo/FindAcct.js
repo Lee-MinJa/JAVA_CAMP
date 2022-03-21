@@ -34,6 +34,7 @@ function FindAcct(props) {
         찾고싶은 항목을 선택해 주세요
         </Typography>
         <Button
+        className="blueBtn"
           variant="contained" 
           sx={{width: 400, height: 70,  m:4, bgcolor: "palette.lb",'&:hover': {bgcolor: 'palette.nb'} }}>
         <FindAcctId />

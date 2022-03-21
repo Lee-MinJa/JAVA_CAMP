@@ -52,7 +52,7 @@ function SignIn(props) {
       , signinPw: signinPw.current.value
     }
     /* 로한 작성중 */
-    axios.get('/', {
+    axios.get('/memberList', {
       params: {
         'mem_id': signinIdFin
         , 'mem_pw': signinPwFin
@@ -61,15 +61,14 @@ function SignIn(props) {
     .then(window.location.href = "/")
     .catch()
 
-
-    /* /// 외부 작성(작성자 미상) ///////////// */
-    axios.get(`http://localhost:8000/member/login?MEM_ID=${signinInfo.signinId}&MEM_PW=${signinInfo.signinPw}`)
-    .then(response => {
-      console.log(response.data);
-      alert(response.data[0].MEM_NICK);
-      setCookie('MEM_NICK',response.data[0].MEM_NICK,3);
-      window.location.href='/'
-    })
+       /* /// 외부 작성(작성자 미상) ///////////// */
+    // axios.get(`http://localhost:8000/member/login?MEM_ID=${signinInfo.signinId}&MEM_PW=${signinInfo.signinPw}`)
+    // .then(response => {
+    //   console.log(response.data);
+    //   alert(response.data[0].MEM_NICK);
+    //   setCookie('MEM_NICK',response.data[0].MEM_NICK,3);
+    //   window.location.href='/'
+    // })
     /* ////외부작성 종료///////////////////// */
     /* 로그인시 입력된 정보 확인 */
         return alert(`ID: ${signinIdFin} / PW: ${signinPwFin}`);

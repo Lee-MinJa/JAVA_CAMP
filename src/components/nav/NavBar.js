@@ -71,7 +71,7 @@ function NavBar(props) {
             </ListItemButton>
           </ListItem>
           <ListItem>
-            <ListItemButton component="a" href="./signin">
+            <ListItemButton component="a" href="./promotionpage">
               <ListItemText align="center" primary="홍보게시판" />
             </ListItemButton>
           </ListItem>

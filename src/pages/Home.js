@@ -57,7 +57,7 @@ function Home() {
                 <Box
                   sx={{ display: "flex", flexDirection: "row-reverse", pt: 2 }}
                 >
-                  <Link href="./freeboard" underline="hover" color="palette.db">
+                  <Link href="./promotionpage" underline="hover" color="palette.db">
                     {" "}
                     더 많은 캠핑장 보기👉{" "}
                   </Link>
@@ -76,7 +76,7 @@ function Home() {
                 <Box
                   sx={{ display: "flex", flexDirection: "row-reverse", pt: 2 }}
                 >
-                  <Link href="./freeboard" underline="hover" color="palette.db">
+                  <Link href="./boardlist" underline="hover" color="palette.db">
                     {" "}
                     더 많은 게시글 보기👉{" "}
                   </Link>
