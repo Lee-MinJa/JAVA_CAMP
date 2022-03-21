@@ -1,0 +1,52 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+    <%@page import="java.util.*" %>
+    <%
+    List<Map<String,Object>> PrBoardList=(List)request.getAttribute("PrBoardList");
+    
+    out.print(PrBoardList);
+    
+    %>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+    <div id="dlg_boardIns" footer="#tb_boardIns" class="easyui-dialog" title="글쓰기" data-options="modal:true,closed:true" style="width:600px;height:400px;padding:10px">
+        <form id="f_boardIns" method="post" enctype="multipart/form-data" action="boardInsert.ax">
+        	<input type="hidden" id="bm_no" name="bm_no" value="0"/>
+        	<input type="hidden" id="bm_group" name="bm_group" value="0"/>
+        	<input type="hidden" id="bm_pos" name="bm_pos" value="0"/>
+        	<input type="hidden" id="bm_step" name="bm_step" value="0"/>
+        	<table>
+        		<tr>
+        			<td width="100px">제&nbsp;&nbsp;&nbsp;목</td>
+        			<td width="500px"><input id="bm_title" name="bm_title" class="easyui-textbox" data-options="width:'250px'" required></td>
+        		</tr>
+        		<tr>
+        			<td width="100px">작&nbsp;성&nbsp;자</td>
+        			<td width="500px"><input id="bm_writer" name="bm_writer" class="easyui-textbox" data-options="width:'150px'" required></td>
+        		</tr>
+        		<tr>
+        			<td width="100px">이&nbsp;메&nbsp;일</td>
+        			<td width="500px"><input id="bm_email" name="bm_email" class="easyui-textbox" data-options="width:'150px'" required></td>
+        		</tr>
+        		<tr>
+        			<td width="100px">내&nbsp;&nbsp;&nbsp;용</td>
+        			<td width="500px"><input id="bm_content" name="bm_content" class="easyui-textbox" data-options="multiline:'true',width:'350px', height:'90px'" required></td>
+        		</tr>
+        		<tr>
+        			<td width="100px">비&nbsp;&nbsp;&nbsp;번</td>
+        			<td width="500px"><input id="bm_pw" name="bm_pw" class="easyui-textbox" data-options="width:'100px'" required></td>
+        		</tr>
+        		<tr>
+        			<td width="100px">첨부파일</td>
+        			<td width="500px"><input id="bs_file" name="bs_file" class="easyui-filebox" data-options="width:'350px'"></td>
+        		</tr>
+        	</table>
+        </form>
+    </div>
+</body>
+</html>
