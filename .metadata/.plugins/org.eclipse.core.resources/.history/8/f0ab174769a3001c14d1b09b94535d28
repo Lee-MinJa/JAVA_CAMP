@@ -1,0 +1,12 @@
+package com.dev.demo.PrBoard;
+
+import java.util.List;
+import java.util.Map;
+
+public class PrBoardDao {
+
+	public List<Map<String, Object>> PrBoardList(Map<String, Object> pMap) {
+		return null;
+	}
+
+}

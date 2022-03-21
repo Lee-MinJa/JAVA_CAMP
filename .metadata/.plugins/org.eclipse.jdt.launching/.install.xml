@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <dirs>
+<<<<<<< HEAD
     <entry loc="C:\eGovFrameDev-4.0.0-64bit\eclipse\plugins\org.eclipse.justj.openjdk.hotspot.jre.full.win32.x86_64_15.0.2.v20210201-0955\jre" stamp="1644218392901"/>
     <entry loc="C:\eGovFrameDev-4.0.0-64bit\eclipse\plugins\org.eclipse.justj.openjdk.hotspot.jre.full.win32.x86_64_15.0.2.v20210201-0955" stamp="1644218392901"/>
+=======
+<entry loc="C:\Program Files\Java\jdk1.8.0_121" stamp="1633612429431"/>
+>>>>>>> 4ff33fab7cec238e03f15c35a38e491a6e8a5c29
 </dirs>

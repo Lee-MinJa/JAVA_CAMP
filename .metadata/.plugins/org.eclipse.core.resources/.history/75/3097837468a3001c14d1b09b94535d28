@@ -1,0 +1,10 @@
+package com.dev.demo.PrBoard;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+@RequestMapping("/Prboard/*")
+public class PrBoardController {
+
+}
