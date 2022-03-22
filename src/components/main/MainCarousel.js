@@ -48,7 +48,7 @@ function MainCarousel(props)
 function Item(props)
 {
     return ( 
-        <Paper >
+        <Paper>
             <Grid container sx={{height:400}}>
                 <Grid item xs={7} sx={{bgcolor:'palette.db'}}>
                 <Typography sx={{color:'white'}}>(캠핑장 이미지 삽입)</Typography>    

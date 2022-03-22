@@ -1,8 +1,7 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import store from './components/board/redux/store'
-
+import store from './components/board/redux/store';
 
 //Page
 //지훈 작업 page
@@ -22,7 +21,6 @@ import JoinCompl from './pages/join_business/JoinCompl';
 import SignIn from './pages/signin/SignIn'
 import FindAcct from './pages/lostInfo/FindAcct'
 import NavBar from './components/nav/NavBar';
-import FindAcctId from './components/lostInfo/FindAcctId';
 
 function App() {
 
@@ -54,19 +52,18 @@ function App() {
       {/* ------------ 지훈 작업 end-------------*/}
 
 
-      {/*------------ 로한님 작업 ------------*/}
+      {/*------------ 로한 작업 ------------*/}
       {/* 메인 페이지 */}
       <Route path='/' element={<Home />}/>
 
-      {/* 로그인, 회원정보 찾기 */}
+      {/* 로그인 및 회원정보 찾기 */}
       <Route path='/signin' element={<SignIn />}/>
       <Route path='/findacct' element={<FindAcct />}/>
 
       {/* 가입 */}
       <Route path='/biz_info' element={<Biz_info />}/>
       <Route path='/joincompl' element={<JoinCompl />}/>
-      <Route path='/find' element={<FindAcctId />}/>
-      {/*------------ 로한님 작업 End------------*/}
+      {/*------------ 로한 End------------*/}
 
     </Routes>
     </Provider>

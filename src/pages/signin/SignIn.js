@@ -22,10 +22,6 @@ var setCookie = function(name, value, exp) {
   date.setTime(date.getTime() + exp*60*1000);
   document.cookie = name + '=' + value + ';expires=' + date.toUTCString() + ';path=/';
   };
-  
-
-
-
 
 function SignIn(props) {
   /* 회원정보가 없는 경우 메시지 보이기 */
@@ -35,7 +31,6 @@ function SignIn(props) {
   //   console.log({
   //     id: signInData.get('signinid')
   //     , pw: signInData.get('signinpw')
-
   //   });
   // }
 
