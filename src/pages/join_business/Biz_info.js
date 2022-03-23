@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import {
   Button,
   Box,
@@ -35,7 +35,19 @@ const style = {
   p: 4,
 };
 
+/* ///// Biz_info 함수 ///////////////////////////////////////////////// */
 function Biz_info() {
+    /* 유효성검사 */
+    const [value, setValue] = useState('');
+    const onChange = (e) => {
+      setValue(e.target.value)
+    }
+    const validation = () => {
+      let check = /[~!@#$%^&*()_+|<>?:{}.,/;='"ㄱ-ㅎ | ㅏ-ㅣ |가-힣]/;
+      return check.test(value);
+    }
+
+
   // form과 submit이용하는 경우
   // const handleSubmit = (event) => {
   //   const signInData = new FormData(event.currentTarget);
@@ -112,6 +124,10 @@ function Biz_info() {
                   label="아이디"
                   name="signupId"
                   inputRef={signupId}
+                  value={value} 
+                  onChange={onChange}
+                  error={validation()}
+                  helperText={validation()?"특수기호 및  한글은 사용할 수 없습니다.": ""}
                 />
               </Grid>
               <Grid item xs={1}>

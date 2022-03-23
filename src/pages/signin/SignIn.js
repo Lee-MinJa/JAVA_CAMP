@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Button, Grid, Link, TextField, Box, Typography } from '@mui/material';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import axios from 'axios';
@@ -14,8 +14,6 @@ const theme = createTheme({
     },
   },
 });
-
-
 /* 외부 작성(작성자 미상) */
 var setCookie = function(name, value, exp) {
   var date = new Date();
@@ -23,7 +21,9 @@ var setCookie = function(name, value, exp) {
   document.cookie = name + '=' + value + ';expires=' + date.toUTCString() + ';path=/';
   };
 
+/* SignIn 함수 //////////////////////////////////////////////////////////////////////////// */
 function SignIn(props) {
+
   /* 회원정보가 없는 경우 메시지 보이기 */
   // form과 submit이용하는 경우 
   // const handleSubmit = (event) => {
