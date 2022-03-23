@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.demo.freeboard">
-	<select id="getFreeBoardList" parameterType="map" resultType="map">
-		SELECT free_num, mem_num, free_subject, free_title, DBMS_LOB.SUBSTR(free_content, 10000, 1) as free_content, free_views, free_regdate FROM FREE_BOARD
-	</select>
-</mapper>
