@@ -2,6 +2,10 @@ body {
   margin: 0;
 }
 
+.fboardContent{
+  max-height: 500px;
+}
+
 @font-face {
   font-family: 'Bold';
   src: url('./font/NanumSquareRoundOTFR.otf');

@@ -8,9 +8,11 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { TablePagination, Box, Button, Pagination, PaginationItem } from '@mui/material';
+import { Box, Button, Pagination, PaginationItem } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import sampleData from './sampleData.json'
+import { fBoardGet, fBoardMain, pjPort } from '../MappingDB'
+import axios from 'axios';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -36,55 +38,57 @@ export default function CustomizedTables() {
 
   const navigate = useNavigate()
   const reduxValue = useSelector((state) => state.alignment)
-  const [getSample, setGetSample] = useState([])
+  // const [getSample, setGetSample] = useState([])
   const [page, setPage] = React.useState(0);
   const rowsPerPage = 10;
   const [boardData, setBoardData] = useState([{
-    b_no : "",
-    b_category : "",
-    b_content : "",
-    b_writer : "",
-    b_date : "",
-    b_title : "",
-    b_view : 0,
+    free_num : 0,
+    free_subject : "",
+    free_content : "",
+    mem_num : 0,
+    free_regdate : "",
+    free_title : "",
+    free_views : 0,
   }])
 
-/*
+//setGetSample(res.data)
 
 useEffect(() => {
-  Axios.get('http://localhost:8000/api/BoardGet').then((res) => {
-    setBoardData(res.data);
+  axios.get(`http://localhost:${pjPort}/${fBoardMain}/${fBoardGet}`).then((res) => {
+    if(reduxValue.alignment === 'question'){
+      setBoardData(res.data.filter(data => data.free_subject === '질문' ))
+      setPage(0)
+      console.log('질문')
+    } else if (reduxValue.alignment === 'boast'){
+      setBoardData(res.data.filter(data => data.free_subject === '자랑하기' ))
+      setPage(0)
+      console.log('자랑')
+    } else if (reduxValue.alignment === 'share'){
+      setBoardData(res.data.filter(data => data.free_subject === '무료나눔' ))
+      setPage(0)
+      console.log('무료나눔')
+    } else {
+      setBoardData(res.data)
+    }
+    // console.log(res.data)
+    
     //console.log(boardData);
   })
-},[])
+},[reduxValue])
 
-*/
 
-useEffect(() => {
-  setGetSample(sampleData.data)
-  loadData()
-  // console.log(reduxValue)
-  // console.log(boardData)
-},[reduxValue, getSample])
+
+// useEffect(() => {
+//   setGetSample(sampleData.data)
+//   loadData()
+//   // console.log(reduxValue)
+//   // console.log(boardData)
+// },[reduxValue, getSample])
 
 //[reduxValue] || [getSample]
 
 const loadData = () => {
-  if(reduxValue.alignment === 'question'){
-    setBoardData(getSample.filter(data => data.b_category === '질문' ))
-    setPage(0)
-    console.log('질문')
-  } else if (reduxValue.alignment === 'boast'){
-    setBoardData(getSample.filter(data => data.b_category === '자랑하기' ))
-    setPage(0)
-    console.log('자랑')
-  } else if (reduxValue.alignment === 'share'){
-    setBoardData(getSample.filter(data => data.b_category === '무료나눔' ))
-    setPage(0)
-    console.log('무료나눔')
-  } else {
-    setBoardData(sampleData.data)
-  }
+  
 }
 
   const handleChangePage = (event, newPage) => {
@@ -105,31 +109,31 @@ const loadData = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {boardData.sort((a,b) => b.b_no-a.b_no).slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => (
+          {boardData.sort((a,b) => b.free_num-a.free_num).slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => (
             <StyledTableRow
-            key={row.b_no}
+            key={row.free_num}
             style={{height: 48 }}
             sx={{
               cursor: 'pointer'
             }}
             hover
-            onClick={()=> navigate('/BoardDetail/'+row.b_no ,{state:{
-              boardNumber : row.b_no,
-              boardTitle : row.b_title,
-              boradContent : row.b_content,
-              boardDate : row.b_date,
-              boardView : row.b_view,
-              boardCategory : row.b_category,
-              boardWriter : row.b_writer
+            onClick={()=> navigate('/BoardDetail/'+row.free_num ,{state:{
+              boardNumber : row.free_num,
+              boardTitle : row.free_title,
+              boradContent : row.free_content,
+              boardDate : row.free_regdate,
+              boardView : row.free_views,
+              boardCategory : row.free_subject,
+              boardWriter : row.mem_num
             }})}
             >
               <StyledTableCell align="center" component="th" scope="row">
-                {row.b_no}
+                {row.free_num}
               </StyledTableCell>
-              <StyledTableCell align="center">{row.b_category}</StyledTableCell>
-              <StyledTableCell align="center">{row.b_title}</StyledTableCell>
-              <StyledTableCell align="center">{row.b_date}</StyledTableCell>
-              <StyledTableCell align="center">{row.b_view}</StyledTableCell>
+              <StyledTableCell align="center">{row.free_subject}</StyledTableCell>
+              <StyledTableCell align="center">{row.free_title}</StyledTableCell>
+              <StyledTableCell align="center">{row.free_regdate}</StyledTableCell>
+              <StyledTableCell align="center">{row.free_views}</StyledTableCell>
             </StyledTableRow>
           ))}
         </TableBody>

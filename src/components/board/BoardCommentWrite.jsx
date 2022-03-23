@@ -42,7 +42,8 @@ function BoardCommentWrite() {
       }
     }
     return (
-      <div>
+      <>
+      <Box>
         <Button 
         variant='outlined'
 
@@ -58,7 +59,6 @@ function BoardCommentWrite() {
             </Typography>
             <Typography sx={{ mt: 3 }}>
             <TextField
-            autoComplete="false"
               sx={{
                 width : '600px'
               }}
@@ -81,7 +81,8 @@ function BoardCommentWrite() {
             </Box>
           </Box>
         </Modal>
-      </div>
+      </Box>
+      </>
     );
 };
 

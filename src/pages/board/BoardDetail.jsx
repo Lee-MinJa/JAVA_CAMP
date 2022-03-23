@@ -1,19 +1,24 @@
 import React, {useState, useEffect} from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import BoardCommentList from '../../components/board/BoardCommentList'
+import { memberGet, fviewCount, pjPort } from '../../components/board/MappingDB'
 import {
   Box,
   Divider,
   Stack,
   Chip,
   Button,
-  Container
+  Container,
 } from '@mui/material'
-import Setter from '../../components/board/boardComponent/Setter';
+// import Setter from '../../components/board/boardComponent/Setter';
+import axios from 'axios'
 
 function BoardDetail() {
   const location = useLocation();
   const navigate = useNavigate();
+  const [nickName, setNickName] = useState([{
+    mem_nick : '',
+  }])
 
   const {
     boardNumber,
@@ -25,35 +30,34 @@ function BoardDetail() {
     boardWriter
   } = location.state
 
-  // const [boardData, setBoardData] = useState([{
-  //   b_no : "",
-  //   b_category : "",
-  //   b_content : "",
-  //   b_date : "",
-  //   b_title : "",
-  //   b_view : 0,
-  // }])
+  const [viewState, setViewState] = useState(Number(boardView + 1))
 
-  // useEffect(() => {
-  //   setBoardData(sampleData.data)
-  //   // console.log(boardData)
-  // })
+  const viewCount = () => {
+    const url = "http://localhost:" + pjPort + "/api/" + fviewCount + "/" + boardNumber
+    const data = {
+      countViews : viewState,
+      free_num : boardNumber
+    }
+    axios.put(url, data).then((res) => {
+      console.log('view : ', viewState)
+    })
+  }
+
+  useEffect(() => {
+    axios.get(`http://localhost:${pjPort}/api/${memberGet}/${boardWriter}`).then((res) => {
+      setNickName(res.data)
+      console.log('nick : ',nickName)
+    })
+    viewCount()
+  }, [])
 
   return (
-      <Container
-      sx={{
-        width : '90vw',
-      }}
-      maxWidth="lg">
+      <Container sx={{width : '90vw'}} maxWidth="lg">
     <Box
       className='boardHeader'
-      sx={{
-        height: '7vh',
-      }}>
-    {/* <h2>Hi Camping</h2> */}
+      sx={{height: '7vh',}}>
     </Box>
     <h2>자유게시판</h2>
-    <Setter id={boardNumber}/>
     <Divider variant="inset"
       sx={{
         marginLeft : '-0px',
@@ -65,13 +69,12 @@ function BoardDetail() {
       <Box
       marginTop={'-6px'}
       >
-      {/* <h4>글번호 : { boardNumber }</h4> */}
       <Stack 
       alignItems={'center'}
       direction={'row'}>
       <Chip
       sx={{
-        color : 'white'
+        color : 'white',
       }}
       color='primary'
       label={boardCategory}/>
@@ -99,10 +102,12 @@ function BoardDetail() {
           orientation='vertical' 
           flexItem/>}
         direction={'row'}>
-      <Box>
-      <h4>{boardWriter}</h4>
-      </Box>
-      
+
+    {nickName.map((row, i) =>
+    <Box key={i}>
+    <h4>{row.mem_nick}</h4>
+    </Box>
+    )}
         <Box
         marginLeft={'15px'}
         >
@@ -111,7 +116,7 @@ function BoardDetail() {
       </Stack>
       <Stack direction={'row'}>
       <Box>
-        <h5>조회수 { boardView }</h5>
+        <h5>조회수 { boardView + 1}</h5>
       </Box>
       <Box marginLeft={'10px'}>
         <h5>댓글 {2}</h5>
@@ -129,13 +134,11 @@ function BoardDetail() {
       <Box
       padding={'10px'}
       width={'70vw'}
-      marginBottom={'15vh'}
+      minHeight={'200px'}
+      display={'flex'}
       >
-      <h4>{boradContent}</h4>
+      <Box dangerouslySetInnerHTML={{__html:boradContent}}></Box>
       </Box>
-      {/* {boardData.map(row =>
-        <h3 key={row.b_no}>{row.b_title}</h3>
-      )} */}
       <Stack
       sx={{
         width : '70vw'
