@@ -25,8 +25,30 @@ AND t.tag_name = #{tag_name}
 <if test="promo_region!=null">
 AND p.promo_region = #{promo_region}
 </if>
+<if test="start>0">
+<![CDATA[ AND p.promo_num >= #{start} ]]>
+</if>    
+<if test="end>0">
+<![CDATA[ AND p.promo_num >= #{end} ]]>
+</if>    
 ORDER BY p.promo_num
  </select>
+  <select id="totalRecord" parameterType="map" resultType="int">
+ 	SELECT count(p.PROMO_NUM)
+FROM promo_board p, (
+    SELECT t.tag_name, g.promo_num
+    FROM tag t , tagging g
+    WHERE t.tag_code = g.tag_code
+)t , (SELECT m.image_filename , m.promo_num
+FROM image m , image_clsfc c
+WHERE m.image_clsfc_code = c.image_clsfc_code
+AND c.image_clsfc_code=1)
+i , review r
+WHERE p.promo_num = t.promo_num
+AND i.promo_num = p.promo_num
+AND r.promo_num = p.promo_num
+ </select>
+ 
 <select id = "PrBoardDetail" parameterType ="map" resultType="map">
 SELECT p.promo_num,p.promo_region,p.promo_campsite,p.promo_detail_content,
 p.promo_zzim, t.tag_name , i.image_filename
@@ -80,6 +102,10 @@ VALUES((SELECT MAX(TAG_CODE)+1 FROM tag), #{TAG_NAME})
 INSERT INTO image(image_num,image_clsfc_code,promo_num,image_filename,image_filepath,image_regdate,image_size)
      values(seq_image.nextval,1,(SELECT max(promo_num) FROM PROMO_BOARD),#{IMAGE_FILENAME},#{IMAGE_FILEPATH},TO_CHAR(sysdate,'YYYY-MM-DD'),#{IMAGE_SIZE})
 </insert>
+<insert id ="PrBoardImgInsert2" parameterType="map">
+INSERT INTO image(image_num,image_clsfc_code,promo_num,image_filename,image_filepath,image_regdate,image_size)
+     values(seq_image.nextval,2,(SELECT max(promo_num) FROM PROMO_BOARD),#{IMAGE_FILENAME},#{IMAGE_FILEPATH},TO_CHAR(sysdate,'YYYY-MM-DD'),#{IMAGE_SIZE})
+</insert>
 <!--mem_num 은 로그인을 통해서 값을 받아와야함  -->
 
 <update id ="PrBoardUpdate" parameterType ="map">
@@ -108,6 +134,8 @@ AND MEM_NUM = #{MEM_NUM}
 UPDATE IMAGE 
 	SET 
 	 image_filename = #{IMAGE_FILENAME},
+	 image_filepath = #{IMAGE_FILEPATH},
+	 image_size = #{IMAGE_SIZE},
 	 IMAGE_REGDATE =  TO_CHAR(sysdate,'YYYY-MM-DD')
 	 WHERE PROMO_NUM = #{PROMO_NUM} 
 </update>

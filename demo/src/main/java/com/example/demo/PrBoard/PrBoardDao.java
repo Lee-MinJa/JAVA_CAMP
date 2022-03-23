@@ -15,7 +15,7 @@ public class PrBoardDao {
 	Logger logger = LogManager.getLogger(PrBoardLogic.class);
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate = null;
-	
+	int total = 0;
 	public List<Map<String, Object>> PrBoardList(Map<String, Object> pMap) {
 		logger.info("PrBoardList DAO 호출 성공");
 		List<Map<String, Object>> PrBoardList = null;
@@ -81,7 +81,12 @@ public class PrBoardDao {
 		logger.info("이미지 인서트 결과 =========>" +IResult);
 		return IResult;
 	}
-	
+	public int PrBoardImgInsert2(Map<String, Object> prBoardImg) {
+		logger.info("PrBoardImg Dao 22222222222호출 성공");
+		int IResult = sqlSessionTemplate.insert("PrBoardImgInsert2", prBoardImg);
+		logger.info("이미지 인서트 결과2222 =========>" +IResult);
+		return IResult;
+	}
 	public int PrBoardUpdate(Map<String, Object> prBoardUpdate) {
 		logger.info("PrBoardUpdate Dao 호출 성공");
 		int result = sqlSessionTemplate.update("PrBoardUpdate", prBoardUpdate);
@@ -116,5 +121,10 @@ public class PrBoardDao {
 		
 		return 0;
 	}
+	public  int totalRecord(Map<String, Object> pMap) {
+		total = sqlSessionTemplate.selectOne("totalRecord", pMap);
+		return total;
+	}
+
 
 }
