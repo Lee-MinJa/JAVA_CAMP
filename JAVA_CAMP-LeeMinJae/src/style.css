@@ -1,0 +1,7 @@
+@font-face {
+  font-family: 'Bold';
+  src: url('./font/NanumSquareRoundOTFR.otf');
+}
+body {
+  margin: 0;
+}
