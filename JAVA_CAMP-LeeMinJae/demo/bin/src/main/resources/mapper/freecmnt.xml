@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.freecmnt">
+	<select id="getFreeCmntList" parameterType="map" resultType="map">
+		SELECT 
+			FREE_CMNT_NUM, FREE_NUM, FREE_CMNT_CONTENT, FREE_CMNT_REGDATE 
+		FROM FREE_CMNT 
+		ORDER BY FREE_CMNT_NUM
+	</select>
+	<insert id="insertFreeCmnt" parameterType="map">
+		INSERT INTO FREE_CMNT
+		(
+			FREE_CMNT_NUM, FREE_NUM, FREE_CMNT_CONTENT
+		)
+		VALUES
+		(
+			#{FREE_CMNT_NUM}, #{FREE_NUM}, #{FREE_CMNT_CONTENT}
+		) 
+	</insert>
+	<delete id="deleteFreeCmnt" parameterType="map">
+		DELETE FROM FREE_CMNT
+		WHERE FREE_CMNT_NUM = #{FREE_CMNT_NUM}
+	</delete>
+</mapper>

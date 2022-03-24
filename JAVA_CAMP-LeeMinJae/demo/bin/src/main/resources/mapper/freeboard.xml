@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.freeboard">
+	<select id="getFreeBoardList" parameterType="map" resultType="map">
+		SELECT 
+			FREE_NUM, MEM_NUM, FREE_SUBJECT, FREE_TITLE, 
+			DBMS_LOB.SUBSTR(FREE_CONTENT, 10000, 1) AS FREE_CONTENT, 
+			FREE_VIEWS, FREE_REGDATE 
+		FROM FREE_BOARD
+		ORDER BY FREE_NUM
+	</select>
+	<insert id="insertFreeBoard" parameterType="map">
+		INSERT INTO FREE_BOARD
+		(
+			FREE_NUM, MEM_NUM, FREE_SUBJECT, FREE_TITLE, FREE_CONTENT
+		)
+		VALUES
+		(
+			#{FREE_NUM}, #{MEM_NUM}, #{FREE_SUBJECT}, #{FREE_TITLE}, to_clob(#{FREE_CONTENT})
+		)
+	</insert>
+	<select id="getFreeBoardDetail" parameterType="map" resultType="map">
+		SELECT 
+			FREE_NUM, MEM_NUM, FREE_SUBJECT, FREE_TITLE, DBMS_LOB.SUBSTR(FREE_CONTENT, 10000, 1) AS FREE_CONTENT, FREE_VIEWS, FREE_REGDATE
+		FROM FREE_BOARD
+		WHERE FREE_NUM = #{FREE_NUM} 
+	</select>
+	<update id="updateFreeBoard" parameterType="map">
+		UPDATE FREE_BOARD
+		SET
+			FREE_SUBJECT = #{FREE_SUBJECT},
+			FREE_TITLE = #{FREE_TITLE},
+			FREE_CONTENT = to_clob(#{FREE_CONTENT})
+		WHERE FREE_NUM = #{FREE_NUM} AND MEM_NUM = #{MEM_NUM}
+	</update>
+	<delete id="deleteFreeBoard" parameterType="map">
+		DELETE FROM FREE_BOARD
+		WHERE FREE_NUM = #{FREE_NUM} AND MEM_NUM = #{MEM_NUM} 
+	</delete>
+</mapper>
