@@ -1,7 +1,0 @@
-INDEX VERSION 1.131+C:\Users\gk478\Downloads\JAVA_CAMP-LeeMinJae (1)\.metadata\.plugins\org.eclipse.jdt.core
-3037323003.index
-3311765842.index
-2903567281.index
-103704732.index
-1161004247.index
-280371994.index

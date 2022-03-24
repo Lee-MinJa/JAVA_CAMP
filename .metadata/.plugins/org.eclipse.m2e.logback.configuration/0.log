@@ -1,6 +1,0 @@
-2022-03-24 20:33:52,780 [Worker-1: Loading available Gradle versions] INFO  o.e.b.c.i.u.g.PublishedGradleVersions - Gradle version information cache is up-to-date. Trying to read.
-2022-03-24 20:34:22,727 [Worker-16: Building] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.maven.ide.eclipse.wtp.WarLifecycleMapping lifecycle mapping for MavenProject: com.dev:demo:1.0.0-BUILD-SNAPSHOT @ C:\Users\gk478\Downloads\JAVA_CAMP-LeeMinJae (1)\JAVA_CAMP-LeeMinJae\JAVA_CAMP\pom.xml.
-2022-03-24 20:34:24,800 [Worker-16: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
-2022-03-24 20:34:24,806 [Worker-16: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
-2022-03-24 20:34:24,813 [Worker-16: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
-2022-03-24 20:34:24,814 [Worker-16: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
