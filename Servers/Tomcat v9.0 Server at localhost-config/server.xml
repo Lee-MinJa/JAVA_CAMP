@@ -154,10 +154,14 @@
         <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs" pattern="%h %l %u %t &quot;%r&quot; %s %b" prefix="localhost_access_log" suffix=".txt"/>
 
 <<<<<<< HEAD
+<<<<<<< HEAD
       <Context docBase="demo" path="/demo" reloadable="true" source="org.eclipse.jst.jee.server:demo"/></Host>
 =======
       <Context docBase="JAVA_CAMP" path="/" reloadable="true" source="org.eclipse.jst.jee.server:JAVA_CAMP"/></Host>
 >>>>>>> 4ff33fab7cec238e03f15c35a38e491a6e8a5c29
+=======
+      <Context docBase="JAVA_CAMP" path="/" reloadable="true" source="org.eclipse.jst.jee.server:JAVA_CAMP"/></Host>
+>>>>>>> origin/jihoon
     </Engine>
   </Service>
 </Server>
