@@ -1,5 +1,5 @@
 import React, { useState, useRef, useMemo } from "react";
-import { freeImg } from '../MappingDB'
+import { freeImg, pjPort } from '../MappingDB'
 import ReactQuill, {Quill} from "react-quill";
 import EditorToolbar, { formats } from "./EditorToolbar";
 import axios from "axios";
@@ -40,7 +40,7 @@ const BoardEditor = (props) => {
         console.log(formData)
 
         try {
-          const res = await axios.post(`http://localhost:8000/api/${freeImg}`, formData)
+          const res = await axios.post(`http://localhost:${pjPort}/api/${freeImg}`, formData)
           console.log('success : ' ,res.data.url)
           url = res.data.url;
 

@@ -1,6 +1,4 @@
 import { 
-    Container,
-    Center,
     Stack,
     Box,
     Radio,
@@ -16,7 +14,7 @@ import axios from 'axios';
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import BoardEditor from '../../components/board/boardComponent/BoardEditor';
-import { fBoardInsert } from '../../components/board/MappingDB'
+import { fBoardInsert, pjPort } from '../../components/board/MappingDB'
 
 const BoardInsert = () => {
 
@@ -58,7 +56,7 @@ const BoardInsert = () => {
   }
 
   const handleSubmit = () => {
-    const url = 'http://localhost:8000/api/'+ fBoardInsert
+    const url = 'http://localhost:'+ pjPort +'/api/'+ fBoardInsert
     const data = {
       writer : writer,
       categoryValue : categoryValue,

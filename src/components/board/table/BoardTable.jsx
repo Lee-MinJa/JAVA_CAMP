@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { styled } from '@mui/material/styles';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -8,9 +8,8 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { Box, Button, Pagination, PaginationItem } from '@mui/material';
+import { Box, Button, Pagination, PaginationItem, Stack } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import sampleData from './sampleData.json'
 import { fBoardGet, fBoardMain, pjPort } from '../MappingDB'
 import axios from 'axios';
 
@@ -25,13 +24,23 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 }));
 
 const StyledTableRow = styled(TableRow)(({ theme }) => ({
-  '&:nth-of-type(odd)': {
-  },
-  // hide last border
-  '&:last-child td, &:last-child th': {
-    border: 0,
-  },
+  root: {
+    height: 30,
+    maxHeight : 30
+  }
 }));
+
+// const options: Options = {
+//   ...
+//   rowStyle: {height: 50},
+//   ...
+// }
+
+// const StyledTableRow = withStyles((theme) => ({
+//   root: {
+//     height: 30
+//   }
+// }))(TableRow);
 
 
 export default function CustomizedTables() {
@@ -108,13 +117,12 @@ const loadData = () => {
             <StyledTableCell align="center">조회수</StyledTableCell>
           </TableRow>
         </TableHead>
-        <TableBody>
+        <TableBody >
           {boardData.sort((a,b) => b.free_num-a.free_num).slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => (
             <StyledTableRow
             key={row.free_num}
-            style={{height: 48 }}
             sx={{
-              cursor: 'pointer'
+              cursor: 'pointer',
             }}
             hover
             onClick={()=> navigate('/BoardDetail/'+row.free_num ,{state:{
@@ -160,8 +168,8 @@ const loadData = () => {
       onChange={handleChangePage}
       renderItem={(CustomizedTables) => (
         <PaginationItem
-          component={Link}
-          to={`/BoardList${page === 1 ? '' : `?page=${CustomizedTables.page}`}`}
+        // component={Link} 현업에서 사용하는 방식으로 교체시 사용.
+        // to={`/BoardList${page === 1 ? '' : `?page=${CustomizedTables.page}`}`}
           {...CustomizedTables}
         />
       )}

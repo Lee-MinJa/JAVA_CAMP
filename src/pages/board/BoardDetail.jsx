@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import BoardCommentList from '../../components/board/BoardCommentList'
-import { memberGet, fviewCount, pjPort } from '../../components/board/MappingDB'
+import { memberGet, fviewCount, pjPort, fBoardMain } from '../../components/board/MappingDB'
 import {
   Box,
   Divider,
@@ -39,14 +39,14 @@ function BoardDetail() {
       free_num : boardNumber
     }
     axios.put(url, data).then((res) => {
-      console.log('view : ', viewState)
+      // console.log('view : ', viewState)
     })
   }
 
   useEffect(() => {
-    axios.get(`http://localhost:${pjPort}/api/${memberGet}/${boardWriter}`).then((res) => {
+    axios.get(`http://localhost:${pjPort}/${fBoardMain}/${memberGet}/${boardWriter}`).then((res) => {
       setNickName(res.data)
-      console.log('nick : ',nickName)
+      // console.log('nick : ',nickName)
     })
     viewCount()
   }, [])

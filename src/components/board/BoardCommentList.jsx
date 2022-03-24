@@ -9,37 +9,30 @@ import {
     Typography
 } from '@mui/material'
 import BoardCommentWrite from '../../components/board/BoardCommentWrite'
-import sampleComment from './table/sampleComment.json'
+import BoardCommentSet from './boardComponent/BoardCommentSet'
+import { fCmtList, fBoardCm, pjPort } from '../board/MappingDB'
+import axios from 'axios'
 
 function BoardCommentList( props ) {
 
   const boardNum = props.boardNum
-  const [commentNum , setCommentNum] = useState([])
   const [boardComment, setBoardCommnet] = useState([{
-    bc_no : 0,
-    b_no : 0,
-    bc_content : "",
-    bc_date : "",
-    bc_writer : ""
+    free_cmnt_num : 0,
+    free_cmnt_content : '',
+    free_cmnt_regdate : '',
+    mem_num: 0,
+    mem_nick : ''
   }])
-
-  // const commentLoad = () => {
-  //   if(sampleComment.data.map(values => (values.b_no)) === boardNum) {
-  //     setCommentNum(sampleComment.data)
-  //   } else {
-  //     setCommentNum([])
-  //     console.log(sampleComment.data)
-  //   }
-  //   console.log(commentNum)
-  // }
-
   
-
   useEffect(() => {
-    setBoardCommnet(sampleComment.data)
-    // console.log(boardNum)
-    // console.log(boardComment)
-  }, [boardComment])
+    const url = 'http://localhost:' + pjPort + '/' + fBoardCm + '/' + fCmtList + '/' + boardNum
+    const data = {
+      free_num : boardNum
+    }
+    axios.get(url, data).then((res) => {
+      setBoardCommnet(res.data)
+    })
+  }, [])
 
   return (
     <>
@@ -70,39 +63,7 @@ function BoardCommentList( props ) {
         borderColor : '#00B4D8',
         color : 'black'}}
         />
-        {boardComment.map(element => (
-        <List key={element.bc_no} sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
-      <ListItem alignItems="flex-start">
-        <ListItemText
-        sx={{
-          marginTop : '-6px'
-          }}
-          primary={`${element.bc_writer} / ${element.bc_date}`}
-          secondary={
-            <React.Fragment>
-              <Typography
-                sx={{ display: 'inline' }}
-                component="span"
-                fontSize={'16px'}
-                variant="body2"
-                color="text.primary"
-              >
-                {element.bc_content} <br/>
-              </Typography>
-            </React.Fragment>
-          }
-        />
-      </ListItem>
-      <Divider
-      sx={{
-        width : '68vw',
-        marginLeft : '12px',
-        borderColor : '#FF9E00'
-      }}
-      variant="inset" 
-      component="li" />
-      </List>
-      ))}
+      <BoardCommentSet boardNum={boardNum}/>
       </Box>
       </Box>
       <>
