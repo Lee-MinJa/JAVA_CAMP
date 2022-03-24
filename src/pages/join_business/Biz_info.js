@@ -42,9 +42,16 @@ function Biz_info() {
     const onChange = (e) => {
       setValue(e.target.value)
     }
-    const validation = () => {
-      let check = /[~!@#$%^&*()_+|<>?:{}.,/;='"ㄱ-ㅎ | ㅏ-ㅣ |가-힣]/;
-      return check.test(value);
+    const validationId = () => {
+      let valId = /[~!@#$%^&*()_+|<>?:{}.,/;='"ㄱ-ㅎ | ㅏ-ㅣ |가-힣]/;// 영문대소문자, 4~16자
+      return valId.test(value);
+    }
+    const validationPw = () => {
+      let valPw = /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^*+=-]).{10,16}$/; //영문숫자특문
+      const specialLetter = signupPw.search(/[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/);
+      // 길이 10자 이상 16자 미만, 특문1개 포함
+      const isValidPw = signupPw.length >=10 && signupPw.length <= 16 && specialLetter >= 1;
+      return valPw.test(value);
     }
 
 
@@ -126,8 +133,8 @@ function Biz_info() {
                   inputRef={signupId}
                   value={value} 
                   onChange={onChange}
-                  error={validation()}
-                  helperText={validation()?"특수기호 및  한글은 사용할 수 없습니다.": ""}
+                  error={validationId()}
+                  helperText={validationId()?"특수기호 및  한글은 사용할 수 없습니다.": ""}
                 />
               </Grid>
               <Grid item xs={1}>
