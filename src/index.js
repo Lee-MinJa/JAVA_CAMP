@@ -33,7 +33,7 @@ ReactDOM.render(
   <React.StrictMode>
   <ThemeProvider theme={theme}>
     <BrowserRouter>
-    <App />
+    <App className="App"/>
     </BrowserRouter>
   </ThemeProvider>
   </React.StrictMode>,

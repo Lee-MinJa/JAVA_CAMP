@@ -1,9 +1,0 @@
-package com.dev.demo.PrBoard;
-
-import org.springframework.stereotype.Controller;
-
-@Controller
-@RequestMapping("/Prboard/*")
-public class PrBoardController {
-
-}

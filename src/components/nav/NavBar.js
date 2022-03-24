@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { createTheme } from '@mui/material/styles';
-import { Box, Grid, IconButton, ListItemText, List, ListItem, Divider, Drawer,  ListItemButton } from '@mui/material';
+import { Box, Grid, IconButton, ListItemText, List, ListItem, Divider, Drawer,  ListItemButton, Typography } from '@mui/material';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import MenuIcon from '@mui/icons-material/Menu';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
@@ -29,12 +29,22 @@ function NavBar(props) {
     setState({ ...state, [anchor]: open });
   };
 
+  /* 로그인 후 닉네임 보여주기 */
+  var signinNick= "";
+
   const list = (anchor) => (
     <Box
       sx={{ width: anchor === 'top' || anchor === 'bottom' ? 'auto' : 250 }}
       role="presentation"
       onClick={toggleDrawer(anchor, false)}
     >
+      <Box >
+      {signinNick === ""
+          ? <Typography align="center" sx={{mt:2, mb:2}}>로그인을 해주세요.</Typography>
+          : <Typography align="center" sx={{mt:2, mb:2}}>{signinNick}님 환영합니다</Typography>
+          } 
+      </Box>
+        <Divider />
       <Grid container spaxing={2} align="center" sx={{padding: 2}}>
         <Grid item xs={6} >
         <IconButton component="a" href="./signin">
@@ -61,11 +71,14 @@ function NavBar(props) {
             </ListItemButton>
           </ListItem>
           <ListItem>
-            <ListItemButton component="a" href="./signin">
+            <ListItemButton component="a" href="./promotionpage">
               <ListItemText align="center" primary="홍보게시판" />
             </ListItemButton>
           </ListItem>
         </List>
+    </Box>
+    <Box sx={{bottom:10, position:"absolute"}}>
+      <Typography align="center" >Copyright © Team JavaCamp</Typography>
     </Box>
     </Box>
   );
@@ -74,12 +87,12 @@ function NavBar(props) {
     <div >
       {['right'].map((anchor) => (
         <React.Fragment key={anchor} >
-          <Grid container justifyContent="flex-end"  position="fixed">
-          <IconButton aria-label="menu"  position="fixed" onClick={toggleDrawer(anchor, true)}>
+          <Grid container justifyContent="flex-end"  position="fixed" sx={{ zIndex: 'tooltip' }} >
+          <IconButton onClick={toggleDrawer(anchor, true)}>
           <MenuIcon fontSize="large"/>
         </IconButton>
       </Grid>
-          <Drawer
+          <Drawer sx={{ zIndex: 'tooltip' }} 
             anchor={anchor}
             open={state[anchor]}
             onClose={toggleDrawer(anchor, false)}

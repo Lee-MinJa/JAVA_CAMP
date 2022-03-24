@@ -10,3 +10,10 @@ body {
   font-family: 'Bold';
   src: url('./font/NanumSquareRoundOTFR.otf');
 }
+.App {
+  font-family: "Bold";
+}
+
+body {
+  margin: 0;
+}
