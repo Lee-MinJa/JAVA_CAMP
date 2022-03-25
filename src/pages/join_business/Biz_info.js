@@ -40,7 +40,13 @@ function Biz_info() {
     /* 유효성검사 */
     const [value, setValue] = useState('');
     const onChange = (e) => {
-      setValue(e.target.value)
+      const valValue = e.target.value;
+      //console.log(e.target.name)
+      if(e.target.name = "signupId") {
+        return console.log(`아이디: ${valValue}`);
+      } if(e.target.name = "signupPw"){
+        return console.log(`비번: ${valValue}`);
+      }
     }
     const validation = () => {
       let check = /[~!@#$%^&*()_+|<>?:{}.,/;='"ㄱ-ㅎ | ㅏ-ㅣ |가-힣]/;
@@ -124,10 +130,9 @@ function Biz_info() {
                   label="아이디"
                   name="signupId"
                   inputRef={signupId}
-                  value={value} 
                   onChange={onChange}
-                  error={validation()}
-                  helperText={validation()?"특수기호 및  한글은 사용할 수 없습니다.": ""}
+                  //error={validation()}
+                  //helperText={validation()?"특수기호 및  한글은 사용할 수 없습니다.": ""}
                 />
               </Grid>
               <Grid item xs={1}>
@@ -188,6 +193,7 @@ function Biz_info() {
                   label="비밀번호"
                   name="signupPw"
                   inputRef={signupPw}
+                  onChange={onChange}
                 />
               </Grid>
               <Grid item xs={11}>
