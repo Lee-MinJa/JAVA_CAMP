@@ -9,13 +9,13 @@ import {
     Typography
 } from '@mui/material'
 import BoardCommentWrite from '../../components/board/BoardCommentWrite'
-import BoardCommentSet from './boardComponent/BoardCommentSet'
 import { fCmtList, fBoardCm, pjPort } from '../board/MappingDB'
 import axios from 'axios'
 
 function BoardCommentList( props ) {
 
   const boardNum = props.boardNum
+  const [valueEmpty, setValueEmpty] = useState('')
   const [boardComment, setBoardCommnet] = useState([{
     free_cmnt_num : 0,
     free_cmnt_content : '',
@@ -23,19 +23,102 @@ function BoardCommentList( props ) {
     mem_num: 0,
     mem_nick : ''
   }])
-  
-  useEffect(() => {
+
+  const modalState = () => {
+    fetchData()
+  }
+
+  const fetchData = () => {
     const url = 'http://localhost:' + pjPort + '/' + fBoardCm + '/' + fCmtList + '/' + boardNum
     const data = {
-      free_num : boardNum
+    free_num : boardNum
     }
     axios.get(url, data).then((res) => {
       setBoardCommnet(res.data)
+      const str = res.data[0]
+      if(str !== [] || typeof str !== undefined || boardComment.free_cmnt_content!== ''){
+        setValueEmpty('true')
+        console.log(valueEmpty)
+      }else{
+        setValueEmpty('false')
+      }
     })
-  }, [])
+  }
 
-  return (
-    <>
+  useEffect(() => {
+    fetchData()
+  }, [valueEmpty])
+  
+  if(valueEmpty === 'true') {
+    return (
+      <Box
+          sx={{
+            width : '80vw',
+            paddingBottom : '50px'
+          }}
+          >
+          <Stack
+          alignItems={'center'}
+          direction={'row'}>
+          <h3>전체댓글</h3>
+          <Box
+          marginLeft={'10px'}
+          >
+          <BoardCommentWrite boardNum={boardNum} modalState={modalState}/>
+          </Box>
+          </Stack>
+          <Box
+          sx={{
+            marginTop : '-6px',
+            width : '70vw',
+          }}
+          >
+            <Divider 
+            sx={{       
+            width : '80vw', 
+            borderColor : '#00B4D8',
+            color : 'black'}}
+            />
+        </Box>
+  {boardComment.map(element => (
+            <List key={element.free_cmnt_num} 
+            sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
+          <ListItem alignItems="flex-start">
+            <ListItemText
+            sx={{
+              marginTop : '-6px'
+              }}
+              primary={`${element.mem_nick} / ${element.free_cmnt_regdate}`}
+              secondary={
+                <React.Fragment>
+                  <Typography
+                    sx={{ display: 'inline' }}
+                    width={'80vw'}
+                    component="span"
+                    fontSize={'16px'}
+                    variant="body2"
+                    color="text.primary"
+                  >
+                    {element.free_cmnt_content} <br/>
+                  </Typography>
+                </React.Fragment>
+              }
+            />
+          </ListItem>
+          <Divider
+          sx={{
+            width : '78vw',
+            marginLeft : '12px',
+            borderColor : '#FF9E00'
+          }}
+          variant="inset" 
+          component="li" />
+          </List>
+          ))}
+      </Box>
+    )
+  } else if(valueEmpty === 'false' || valueEmpty === '' || boardComment === []) {
+    return(
       <Box
       sx={{
         width : '80vw'
@@ -48,28 +131,27 @@ function BoardCommentList( props ) {
       <Box
       marginLeft={'10px'}
       >
-      <BoardCommentWrite />
+      <BoardCommentWrite boardNum={boardNum}/>
       </Box>
       </Stack>
       <Box
       sx={{
         marginTop : '-6px',
-        width : '70vw',
+        width : '80vw',
         height : '300px',
       }}
       >
-        <Divider 
-        sx={{        
+        <Divider
+        sx={{       
+        width : '80vw',
         borderColor : '#00B4D8',
         color : 'black'}}
         />
-      <BoardCommentSet boardNum={boardNum}/>
-      </Box>
-      </Box>
-      <>
-      </>
-      </>
-  )
+    <h2>등록된 댓글이 없습니다.</h2>
+    </Box>
+    </Box>
+)
+  }
 }
 
 export default BoardCommentList;

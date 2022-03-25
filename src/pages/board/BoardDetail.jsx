@@ -30,10 +30,10 @@ function BoardDetail() {
     boardWriter
   } = location.state
 
-  const [viewState, setViewState] = useState(Number(boardView + 1))
+  const viewState = Number(boardView + 1)
 
   const viewCount = () => {
-    const url = "http://localhost:" + pjPort + "/api/" + fviewCount + "/" + boardNumber
+    const url = "http://localhost:" + pjPort + "/" + fBoardMain + "/" + fviewCount + "/" + boardNumber
     const data = {
       countViews : viewState,
       free_num : boardNumber
@@ -52,7 +52,7 @@ function BoardDetail() {
   }, [])
 
   return (
-      <Container sx={{width : '90vw'}} maxWidth="lg">
+        <Box paddingLeft={'80px'}>
     <Box
       className='boardHeader'
       sx={{height: '7vh',}}>
@@ -62,14 +62,15 @@ function BoardDetail() {
       sx={{
         marginLeft : '-0px',
         marginTop : '-8px',
-        width : '70vw',
+        width : '0vw',
         borderColor : '#00B4D8'
       }}
       />
       <Box
       marginTop={'-6px'}
       >
-      <Stack 
+      <Stack
+      width={'80vw'}
       alignItems={'center'}
       direction={'row'}>
       <Chip
@@ -86,13 +87,13 @@ function BoardDetail() {
       </Stack>
       <Stack
       sx={{
-        width : '68vw',
+        width : '80vw',
         marginTop : '-40px',
         padding : '10px'
       }}
       justifyContent={'space-between'}
       direction={'row'}>
-        <Stack 
+        <Stack
         divider={<Divider
           sx={{
           marginLeft : '15px',
@@ -115,7 +116,7 @@ function BoardDetail() {
       </Box>
       </Stack>
       <Stack direction={'row'}>
-      <Box>
+      <Box marginLeft={'-150px'}>
         <h5>조회수 { boardView + 1}</h5>
       </Box>
       <Box marginLeft={'10px'}>
@@ -127,13 +128,13 @@ function BoardDetail() {
       sx={{
         marginLeft : '0px',
         marginTop : '-18px',
-        width : '70vw',
+        width : '80vw',
         borderColor : '#00B4D8'
       }}
       />
       <Box
       padding={'10px'}
-      width={'70vw'}
+      width={'80vw'}
       minHeight={'200px'}
       display={'flex'}
       >
@@ -141,7 +142,7 @@ function BoardDetail() {
       </Box>
       <Stack
       sx={{
-        width : '70vw'
+        width : '80vw'
       }}
       justifyContent={'space-between'}
       direction={'row'}>
@@ -152,11 +153,11 @@ function BoardDetail() {
       <Button onClick={() => navigate(-1)}>목록으로</Button>
     </Box>
     </Stack>
+    <Box width={'80vw'}>
     <BoardCommentList boardNum={boardNumber} />
-
-
     </Box>
-    </Container>
+    </Box>
+    </Box>
   )
 };
 

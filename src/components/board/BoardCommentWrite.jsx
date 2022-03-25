@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   Box,
   Button,
@@ -6,9 +6,16 @@ import {
   Modal,
   TextField
 } from '@mui/material'
+import {pjPort, fBoardCm, fCmtWrite} from './MappingDB'
+import axios from 'axios';
 
-function BoardCommentWrite() {
+function BoardCommentWrite(props) {
 
+    const [commentInput, setCommentInput] = useState('')
+    const [dateValue, setDateValue] = useState('')
+    const [writer, setWriter] = useState(3)
+
+  const boardNum = props.boardNum
   const style = {
     position: 'absolute',
     top: '50%',
@@ -21,8 +28,21 @@ function BoardCommentWrite() {
     boxShadow: 24,
     p: 4,
   };
-  
-    const [commnetInput, setCommentInput] = useState('')
+
+  const dateSet = () => {
+    const today = new Date();
+    const yyyy = today.getFullYear();
+    const mm = ('0' + (today.getMonth() + 1)).slice(-2);
+    const dd = ('0' + today.getDate()).slice(-2);
+    const dateString = yyyy + '-' + mm + '-' + dd
+    setDateValue(dateString)
+    console.log('date : ', dateString, 'free_num : ' ,boardNum)
+  }
+
+  useEffect(() => {
+    dateSet()
+  }, [])
+
     const [open, setOpen] = useState(false);
 
     const handleOpen = () => setOpen(true);
@@ -30,19 +50,29 @@ function BoardCommentWrite() {
     
     const handleInputChange = (e) => {
       setCommentInput(e.target.value)
+      console.log(commentInput)
     }
     const handleSubmit = () => {
-      //axios
-      if(commnetInput === '') {
+
+      if(commentInput === '') {
         alert('입력된 값이 없습니다.')
       }else {
-        console.log("input : " + commnetInput)
+        const url = 'http://localhost:'+ pjPort +'/' + fBoardCm + '/'+ fCmtWrite
+        const data = {
+          free_num : boardNum,
+          commentValue : commentInput,
+          dateValue : dateValue,
+          writer : writer,
+        }
+        console.log("input : " + commentInput)
         handleClose()
-        setCommentInput('')
+        axios.post(url, data).then((res) => {
+          console.log(res)
+          props.modalState()
+        })
       }
     }
     return (
-      <>
       <Box>
         <Button 
         variant='outlined'
@@ -57,9 +87,10 @@ function BoardCommentWrite() {
             <Typography id="modal-modal-title" variant="h6" component="h2">
               댓글 쓰기
             </Typography>
-            <Typography sx={{ mt: 3 }}>
+              <Box>
             <TextField
               sx={{
+                marginTop : '20px',
                 width : '600px'
               }}
               multiline
@@ -70,7 +101,7 @@ function BoardCommentWrite() {
               variant="outlined"
               onChange={handleInputChange}
             />
-            </Typography>
+            </Box>
             <Box
             position={'absolute'}
             right={'20px'}
@@ -82,7 +113,6 @@ function BoardCommentWrite() {
           </Box>
         </Modal>
       </Box>
-      </>
     );
 };
 

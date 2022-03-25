@@ -1,6 +1,5 @@
 import * as React from 'react';
 import {
-  Box,
   ToggleButtonGroup,
   ToggleButton } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';

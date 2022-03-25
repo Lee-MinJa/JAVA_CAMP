@@ -30,50 +30,34 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   }
 }));
 
-// const options: Options = {
-//   ...
-//   rowStyle: {height: 50},
-//   ...
-// }
-
-// const StyledTableRow = withStyles((theme) => ({
-//   root: {
-//     height: 30
-//   }
-// }))(TableRow);
-
-
 export default function CustomizedTables() {
 
   const navigate = useNavigate()
   const reduxValue = useSelector((state) => state.alignment)
-  // const [getSample, setGetSample] = useState([])
   const [page, setPage] = React.useState(0);
   const rowsPerPage = 10;
   const [boardData, setBoardData] = useState([{
-    free_num : 0,
-    free_subject : "",
-    free_content : "",
-    mem_num : 0,
-    free_regdate : "",
-    free_title : "",
-    free_views : 0,
+    FREE_NUM : 0,
+    FREE_SUBJECT : "",
+    FREE_CONTENT : "",
+    MEM_NUM : 0,
+    FREE_REGDATE : "",
+    FREE_TITLE : "",
+    FREE_VIEWS : 0,
   }])
-
-//setGetSample(res.data)
 
 useEffect(() => {
   axios.get(`http://localhost:${pjPort}/${fBoardMain}/${fBoardGet}`).then((res) => {
     if(reduxValue.alignment === 'question'){
-      setBoardData(res.data.filter(data => data.free_subject === '질문' ))
+      setBoardData(res.data.filter(data => data.FREE_SUBJECT === '질문' ))
       setPage(0)
       console.log('질문')
     } else if (reduxValue.alignment === 'boast'){
-      setBoardData(res.data.filter(data => data.free_subject === '자랑하기' ))
+      setBoardData(res.data.filter(data => data.FREE_SUBJECT === '자랑하기' ))
       setPage(0)
       console.log('자랑')
     } else if (reduxValue.alignment === 'share'){
-      setBoardData(res.data.filter(data => data.free_subject === '무료나눔' ))
+      setBoardData(res.data.filter(data => data.FREE_SUBJECT === '무료나눔' ))
       setPage(0)
       console.log('무료나눔')
     } else {
@@ -81,24 +65,9 @@ useEffect(() => {
     }
     // console.log(res.data)
     
-    //console.log(boardData);
+    console.log(boardData);
   })
 },[reduxValue])
-
-
-
-// useEffect(() => {
-//   setGetSample(sampleData.data)
-//   loadData()
-//   // console.log(reduxValue)
-//   // console.log(boardData)
-// },[reduxValue, getSample])
-
-//[reduxValue] || [getSample]
-
-const loadData = () => {
-  
-}
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage -1);
@@ -118,30 +87,33 @@ const loadData = () => {
           </TableRow>
         </TableHead>
         <TableBody >
-          {boardData.sort((a,b) => b.free_num-a.free_num).slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => (
+          {boardData
+          .sort((a,b) => b.FREE_NUM-a.FREE_NUM)
+          .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+          .map((row, i) => (
             <StyledTableRow
-            key={row.free_num}
+            key={i}
             sx={{
               cursor: 'pointer',
             }}
             hover
-            onClick={()=> navigate('/BoardDetail/'+row.free_num ,{state:{
-              boardNumber : row.free_num,
-              boardTitle : row.free_title,
-              boradContent : row.free_content,
-              boardDate : row.free_regdate,
-              boardView : row.free_views,
-              boardCategory : row.free_subject,
-              boardWriter : row.mem_num
+            onClick={()=> navigate('/BoardDetail/'+row.FREE_NUM ,{state:{
+              boardNumber : row.FREE_NUM,
+              boardTitle : row.FREE_TITLE,
+              boradContent : row.FREE_CONTENT,
+              boardDate : row.FREE_REGDATE,
+              boardView : row.FREE_VIEWS,
+              boardCategory : row.FREE_SUBJECT,
+              boardWriter : row.MEM_NUM
             }})}
             >
               <StyledTableCell align="center" component="th" scope="row">
-                {row.free_num}
+                {row.FREE_NUM}
               </StyledTableCell>
-              <StyledTableCell align="center">{row.free_subject}</StyledTableCell>
-              <StyledTableCell align="center">{row.free_title}</StyledTableCell>
-              <StyledTableCell align="center">{row.free_regdate}</StyledTableCell>
-              <StyledTableCell align="center">{row.free_views}</StyledTableCell>
+              <StyledTableCell align="center">{row.FREE_SUBJECT}</StyledTableCell>
+              <StyledTableCell align="center">{row.FREE_TITLE}</StyledTableCell>
+              <StyledTableCell align="center">{row.FREE_REGDATE}</StyledTableCell>
+              <StyledTableCell align="center">{row.FREE_VIEWS}</StyledTableCell>
             </StyledTableRow>
           ))}
         </TableBody>

@@ -1,14 +1,11 @@
 import React, { useRef} from "react";
 import { Quill } from "react-quill";
 
-// Add sizes to whitelist and register them
+
 const Size = Quill.import("formats/size");
 Size.whitelist = ["extra-small", "small", "medium", "large"];
 Quill.register(Size, true);
 
-// Modules object for setting up the Quill editor
-
-// Formats objects for setting up the Quill editor
 export const formats = [
   "header",
   "size",
@@ -27,7 +24,6 @@ export const formats = [
   "color",
 ];
 
-// Quill Toolbar component
 export const QuillToolbar = () => (
   <div id="toolbar">
     <span className="ql-formats">

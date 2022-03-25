@@ -14,6 +14,7 @@ export const fviewCount = "fviewCount" //조회수 업데이트
 //댓글
 export const fBoardCm = "freecmnt" //free_cmnt 테이블분류
 export const fCmtList = "jsonFreeCmntList" //free_cmnt select *
+export const fCmtWrite = "freeCmntWrite" //free_cmnt insert
 
 /* 사용된 컬럼(쿼리문에 select 되어야 하는 컬럼)
 1. 자유게시판 리스트화면
