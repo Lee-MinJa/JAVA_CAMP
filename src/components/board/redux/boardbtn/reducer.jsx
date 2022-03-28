@@ -9,7 +9,6 @@ const valueQuestion = "question"
 const valueBoast = "boast"
 const valueShare = "share"
 
-
 const btnReducer = (state=initialState, action) => {
   switch(action.type){
     case btn_all:

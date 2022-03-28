@@ -34,7 +34,7 @@ export default function CustomizedTables() {
 
   const navigate = useNavigate()
   const reduxValue = useSelector((state) => state.alignment)
-  const [page, setPage] = React.useState(0);
+  const [page, setPage] = useState(0);
   const rowsPerPage = 10;
   const [boardData, setBoardData] = useState([{
     FREE_NUM : 0,
@@ -51,15 +51,15 @@ useEffect(() => {
     if(reduxValue.alignment === 'question'){
       setBoardData(res.data.filter(data => data.FREE_SUBJECT === '질문' ))
       setPage(0)
-      console.log('질문')
+      // console.log('질문')
     } else if (reduxValue.alignment === 'boast'){
       setBoardData(res.data.filter(data => data.FREE_SUBJECT === '자랑하기' ))
       setPage(0)
-      console.log('자랑')
+      // console.log('자랑')
     } else if (reduxValue.alignment === 'share'){
       setBoardData(res.data.filter(data => data.FREE_SUBJECT === '무료나눔' ))
       setPage(0)
-      console.log('무료나눔')
+      // console.log('무료나눔')
     } else {
       setBoardData(res.data)
     }
@@ -70,7 +70,7 @@ useEffect(() => {
 },[reduxValue])
 
   const handleChangePage = (event, newPage) => {
-    setPage(newPage -1);
+    setPage(newPage - 1);
   };
 
   return (
@@ -151,7 +151,12 @@ useEffect(() => {
     variant='contained'
     sx={{
       color : 'white',
-      height : '36px'
+      height : '36px',
+      ":hover" : {
+        backgroundColor : 'white',
+        color : 'black',
+        borderColor : 'crimson'
+      }
     }}
     onClick={() => navigate('/BoardInsert')}
     >글쓰기</Button>

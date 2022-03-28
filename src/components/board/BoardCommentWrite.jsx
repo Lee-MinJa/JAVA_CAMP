@@ -36,7 +36,7 @@ function BoardCommentWrite(props) {
     const dd = ('0' + today.getDate()).slice(-2);
     const dateString = yyyy + '-' + mm + '-' + dd
     setDateValue(dateString)
-    console.log('date : ', dateString, 'free_num : ' ,boardNum)
+    // console.log('date : ', dateString, 'free_num : ' ,boardNum)
   }
 
   useEffect(() => {
@@ -50,10 +50,9 @@ function BoardCommentWrite(props) {
     
     const handleInputChange = (e) => {
       setCommentInput(e.target.value)
-      console.log(commentInput)
+      // console.log(commentInput)
     }
     const handleSubmit = () => {
-
       if(commentInput === '') {
         alert('입력된 값이 없습니다.')
       }else {
@@ -68,7 +67,7 @@ function BoardCommentWrite(props) {
         handleClose()
         axios.post(url, data).then((res) => {
           console.log(res)
-          props.modalState()
+          props.modalState('true')
         })
       }
     }
@@ -81,7 +80,6 @@ function BoardCommentWrite(props) {
         <Modal
           open={open}
           onClose={handleClose}
-
         >
           <Box sx={style}>
             <Typography id="modal-modal-title" variant="h6" component="h2">

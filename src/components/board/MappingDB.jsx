@@ -10,6 +10,7 @@ export const memberGet = "memberGet" //회원정보(글상세-닉네임)
 export const freeImg = "freeImg" //이미지 업로드
 export const fBoardInsert = "fBoardInsert" //insert
 export const fviewCount = "fviewCount" //조회수 업데이트
+export const fBoardDelete = "fBoardDelete" //게시글 삭제
 
 //댓글
 export const fBoardCm = "freecmnt" //free_cmnt 테이블분류

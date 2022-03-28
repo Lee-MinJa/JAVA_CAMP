@@ -12,6 +12,7 @@ import {
 } from '@mui/material'
 // import Setter from '../../components/board/boardComponent/Setter';
 import axios from 'axios'
+import BoardAuth from '../../components/board/boardComponent/BoardAuth'
 
 function BoardDetail() {
   const location = useLocation();
@@ -133,6 +134,19 @@ function BoardDetail() {
       }}
       />
       <Box
+      width={'78vw'}
+      marginTop={'10px'}
+      display={'flex'}
+      justifyContent={'space-between'}
+      >
+      <Box>
+
+      </Box>
+      <Box height={'30px'}>
+      <BoardAuth auth={boardWriter} boardNum={boardNumber}/>
+      </Box>
+      </Box>
+      <Box
       padding={'10px'}
       width={'80vw'}
       minHeight={'200px'}
@@ -149,6 +163,8 @@ function BoardDetail() {
       <Box></Box>
       <Box 
       top={'50px'}
+      alignItems={'center'}
+      display={'flex'}
       position={'relative'}>
       <Button onClick={() => navigate(-1)}>목록으로</Button>
     </Box>
