@@ -20,18 +20,21 @@ function MainCarousel(props)
 {
     var items = [
         {
-            name: "캠핑장명1",
-            description: "캠핑장 한줄소개 1",
+            name: "구름계곡캠핑장",
+            description: "계곡이 아름다운 대자연속 오토캠핑",
+            photoHref: "" , 
             pageLink: "(예정)해당 홍보글 위치"
         },
         {
-            name: "캠핑장명2",
-            description: "캠핑장 한줄소개 2",
+            name: "별바라기 캠핑 펜션",
+            description: "별이 쏟아지는 자연 속의 휴식",
+            photoHref: "" , 
             pageLink: "(예정)해당 홍보글 위치"
         },
         {
-            name: "캠핑장명3",
-            description: "캠핑장 한줄소개 3",
+            name: "산마루카라반",
+            description: "산에서 즐기는 힐링 카라반",
+            photoHref: "" , 
             pageLink: "(예정)해당 홍보글 위치"
         }
     ]
