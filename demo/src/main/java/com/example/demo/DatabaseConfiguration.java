@@ -13,12 +13,14 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
 
 @Configuration
+@EnableTransactionManagement //트랜잭션
 @PropertySource("classpath:/application.properties")
 public class DatabaseConfiguration {
 	private static final Logger logger = LogManager.getLogger(DatabaseConfiguration.class);
@@ -48,5 +50,5 @@ public class DatabaseConfiguration {
 	@Bean
 	public SqlSessionTemplate sqlSessionTemplate(SqlSessionFactory sqlSessionFactory) {
 		return new SqlSessionTemplate(sqlSessionFactory);
-	}	
+	}
 }
