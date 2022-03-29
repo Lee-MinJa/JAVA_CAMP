@@ -39,12 +39,16 @@ const style = {
 function Biz_info() {
     /* 유효성검사 */
     const [value, setValue] = useState('');
+    const [valId, setValId] = useState('');
+    const [valPw, setValPw] = useState('');
+
     const onChange = (e) => {
       const valValue = e.target.value;
       //console.log(e.target.name)
       if(e.target.name = "signupId") {
-        return console.log(`아이디: ${valValue}`);
-      } if(e.target.name = "signupPw"){
+        let check = /[~!@#$%^&*()_+|<>?:{}.,/;='"ㄱ-ㅎ | ㅏ-ㅣ |가-힣]/;
+        return check.test(value);
+       } if(e.target.name = "signupPw"){
         return console.log(`비번: ${valValue}`);
       }
     }
@@ -52,6 +56,7 @@ function Biz_info() {
       let check = /[~!@#$%^&*()_+|<>?:{}.,/;='"ㄱ-ㅎ | ㅏ-ㅣ |가-힣]/;
       return check.test(value);
     }
+
 
 
   // form과 submit이용하는 경우
@@ -70,6 +75,7 @@ function Biz_info() {
   /* ref이용해서 데이터 가져오는 경우 */
   const signupId = useRef("");
   const signupPw = useRef("");
+  const signupPwCk = useRef("");
   const signupBiznum = useRef("");
   const signupBizname = useRef("");
   const signupBizowner = useRef("");
@@ -94,6 +100,21 @@ function Biz_info() {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const id = signupId.current.value;
+
+    /* //////비밀번호 일치여부 확인 ////// */
+    const pwMsg = "";
+    const pwMsg1 = "불일치";
+    const pwMsg2 = "일치";
+    const isPwIdentical = (e) => {
+      e.preventDefault();
+      const signupPwFin = signupPw.current.value;
+      const signupPwCkFin = signupPwCk.current.value;
+      // console.log(`비번: ${signupPwFin}`)
+      // console.log(`확인: ${signupPwCkFin}`)
+      return (signupPwFin !== signupPwCkFin
+              ? pwMsg=pwMsg1
+              : console.log("일치"));
+    };
 
   return (
     <div>
@@ -131,9 +152,10 @@ function Biz_info() {
                   name="signupId"
                   inputRef={signupId}
                   onChange={onChange}
-                  //error={validation()}
-                  //helperText={validation()?"특수기호 및  한글은 사용할 수 없습니다.": ""}
-                />
+                  // error={validation()}
+                  // helperText={validation()?"특수기호 및  한글은 사용할 수 없습니다.": ""}
+                  helperText={"영문 소문자,숫자 조합, 4~16자, 공백 불가"}
+                  />
               </Grid>
               <Grid item xs={1}>
                 <Button
@@ -194,6 +216,7 @@ function Biz_info() {
                   name="signupPw"
                   inputRef={signupPw}
                   onChange={onChange}
+                  helperText={"영문 대소문자, 숫자, 특수문자 중 2가지 이상 조합, 10~17자, 공백불가"}
                 />
               </Grid>
               <Grid item xs={11}>
@@ -204,6 +227,9 @@ function Biz_info() {
                   id="signupPwCk"
                   label="비밀번호 확인"
                   name="signupPwCk"
+                  inputRef={signupPwCk}
+                  onChange={isPwIdentical}
+                  helperText={pwMsg}
                 />
               </Grid>
               <Grid item xs={11}>

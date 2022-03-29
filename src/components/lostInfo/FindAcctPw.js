@@ -46,16 +46,12 @@ export default function FindAcctPw() {
     event.preventDefault();
     const updatedPwFin = updatedPw.current.value;
     const updatedPwCkFin = updatedPwCk.current.value;
-    if (updatedPwFin !== updatedPwCkFin) {
-      return alert("비밀번호가 일치하지 않습니다.");
-    } else {
-      return (
-        window.confirm("비밀번호가 변경되었습니다."),
-        setOpenForm(false),
-        (window.location.href = "/signin")
-      );
-    }
-  };
+    return (updatedPwFin !== updatedPwCkFin
+           ? alert("비밀번호가 일치하지 않습니다.")
+          :window.confirm("비밀번호가 변경되었습니다."),
+          setOpenForm(false),
+          (window.location.href = "/signin"));
+        };
 
   return (
     <div>
@@ -159,6 +155,7 @@ export default function FindAcctPw() {
                           id="updatedPw"
                           inputRef={updatedPw}
                           label="새 비밀번호"
+                          helperText={"영문대소문자, 숫자, 특수문자 조합으로 10~17자, 공백불가"}
                         />
                       </Grid>
                       <Grid item xs={12}>
@@ -172,7 +169,6 @@ export default function FindAcctPw() {
                         />
                       </Grid>
                     </Grid>
-                    {/* R: 비번과 비번확인 일치하는지 확인메시지 필요 */}
                     <Button
                       onClick={onSubmit}
                       href="/signin"
