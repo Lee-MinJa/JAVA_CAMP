@@ -21,6 +21,8 @@ import JoinCompl from './pages/join_business/JoinCompl';
 import SignIn from './pages/signin/SignIn'
 import FindAcct from './pages/lostInfo/FindAcct'
 import NavBar from './components/nav/NavBar';
+import PromoList from './pages/promo/PromoList';
+import MyPage from './pages/mypage/MyPage';
 
 function App() {
 
@@ -63,6 +65,13 @@ function App() {
       {/* 가입 */}
       <Route path='/biz_info' element={<Biz_info />}/>
       <Route path='/joincompl' element={<JoinCompl />}/>
+
+      {/* 마이페이지 */}
+      <Route path='/mypage' element={<MyPage />}/>
+
+      {/* 홍보 게시판 */}
+      <Route path='/promolist' element={<PromoList />}/>
+
       {/*------------ 로한 End------------*/}
 
     </Routes>

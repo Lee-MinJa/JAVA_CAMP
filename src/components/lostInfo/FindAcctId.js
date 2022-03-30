@@ -126,6 +126,7 @@ export default function FindAcctId() {
                       variant="contained"
                       sx={{
                         bgcolor: "palette.lo",
+                        mt:3,
                         "&:hover": { bgcolor: "palette.no" },
                       }}
                     >

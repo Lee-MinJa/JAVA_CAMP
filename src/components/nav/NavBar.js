@@ -61,7 +61,7 @@ function NavBar(props) {
       <Box sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
         <List>
           <ListItem >
-            <ListItemButton component="a" href="./signin">
+            <ListItemButton component="a" href="./mypage">
               <ListItemText align="center" primary="마이페이지" />
             </ListItemButton>
           </ListItem>
@@ -71,7 +71,7 @@ function NavBar(props) {
             </ListItemButton>
           </ListItem>
           <ListItem>
-            <ListItemButton component="a" href="./promotionpage">
+            <ListItemButton component="a" href="./promolist">
               <ListItemText align="center" primary="홍보게시판" />
             </ListItemButton>
           </ListItem>
