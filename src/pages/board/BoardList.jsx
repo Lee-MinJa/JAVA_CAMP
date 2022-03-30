@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { 
           Container, 
@@ -6,13 +6,41 @@ import {
           Button,
           Stack
         } from '@mui/material'
-
 import BoardTable from '../../components/board/table/BoardTable'
 import Search from '../../components/board/table/Search'
 import BtnGroup from '../../components/board/boardComponent/BtnGroup'
+import { fBoardState, btnState, pageState } from '../../components/board/RecoilAtom'
+import { fBoardGet, fBoardMain, pjPort } from '../../components/board/MappingDB'
+import { useRecoilValue, useSetRecoilState, useRecoilState } from 'recoil'
+import axios from 'axios';
 
 function BoardList() {
+  
+  const btnValue = useRecoilValue(btnState)
+  const [BoardData, setBoardData] = useRecoilState(fBoardState)
+  const setPage = useSetRecoilState(pageState);
 
+  useEffect(() => {
+    axios.get(`http://localhost:${pjPort}/${fBoardMain}/${fBoardGet}`).then((res) => {
+      if(btnValue === 'question'){
+        setBoardData(res.data.filter(data => data.free_subject === '질문' ))
+        setPage(0)
+        // console.log('질문')
+      } else if (btnValue === 'boast'){
+        setBoardData(res.data.filter(data => data.free_subject === '자랑하기' ))
+        setPage(0)
+        // console.log('자랑')
+      } else if (btnValue === 'share'){
+        setBoardData(res.data.filter(data => data.free_subject === '무료나눔' ))
+        setPage(0)
+        // console.log('무료나눔')
+      } else if (btnValue === 'all'){
+        setBoardData(res.data)
+      }
+      // console.log(boardData);
+    })
+
+  },[btnValue])
   // const navigate = useNavigate();
   // onClick={navigate('/Home')}
   return (
@@ -47,7 +75,7 @@ function BoardList() {
         <Search />
         </Stack>
       </Box>
-    <BoardTable />
+    <BoardTable data={BoardData}/>
     </Box>
 
     {/* ------------------- Body End ------------------------*/}

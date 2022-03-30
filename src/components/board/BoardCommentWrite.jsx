@@ -8,12 +8,17 @@ import {
 } from '@mui/material'
 import {pjPort, fBoardCm, fCmtWrite} from './MappingDB'
 import axios from 'axios';
+import { useRecoilValue } from 'recoil'
+import { userInfoState } from './RecoilAtom'
+import { useRecoilState } from 'recoil'
+import { commentCount } from './RecoilAtom'
 
 function BoardCommentWrite(props) {
 
     const [commentInput, setCommentInput] = useState('')
     const [dateValue, setDateValue] = useState('')
-    const [writer, setWriter] = useState(3)
+    const [commentCountValue, setCommentCountValue] = useRecoilState(commentCount)
+    const userInfo = useRecoilValue(userInfoState)
 
   const boardNum = props.boardNum
   const style = {
@@ -46,7 +51,7 @@ function BoardCommentWrite(props) {
     const [open, setOpen] = useState(false);
 
     const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
+    const handleClose = () => setOpen(false); 
     
     const handleInputChange = (e) => {
       setCommentInput(e.target.value)
@@ -61,12 +66,12 @@ function BoardCommentWrite(props) {
           free_num : boardNum,
           commentValue : commentInput,
           dateValue : dateValue,
-          writer : writer,
+          writer : userInfo[0].mem_num,
         }
-        console.log("input : " + commentInput)
+        // console.log("input : " + commentInput)
         handleClose()
         axios.post(url, data).then((res) => {
-          console.log(res)
+          // console.log(res)
           props.modalState('true')
         })
       }
@@ -85,6 +90,7 @@ function BoardCommentWrite(props) {
             <Typography id="modal-modal-title" variant="h6" component="h2">
               댓글 쓰기
             </Typography>
+            <form onSubmit={handleSubmit}>
               <Box>
             <TextField
               sx={{
@@ -105,9 +111,10 @@ function BoardCommentWrite(props) {
             right={'20px'}
             bottom={'15px'}
             >
-            <Button onClick={handleSubmit}>확인</Button>
+            <Button type='submit' onClick={handleSubmit}>확인</Button>
             <Button onClick={handleClose}>취소</Button>
             </Box>
+            </form>
           </Box>
         </Modal>
       </Box>

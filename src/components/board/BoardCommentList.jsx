@@ -11,11 +11,14 @@ import {
 import BoardCommentWrite from '../../components/board/BoardCommentWrite'
 import { fCmtList, fBoardCm, pjPort } from '../board/MappingDB'
 import axios from 'axios'
+import { useSetRecoilState } from 'recoil'
+import { commentCount } from './RecoilAtom'
 
 function BoardCommentList( props ) {
 
   const boardNum = props.boardNum
   const [valueEmpty, setValueEmpty] = useState('')
+  const commentCountValue = useSetRecoilState(commentCount)
   const [boardComment, setBoardCommnet] = useState([{
     free_cmnt_num : 0,
     free_cmnt_content : '',
@@ -26,7 +29,7 @@ function BoardCommentList( props ) {
 
   const modalState = (value) => {
     setValueEmpty(value)
-    console.log(valueEmpty)
+    // console.log(valueEmpty)
     fetchData()
   }
 
@@ -38,9 +41,10 @@ function BoardCommentList( props ) {
     axios.get(url, data).then((res) => {
       setBoardCommnet(res.data)
       const str = res.data[0]
+      commentCountValue(boardComment.length)
       if(str === [] || typeof str !== 'undefined'){
         setValueEmpty('true')
-        console.log(str)
+        // console.log(str)
       }else{
         setValueEmpty('false')
       }

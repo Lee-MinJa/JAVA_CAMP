@@ -1,25 +1,24 @@
-import React, {useState, useEffect} from 'react'
+import React, { Suspense, useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import BoardCommentList from '../../components/board/BoardCommentList'
-import { memberGet, fviewCount, pjPort, fBoardMain } from '../../components/board/MappingDB'
+import { fviewCount, pjPort, fBoardMain } from '../../components/board/MappingDB'
 import {
   Box,
   Divider,
   Stack,
   Chip,
   Button,
-  Container,
+  CircularProgress,
 } from '@mui/material'
-// import Setter from '../../components/board/boardComponent/Setter';
 import axios from 'axios'
+import { commentCount } from '../../components/board/RecoilAtom'
+import { useRecoilValue } from 'recoil'
 import BoardAuth from '../../components/board/boardComponent/BoardAuth'
 
 function BoardDetail() {
   const location = useLocation();
   const navigate = useNavigate();
-  const [nickName, setNickName] = useState([{
-    mem_nick : '',
-  }])
+  const commentCountValue = useRecoilValue(commentCount)
 
   const {
     boardNumber,
@@ -31,6 +30,7 @@ function BoardDetail() {
     boardWriter
   } = location.state
 
+
   const viewState = Number(boardView + 1)
 
   const viewCount = () => {
@@ -40,17 +40,12 @@ function BoardDetail() {
       free_num : boardNumber
     }
     axios.put(url, data).then((res) => {
-      // console.log('view : ', viewState)
     })
   }
 
   useEffect(() => {
-    axios.get(`http://localhost:${pjPort}/${fBoardMain}/${memberGet}/${boardWriter}`).then((res) => {
-      setNickName(res.data)
-      // console.log('nick : ',nickName)
-    })
     viewCount()
-  }, [])
+  })
 
   return (
         <Box paddingLeft={'80px'}>
@@ -105,11 +100,9 @@ function BoardDetail() {
           flexItem/>}
         direction={'row'}>
 
-    {nickName.map((row, i) =>
-    <Box key={i}>
-    <h4>{row.mem_nick}</h4>
+    <Box>
+    <h4>{boardWriter}</h4>
     </Box>
-    )}
         <Box
         marginLeft={'15px'}
         >
@@ -121,7 +114,7 @@ function BoardDetail() {
         <h5>조회수 { boardView + 1}</h5>
       </Box>
       <Box marginLeft={'10px'}>
-        <h5>댓글 {2}</h5>
+        <h5>댓글 {commentCountValue}</h5>
       </Box>
       </Stack>
       </Stack>
@@ -152,7 +145,9 @@ function BoardDetail() {
       minHeight={'200px'}
       display={'flex'}
       >
+      <Suspense fallback={<CircularProgress color="primary" />}>
       <Box dangerouslySetInnerHTML={{__html:boradContent}}></Box>
+      </Suspense>
       </Box>
       <Stack
       sx={{

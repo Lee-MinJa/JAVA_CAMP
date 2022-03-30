@@ -18,7 +18,7 @@ const BoardEditor = (props) => {
 
   const postValue = () => {
     props.editorValue(state)
-    console.log(state)
+    // console.log(state)
   }
 
   const placeholder = "Hi.Camping 약관 규정상 적절하지 않은 내용을 게시할 경우 통보없이 삭제될 수 있음을 안내드립니다."

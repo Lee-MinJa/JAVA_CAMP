@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { styled } from '@mui/material/styles';
 import Table from '@mui/material/Table';
@@ -8,10 +8,11 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { Box, Button, Pagination, PaginationItem, Stack } from '@mui/material';
-import { useDispatch, useSelector } from 'react-redux';
-import { fBoardGet, fBoardMain, pjPort } from '../MappingDB'
-import axios from 'axios';
+import { Box, Button, Pagination, PaginationItem } from '@mui/material';
+// import { useDispatch, useSelector } from 'react-redux';
+import { pageState } from '../RecoilAtom';
+import { useRecoilState } from 'recoil';
+
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -30,44 +31,13 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   }
 }));
 
-export default function CustomizedTables() {
+export default function CustomizedTables(props) {
 
+  const boardData = props.data
   const navigate = useNavigate()
-  const reduxValue = useSelector((state) => state.alignment)
-  const [page, setPage] = useState(0);
+  // const reduxValue = useSelector((state) => state.alignment)
+  const [page, setPage] = useRecoilState(pageState);
   const rowsPerPage = 10;
-  const [boardData, setBoardData] = useState([{
-    FREE_NUM : 0,
-    FREE_SUBJECT : "",
-    FREE_CONTENT : "",
-    MEM_NUM : 0,
-    FREE_REGDATE : "",
-    FREE_TITLE : "",
-    FREE_VIEWS : 0,
-  }])
-
-useEffect(() => {
-  axios.get(`http://localhost:${pjPort}/${fBoardMain}/${fBoardGet}`).then((res) => {
-    if(reduxValue.alignment === 'question'){
-      setBoardData(res.data.filter(data => data.FREE_SUBJECT === '질문' ))
-      setPage(0)
-      // console.log('질문')
-    } else if (reduxValue.alignment === 'boast'){
-      setBoardData(res.data.filter(data => data.FREE_SUBJECT === '자랑하기' ))
-      setPage(0)
-      // console.log('자랑')
-    } else if (reduxValue.alignment === 'share'){
-      setBoardData(res.data.filter(data => data.FREE_SUBJECT === '무료나눔' ))
-      setPage(0)
-      // console.log('무료나눔')
-    } else {
-      setBoardData(res.data)
-    }
-    // console.log(res.data)
-    
-    console.log(boardData);
-  })
-},[reduxValue])
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage - 1);
@@ -88,7 +58,6 @@ useEffect(() => {
         </TableHead>
         <TableBody >
           {boardData
-          .sort((a,b) => b.FREE_NUM-a.FREE_NUM)
           .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
           .map((row, i) => (
             <StyledTableRow
@@ -97,23 +66,23 @@ useEffect(() => {
               cursor: 'pointer',
             }}
             hover
-            onClick={()=> navigate('/BoardDetail/'+row.FREE_NUM ,{state:{
-              boardNumber : row.FREE_NUM,
-              boardTitle : row.FREE_TITLE,
-              boradContent : row.FREE_CONTENT,
-              boardDate : row.FREE_REGDATE,
-              boardView : row.FREE_VIEWS,
-              boardCategory : row.FREE_SUBJECT,
-              boardWriter : row.MEM_NUM
+            onClick={()=> navigate('/BoardDetail/'+row.free_num ,{state:{
+              boardNumber : row.free_num,
+              boardTitle : row.free_title,
+              boradContent : row.free_content,
+              boardDate : row.free_regdate,
+              boardView : row.free_views,
+              boardCategory : row.free_subject,
+              boardWriter : row.mem_nick
             }})}
             >
               <StyledTableCell align="center" component="th" scope="row">
-                {row.FREE_NUM}
+                {row.free_num}
               </StyledTableCell>
-              <StyledTableCell align="center">{row.FREE_SUBJECT}</StyledTableCell>
-              <StyledTableCell align="center">{row.FREE_TITLE}</StyledTableCell>
-              <StyledTableCell align="center">{row.FREE_REGDATE}</StyledTableCell>
-              <StyledTableCell align="center">{row.FREE_VIEWS}</StyledTableCell>
+              <StyledTableCell align="center">{row.free_subject}</StyledTableCell>
+              <StyledTableCell align="center">{row.free_title}</StyledTableCell>
+              <StyledTableCell align="center">{row.free_regdate}</StyledTableCell>
+              <StyledTableCell align="center">{row.free_views}</StyledTableCell>
             </StyledTableRow>
           ))}
         </TableBody>
@@ -140,8 +109,6 @@ useEffect(() => {
       onChange={handleChangePage}
       renderItem={(CustomizedTables) => (
         <PaginationItem
-        // component={Link} 현업에서 사용하는 방식으로 교체시 사용.
-        // to={`/BoardList${page === 1 ? '' : `?page=${CustomizedTables.page}`}`}
           {...CustomizedTables}
         />
       )}

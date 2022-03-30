@@ -1,12 +1,12 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
-import { Provider } from 'react-redux';
-import store from './components/board/redux/store';
+import { RecoilRoot } from 'recoil'
 
 //Page
 //지훈 작업 page
 // import Home from "./pages/Home"
 import BoardList from "./pages/board/BoardList"
+import BoardListSearch from "./pages/board/BoardListSearch"
 import BoardInsert from "./pages/board/BoardInsert"
 import BoardDetail from './pages/board/BoardDetail'
 import BoardUpdate from './pages/board/BoardUpdate'
@@ -24,15 +24,8 @@ import NavBar from './components/nav/NavBar';
 
 function App() {
 
-  // const [boards,setBoards] = useState('');
-  // useEffect(() => {
-  //   axios.get("http://localhost:8000/JAVA_CAMP/board/boardAdList.kh").then(response => {
-  //     setBoards(response.data)
-  //   })
-  // })
-
   return (
-    <Provider store={store}>
+    <RecoilRoot>
       <NavBar />   
     <Routes>
       {/* ------------ 지훈 작업 -------------*/}
@@ -41,9 +34,10 @@ function App() {
 
       {/* 자유 게시판 */}
       <Route path='/BoardList' element={<BoardList />} />
+      <Route path='/BoardListSearch/:state' element={<BoardListSearch />} />
       <Route path='/BoardInsert' element={<BoardInsert />} />
       <Route path='/BoardDetail/:id' element={<BoardDetail />} />
-      <Route path='/BoardUpdate' element={<BoardUpdate />} />
+      <Route path='/BoardUpdate/:boardNum' element={<BoardUpdate />} />
 
       {/* 개인 회원가입 */}
       <Route path='/Certification' element={<Certification />} />
@@ -66,7 +60,7 @@ function App() {
       {/*------------ 로한 End------------*/}
 
     </Routes>
-    </Provider>
+    </RecoilRoot>
   );
 };
 

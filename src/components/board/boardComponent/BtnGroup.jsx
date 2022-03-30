@@ -2,16 +2,18 @@ import * as React from 'react';
 import {
   ToggleButtonGroup,
   ToggleButton } from '@mui/material';
-import { useDispatch, useSelector } from 'react-redux';
+import { btnState } from '../RecoilAtom'
+import { useRecoilState } from 'recoil';
+// import { useDispatch, useSelector } from 'react-redux';
 
 
 export default function BtnGroup() {
-  const reduxValue = useSelector((state) => state.alignment)
-  const dispatch = useDispatch();
+  // const reduxValue = useSelector((state) => state.alignment)
+  // const dispatch = useDispatch();
+  const [btnValue, setBtnValue] = useRecoilState(btnState)
 
   const handleAlignment = (event, newAlignment) => {
-    // setAlignment(newAlignment);
-    dispatch({type : newAlignment})
+    setBtnValue(newAlignment)
     // console.log(reduxValue)
   };
 
@@ -19,7 +21,7 @@ export default function BtnGroup() {
     <ToggleButtonGroup
       size='small'
       color='primary'
-      value={reduxValue.alignment}
+      value={btnValue}
       exclusive
       onChange={handleAlignment}
       sx={{ margin : 2}}

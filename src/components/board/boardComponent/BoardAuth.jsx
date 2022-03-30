@@ -1,22 +1,24 @@
-import axios from 'axios'
 import React, { useEffect } from 'react'
 import {
       Box,
       Button
         } from '@mui/material'
+import { useRecoilValue } from 'recoil'
+import { userInfoState } from '../RecoilAtom'
 import BoardDelete from '../BoardDelete'
 import BoardUpdate from '../../../pages/board/BoardUpdate'
 import { useNavigate } from 'react-router-dom'
 
 function BoardAuth(props) {
-
+  
+  const userInfo = useRecoilValue(userInfoState)
   const writerAuth = props.auth
   const boardNum = props.boardNum
   useEffect(() => {
     
   })
   const navigate = useNavigate()
-  if(writerAuth === 1){
+  if(writerAuth === userInfo[0].mem_nick){
   return (
     <div>
       <Box display={'flex'}>
@@ -31,15 +33,7 @@ function BoardAuth(props) {
         borderColor : 'crimson'
       }
         }}
-        onClick={()=> navigate('/BoardDetail/'+row.FREE_NUM ,{state:{
-          boardNumber : row.FREE_NUM,
-          boardTitle : row.FREE_TITLE,
-          boradContent : row.FREE_CONTENT,
-          boardDate : row.FREE_REGDATE,
-          boardView : row.FREE_VIEWS,
-          boardCategory : row.FREE_SUBJECT,
-          boardWriter : row.MEM_NUM
-        }})}
+        onClick={()=> navigate('/BoardUpdate/'+ boardNum )}
     variant="contained"
     >수정</Button>
       <BoardDelete boardNum={boardNum} />

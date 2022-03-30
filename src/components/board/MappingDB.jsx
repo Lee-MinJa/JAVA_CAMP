@@ -7,6 +7,8 @@ export const fBoardGet = "jsonFreeBoarList" //free_board select *
 
 export const memberGet = "memberGet" //회원정보(글상세-닉네임)
 
+export const fSearchGet = "searchGet" //검색
+
 export const freeImg = "freeImg" //이미지 업로드
 export const fBoardInsert = "fBoardInsert" //insert
 export const fviewCount = "fviewCount" //조회수 업데이트

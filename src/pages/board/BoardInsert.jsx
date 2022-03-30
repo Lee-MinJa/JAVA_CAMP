@@ -15,6 +15,8 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import BoardEditor from '../../components/board/boardComponent/BoardEditor';
 import { fBoardInsert, pjPort, fBoardMain } from '../../components/board/MappingDB'
+import { userInfoState } from '../../components/board/RecoilAtom';
+import { useRecoilValue } from 'recoil';
 
 const BoardInsert = () => {
 
@@ -24,19 +26,19 @@ const BoardInsert = () => {
   const [titleValue, setTitleValue] = useState('')
   const [contentValue, setContentValue] = useState({})
   const [dateValue, setDateValue] = useState('')
-  const [writer, setWriter] = useState(1)
+  const userInfo = useRecoilValue(userInfoState)
   const [error, setError] = useState(false);
   const [helperText, setHelperText] = useState('');
 
   const handleRadioChange = (event) => {
     setCategoryValue(event.target.value)
     setError(false);
-    console.log('category', categoryValue)
+    // console.log('category', categoryValue)
   };
 
   const handleTitleChange = (event) => {
     setTitleValue(event.target.value)
-    console.log('title', titleValue)
+    // console.log('title', titleValue)
     dateSet()
   }
 
@@ -47,7 +49,8 @@ const BoardInsert = () => {
     const dd = ('0' + today.getDate()).slice(-2);
     const dateString = yyyy + '-' + mm + '-' + dd
     setDateValue(dateString)
-    console.log('date', dateString)
+    // console.log('date', dateString)
+    // console.log('value = ', JSON.stringify(contentValue))
   }
 
   const editorValue = (state) => {
@@ -58,27 +61,27 @@ const BoardInsert = () => {
   const handleSubmit = () => {
     const url = 'http://localhost:'+ pjPort +'/' + fBoardMain + '/'+ fBoardInsert
     const data = {
-      writer : writer,
+      writer : userInfo[0].mem_num,
       categoryValue : categoryValue,
       titleValue : titleValue,
       contentValue : contentValue,
       dateValue : dateValue
     }
 
-    // if(categoryValue === ''){
-    //   alert('카테고리를 선택해주세요.')
-    //   if(titleValue === ''){
-    //     alert('제목을 입력해주세요.')
-    //     if(contentValue === ''){
-    //       alert('내용을 입력해주세요.')
-    //     }
-    //   }
-    
-      axios.post(url, data).then(() => {
-        navigate('/BoardList')
-      })
+    if(categoryValue === ''){
+      alert('카테고리를 선택해주세요.')}
+    else if(titleValue === ''){
+      alert('제목을 입력해주세요.')}
+    else if(JSON.stringify(contentValue) === '{}'){
+      alert('내용을 입력해주세요.')}
+    else if(categoryValue !== '' 
+            && titleValue !== '' 
+            && JSON.stringify(contentValue) !== '{}') {
+        axios.post(url, data).then(() => {
+          navigate('/BoardList')
+        })
+      }
   };
-
 
 return (
   <>
