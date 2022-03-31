@@ -2,4 +2,19 @@
 1647830882090	Delete element
 1647866944278	Copy compilation unit
 1647866967165	Rename type 'RestFreeBoardController'
+<<<<<<< HEAD
 1648037731832	Delete elements
+=======
+1648043623383	Delete elements
+1648046600030	Rename package 'com.example.demo.review'
+1648046610567	Rename type 'ReViewController'
+1648046617412	Rename type 'ReViewLogic'
+1648049419969	Copy file
+1648213602016	Delete element
+1648261238440	Copy file
+1648264977730	Move 'ReviewCmntInsert.jsp' to 'ReviewCmnt'
+1648269610949	Rename package 'com.example.demo.review_cmnt'
+1648272104312	Delete elements
+1648275191692	Copy file
+1648277504715	Copy file
+>>>>>>> ac37c98 (Login)

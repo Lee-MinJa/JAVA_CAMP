@@ -1,0 +1,21 @@
+package com.example.demo.Badge;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.example.demo.freeboard.FreeBoardController;
+import com.example.demo.freeboard.FreeBoardLogic;
+
+@RestController
+public class RestBadgeController {
+
+	Logger logger = LogManager.getLogger(RestBadgeController.class);
+
+	@Autowired
+	private FreeBoardLogic freeBoardLogic = null;
+	
+	
+	
+}

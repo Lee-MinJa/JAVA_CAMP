@@ -15,12 +15,34 @@ public class MemberLogic {
 	@Autowired
 	private MemberDao memberdao = null;
 	
+	
 	public List<Map<String, Object>> memberList(Map<String, Object> pMap) {
 		List<Map<String, Object>> memberList = null;
 		memberList=memberdao.memberList(pMap);
 		
 		return memberList;
 	}
+
+	public Map<String, Object> loginAction(Map<String, Object> pMap) {
+		Map<String,Object> rmap=memberdao.loginAction(pMap);
+		
+		return rmap;
+	}
+
+
+	public Map<String, Object> proc_login(Map<String, Object> pMap) {
+		Map<String,Object> rmap= null;
+		rmap = memberdao.proc_login(pMap);
+		return rmap;
+	}
+
+
+	public int memberInsert(Map<String, Object> pMap) {
+		int result = 0;
+		result = memberdao.memberInsert(pMap);
+			return result;
+	}
+
 
 
 }

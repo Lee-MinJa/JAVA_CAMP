@@ -1,0 +1,88 @@
+package com.example.demo.Review;
+
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import com.example.demo.PrBoard.PrBoardController;
+import com.example.demo.util.PageBar;
+
+@Controller
+@RequestMapping("/Review/*")
+public class ReviewController {
+	Logger logger = LogManager.getLogger(ReviewController.class);
+	
+	@Autowired
+	private ReviewLogic reviewLogic = null;
+	
+	@GetMapping("ReviewList")
+	public String ReviewList(@RequestParam Map<String,Object> pMap, Model model , HttpServletRequest request) 
+	{
+		logger.info("PrBoardList 호출 성공");
+		logger.info("사용자가 입력한 정보 ==> "+pMap);
+		List<Map<String,Object>> ReviewList = null;
+		ReviewList = reviewLogic.ReviewList(pMap);
+		
+		
+//		model.addAttribute("total", total);
+//		model.addAttribute("getPageBar",pb);
+		model.addAttribute("ReviewList", ReviewList);
+		
+		
+		//쿠키값을 넘겨줄때는 변수에 저장해서 값을 넘겨주면 될거같음
+		return "forward:/Review/ReviewList.jsp";
+		
+	}
+	
+	@GetMapping("ReviewInsert")
+	public String ReviewInsert(@RequestParam Map<String,Object> pMap) 
+	{
+		logger.info("PrBoardInsert 호출 성공");
+		logger.info("사용자가 입력한 정보 ==> "+pMap);
+		int result = 0;
+		
+		result = reviewLogic.ReviewInsert(pMap);
+		
+		logger.info("result ==>" +result);
+		
+		//쿠키값을 넘겨줄때는 변수에 저장해서 값을 넘겨주면 될거같음
+		return "redirect:../PrBoard/jsonPrBoardDetail?PROMO_NUM="+pMap.get("PROMO_NUM");
+		
+	}
+	@GetMapping("ReviewUpdate")
+	public String ReviewUpdate(@RequestParam Map<String,Object> pMap) 
+	{
+		logger.info("PrBoardUpdate 호출 성공");
+		logger.info("사용자가 입력한 정보 ==> "+pMap);
+		int result = 0;
+		result = reviewLogic.ReviewUpdate(pMap);
+		logger.info("result ==>" +result);
+		//쿠키값을 넘겨줄때는 변수에 저장해서 값을 넘겨주면 될거같음
+		return "redirect:../PrBoard/jsonPrBoardDetail?PROMO_NUM="+pMap.get("PROMO_NUM");
+		
+	}
+	@GetMapping("ReviewDelete")
+	public String ReviewDelete(@RequestParam Map<String,Object> pMap) 
+	{
+		logger.info("PrBoardDelete 호출 성공");
+		logger.info("사용자가 입력한 정보 ==> "+pMap);
+		int result = 0;
+		result = reviewLogic.ReviewInsert(pMap);
+		logger.info("result ==>" +result);
+		//쿠키값을 넘겨줄때는 변수에 저장해서 값을 넘겨주면 될거같음
+		return "redirect:../PrBoard/jsonPrBoardDetail?PROMO_NUM="+pMap.get("PROMO_NUM");
+		
+	}
+	
+	
+}

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="com.mybatis.mapper.BadgeMapper"> 
+ <select id="BadgeList" parameterType="map" resultType="map">
+SELECT BADGE_NUM, MEM_NUM, BADGE_DESCRIPTION
+FROM badge
+<if test="MEM_NUM !=null">
+WHERE MEM_NUM = #{MEM_NUM}
+</if>
+
+</select>
+
+ <insert id="ReviewCmntInsert" parameterType="map" >
+
+INSERT INTO REVIEW_CMNT(REVIEW_NUM, REVIEW_CMNT_CONTENT, REVIEW_CMNT_REGDATE)
+VALUES((SELECT REVIEW_NUM FROM REVIEW WHERE REVIEW_NUM= #{REVIEW_NUM}), #{REVIEW_CMNT_CONTENT} 
+,TO_CHAR(sysdate,'YYYY-MM-DD'))
+</insert>
+
+<update id="ReviewYNUpdate" parameterType="map">
+UPDATE REVIEW 
+SET REVIEW_CMNT_YN ='Y'
+WHERE REVIEW_NUM= #{REVIEW_NUM}
+</update>
+
+<update id="ReviewCmntUpdate" parameterType="map">
+     UPDATE REVIEW
+     SET
+     REVIEW_RATED = #{REVIEW_RATED}
+     ,REVIEW_CONTENT= #{REVIEW_CONTENT}
+     ,REVIEW_REGDATE=TO_CHAR(sysdate,'YYYY-MM-DD')
+     WHERE REVIEW_NUM= #{REVIEW_NUM}
+</update>
+
+<delete id="ReviewCmntDelete" parameterType="map">
+	DELETE FROM REVIEW
+	WHERE REVIEW_NUM=# {REVIEW_NUM}
+</delete>
+
+
+
+</mapper>

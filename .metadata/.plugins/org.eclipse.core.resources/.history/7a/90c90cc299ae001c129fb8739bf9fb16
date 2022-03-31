@@ -1,0 +1,18 @@
+package com.example.demo.util;
+
+import org.springframework.stereotype.Service;
+
+import javafx.scene.image.Image;
+
+@Service
+public class FileService {
+    ImageRepository imageRepository;
+
+    public FileService(ImageRepository imageRepository) {
+        this.imageRepository = imageRepository;
+    }
+
+    public Long addImage (Image image) {
+        return imageRepository.addImage(image);
+    }
+}

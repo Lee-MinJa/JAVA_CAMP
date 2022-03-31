@@ -61,22 +61,9 @@ public class PrBoardDao {
 		logger.info("인서트결과===========>"+TngResult);
 		return TngResult;
 	}
-	/*
-	 * 	@Autowired
-	private SqlSessionTemplate sqlSessionTemplate = null;
-	public int boardSInsert(Map<String, Object> pMap) {
-		int result = 0;
-		try {
-			result = sqlSessionTemplate.insert("PrBoardImgInsert", pMap);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return result;
-	}
-	 */
 	//img insert
 	public int PrBoardImgInsert(Map<String, Object> prBoardImg) {
-		logger.info("PrBoardImg Dao 호출 성공");
+		logger.info("PrBoardImg Dao 호출 성공"+prBoardImg);
 		int IResult = sqlSessionTemplate.insert("PrBoardImgInsert", prBoardImg);
 		logger.info("이미지 인서트 결과 =========>" +IResult);
 		return IResult;
@@ -125,6 +112,15 @@ public class PrBoardDao {
 		total = sqlSessionTemplate.selectOne("totalRecord", pMap);
 		return total;
 	}
+<<<<<<< HEAD
+=======
+	public int ReviewDefault() {
+		int result = 0;
+		result = sqlSessionTemplate.insert("ReviewDefault");
+		logger.info("result===========>"+result);
+		return result;
+	}
+>>>>>>> ac37c98 (Login)
 
 
 }

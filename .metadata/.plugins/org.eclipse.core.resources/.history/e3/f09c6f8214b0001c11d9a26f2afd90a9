@@ -1,0 +1,80 @@
+package com.example.demo.auth;
+
+import java.util.ArrayList;
+import java.util.Collection;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import com.example.demo.vo.MemberVO;
+
+/*
+ * 스프링 시큐리티가 /loginAction3 요청이 오면 인터셉트 해서 로그인을 진행시킴
+ * 로그인 성공이면 시큐리티가 세션을 생성해 줌
+ * 여기에 담길 타입은 이미 결정되어 있음
+ * 반드시 Authentication 타입 이어야 함
+ * 
+ */
+
+
+public class PrincipalDetails implements UserDetails {
+	public MemberVO mVO;
+	public PrincipalDetails() {
+		
+	}
+	public PrincipalDetails(MemberVO mVO) {
+		this.mVO = mVO;
+	}
+	
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		Collection<GrantedAuthority> collect = new ArrayList<>();
+		collect.add(new GrantedAuthority() {
+			@Override
+			public String getAuthority() {
+				
+				return mVO.getRole();
+			}
+			
+		});
+		return null;
+	}
+
+	@Override
+	public String getPassword() {
+		return mVO.getPassword();
+	}
+
+	@Override
+	public String getUsername() {
+		// TODO Auto-generated method stub
+		return mVO.getUsername();
+	}
+	// 스프링 시큐리티가 관리하는 세션에 다른 정보 조회하기
+	public String getMem_id() {
+		return mVO.getMem_id();
+	}
+	
+	@Override
+	public boolean isAccountNonExpired() {
+		return true;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		return true;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+}

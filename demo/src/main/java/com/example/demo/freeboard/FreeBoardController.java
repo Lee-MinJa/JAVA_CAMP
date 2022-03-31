@@ -21,12 +21,20 @@ public class FreeBoardController {
 	@Autowired
 	private FreeBoardLogic freeBoardLogic = null;
 	
+<<<<<<< HEAD
 	//TEST URL : http://localhost:9000/freeboard/getFreeBoardList
 	@GetMapping("getFreeBoardList")
 	public String getFreeBoardList(@RequestParam Map<String,Object> pMap, Model model) {
 		logger.info("getFreeBoardList 호출 성공");
 		List<Map<String,Object>> freeBoardList = null;
 		freeBoardList = freeBoardLogic.getFreeBoardList(pMap);
+=======
+	@RequestMapping("FreeBoardList")
+	public String getFreeBoardList(Model model) {
+		logger.info("getFreeBoardList 호출 성공");
+		List<Map<String,Object>> freeBoardList = null;
+//		freeBoardList = freeBoardLogic.getFreeBoardList(meodel);
+>>>>>>> ac37c98 (Login)
 		model.addAttribute("freeBoardList", freeBoardList);
 		return "freeboard/getFreeBoardList";		
 	}

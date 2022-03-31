@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="com.mybatis.mapper.TagMapper"> 
+ <select id="TagList" parameterType="map" resultType="map">
+SELECT g.promo_num,t.TAG_NAME, t.TAG_CODE FROM tag t , tagging g
+WHERE t.tag_code=g.tag_code
+<if test="PROMO_NUM !=null">
+AND g.PROMO_NUM = #{PROMO_NUM}
+</if>
+
+</select>
+
+
+
+</mapper>

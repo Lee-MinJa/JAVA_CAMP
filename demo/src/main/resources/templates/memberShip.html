@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>회원가입[templates]</title>
+<script>
+	function memberInsert(event){
+		const f_ins = document.getElementById("f_ins");
+		f_ins.method = "post";
+		f_ins.action = "/memberInsert";
+		//만일 button태그를 사용할시 에는 submit옵션이 적용됨. 에러발생시에도 즉시 전송이 일어남
+		f_ins.submit();
+	}
+</script>
+</head>
+<body>
+<form id="f_ins" >
+	<input type="text" name="mem_id" placeholder="아이디"/><br/>
+	<input type="text" name="username" placeholder="이름"/><br/>
+	<input type="text" name="password" placeholder="비밀번호"/><br/>
+	<input type="text" name="role" value="ROLE_USER" placeholder="아이디"/><br/>
+	<hr />
+	<input type="button" value="가입신청" onclick="memberInsert()" /><br/>
+</form>
+</body>
+</html>

@@ -1,0 +1,34 @@
+package com.example.demo.Review;
+
+import java.util.List;
+import java.util.Map;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
+public class ReviewLogic {
+	Logger logger = LogManager.getLogger(ReviewLogic.class);
+	
+	@Autowired
+	private ReviewDao reviewDao = null;
+	
+	public List<Map<String, Object>> ReviewList(Map<String, Object> pMap) {
+		logger.info("PrBoardLogic 호출 성공");
+		List<Map<String, Object>> ReviewList = null;
+		ReviewList=reviewDao.ReviewList(pMap);
+		
+		return ReviewList;
+	}
+
+	public int ReviewInsert(Map<String, Object> pMap) {
+		logger.info("PrBoardInsert 호출 성공");
+		int result = 0;
+		result=reviewDao.ReviewInsert(pMap);
+		
+		return result;
+	}
+
+}

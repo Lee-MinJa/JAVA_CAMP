@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mybatis.mapper.MemberMapper">
+	 <select id="memberList" parameterType="map" resultType="map">
+SELECT MEM_NUM, MEM_CODE, MEM_ID, 
+        MEM_PW, MEM_NICK, MEM_NAME,
+        MEM_EMAIL, MEM_BIZNUM, MEM_BIZNAME,
+        MEM_TEL, MEM_JOIN FROM member
+<if test="MEM_ID !=null and MEM_PW !=null">
+WHERE MEM_ID = #{MEM_ID}
+AND MEM_PW = #{MEM_PW}
+</if>
+ </select>
+ 	<insert id="memberInsert" parameterType="map">
+insert into member_security(mem_id,password, username, role)
+values(#{mem_id},#{password},#{username},#{role})
+	</insert> 
+	
+	<select id="memberList" parameterType="map" resultType="map">
+		SELECT
+				mem_id, mem_pw, mem_name,
+				mem_email, mem_num, '쪽지쓰기' memo
+		FROM member
+	</select>
+ 
+</mapper>

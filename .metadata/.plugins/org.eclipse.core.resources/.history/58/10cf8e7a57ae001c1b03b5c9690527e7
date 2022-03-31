@@ -1,0 +1,13 @@
+package com.example.demo.Tag;
+
+import java.util.List;
+import java.util.Map;
+
+public class TagDao {
+
+	public List<Map<String, Object>> TagList(Map<String, Object> pMap) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

@@ -1,0 +1,25 @@
+package com.example.demo.Badge;
+
+import java.util.List;
+import java.util.Map;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
+public class BadgeLogic {
+
+
+	Logger logger = LogManager.getLogger(BadgeLogic.class);
+
+	@Autowired
+	private BadgeDao badgeDao = null;
+	
+	
+	public List<Map<String, Object>> BadgeList(Map<String, Object> pMap) {
+		return null;
+	}
+
+}

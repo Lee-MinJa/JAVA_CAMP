@@ -1,0 +1,8 @@
+package com.example.demo.review_cmnt;
+
+import org.springframework.stereotype.Service;
+
+@Service
+public class ReviewCmntDao {
+
+}

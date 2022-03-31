@@ -1,0 +1,19 @@
+package com.example.demo.review_cmnt;
+
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.stereotype.Service;
+
+@Service
+public class ReviewCmntLogic {
+
+	public List<Map<String, Object>> ReviewCmntList(Map<String, Object> pMap) {
+	
+		
+		
+		
+		return null;
+	}
+
+}

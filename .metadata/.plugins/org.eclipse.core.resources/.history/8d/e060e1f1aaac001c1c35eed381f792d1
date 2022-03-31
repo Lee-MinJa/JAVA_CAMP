@@ -1,0 +1,23 @@
+package com.example.demo.review_cmnt;
+
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.stereotype.Service;
+
+@Service
+public class ReviewCmntLogic {
+
+	public List<Map<String, Object>> ReviewCmntList(Map<String, Object> pMap) {
+	
+		logger.info("PrBoardLogic 호출 성공");
+		List<Map<String, Object>> ReviewList = null;
+		ReviewList=reviewDao.ReviewList(pMap);
+		
+		return ReviewList;
+		
+		
+		return null;
+	}
+
+}

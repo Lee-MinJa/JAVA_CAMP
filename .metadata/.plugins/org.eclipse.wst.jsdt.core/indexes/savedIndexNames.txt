@@ -1,9 +1,20 @@
 INDEX VERSION 1.4+C:\Users\gk478\Desktop\demo\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
+<<<<<<< HEAD
 1590891337.index
 2092127449.index
 3493694692.index
 3435648363.index
+=======
+3435648363.index
+3341169981.index
+>>>>>>> ac37c98 (Login)
 2665176518.index
+2092127449.index
+3493694692.index
 1331524018.index
+<<<<<<< HEAD
 1590891337.index
 3341169981.index
+=======
+2189426990.index
+>>>>>>> ac37c98 (Login)

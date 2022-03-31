@@ -96,6 +96,12 @@ public class PrBoardLogic {
 				PrBoardInsert.put("PROMO_MAIN_CONTENT", pMap.get("PROMO_MAIN_CONTENT"));
 				PrBoardInsert.put("PROMO_DETAIL_CONTENT", pMap.get("PROMO_DETAIL_CONTENT"));
 				prBoardDao.PrBoardInsert(PrBoardInsert);
+<<<<<<< HEAD
+=======
+				//리뷰 디폴트값
+				int review = 0;
+				review=	prBoardDao.ReviewDefault();
+>>>>>>> ac37c98 (Login)
 				
 				Map<String,Object> PrBoardTag = new HashMap();
 				String TagArray []=pMap.get("TAG_NAME").toString().split(",");
@@ -114,6 +120,7 @@ public class PrBoardLogic {
 				
 				
 				if(fileList !=null) {
+<<<<<<< HEAD
 					
 					Map<String,Object> prBoardImg = new HashMap();
 					prBoardImg.put("IMAGE_FILEPATH", pMap.get("IMAGE_FILEPATH"));
@@ -129,10 +136,28 @@ public class PrBoardLogic {
 							prBoardImg.put("IMAGE_FILENAME", fileList.get(i).getOriginalFilename());
 							ImgResult2 = prBoardDao.PrBoardImgInsert2(prBoardImg);
 //							logger.info("파일 리스트2222222222=======>"+pMap.get("IMAGE_FILENAME"));
+=======
+					Map<String,Object> prBoardImg = new HashMap();
+					prBoardImg.put("IMAGE_FILEPATH", pMap.get("IMAGE_FILEPATH"));
+					prBoardImg.put("IMAGE_SIZE", pMap.get("IMAGE_SIZE"));
+					
+					for(int i=0; i<fileList.size(); i++) {
+						if(i==0) {
+							prBoardImg.put("IMAGE_FILENAME", fileList.get(i).getOriginalFilename());
+							logger.info("파일 리스트1111111111=======>"+prBoardImg.get("IMAGE_FILENAME"));
+							int ImgResult = 0;
+							ImgResult = prBoardDao.PrBoardImgInsert(prBoardImg);
+						}else  {
+							int ImgResult2 = 0;
+							prBoardImg.put("IMAGE_FILENAME", fileList.get(i).getOriginalFilename());
+							ImgResult2 = prBoardDao.PrBoardImgInsert2(prBoardImg);
+							logger.info("파일 리스트1111111111=======>"+prBoardImg.get("IMAGE_FILENAME"));
+>>>>>>> ac37c98 (Login)
 						}
 					}
 					logger.info("파일 리스트=======>"+pMap.get("IMAGE_FILENAME"));
 					}
+<<<<<<< HEAD
 		
 				return result;
 	}
@@ -169,6 +194,16 @@ public class PrBoardLogic {
 //	}
 
 	
+=======
+				
+				
+		
+				return result;
+	}
+	 
+	 
+	 
+>>>>>>> ac37c98 (Login)
 	public int PrBoardUpdate(Map<String, Object> prBoardUpdate) {
 		logger.info("PrBoardUpdate 호출 성공!!");
 		int result = 0;

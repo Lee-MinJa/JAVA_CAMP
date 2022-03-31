@@ -1,0 +1,8 @@
+package com.example.demo.review_cmnt;
+
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class RestReviewCmntController {
+
+}

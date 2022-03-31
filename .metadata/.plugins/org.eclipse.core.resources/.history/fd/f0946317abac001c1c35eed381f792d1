@@ -1,0 +1,16 @@
+package com.example.demo.review_cmnt;
+
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.stereotype.Service;
+
+@Service
+public class ReviewCmntDao {
+
+	public List<Map<String, Object>> ReviewCmntList(Map<String, Object> pMap) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

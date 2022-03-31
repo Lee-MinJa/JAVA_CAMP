@@ -1,0 +1,13 @@
+package com.example.demo.util;
+
+import java.util.List;
+import java.util.Map;
+
+public class ImageLogic {
+
+	public List<Map<String, Object>> ImageList(Map<String, Object> pMap) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

@@ -9,6 +9,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
 @Service
 public class MemberDao {
 	Logger logger = LogManager.getLogger(MemberDao.class);
@@ -22,6 +23,27 @@ public class MemberDao {
 		memberList = sqlSessionTemplate.selectList("memberList", pMap);
 		logger.info("boardList : "+memberList);
 		return memberList;
+	}
+
+
+	public Map<String, Object> loginAction(Map<String, Object> pMap) {
+		Map<String, Object> rmap = null;
+		rmap = sqlSessionTemplate.selectOne("loginAction",pMap);
+		logger.info("rmap : " +rmap);
+		return rmap;
+	}
+
+	public Map<String, Object> proc_login(Map<String, Object> pMap) {
+		sqlSessionTemplate.selectOne("proc_login2022",pMap);
+		logger.info("pMap : "+pMap);
+		return pMap;
+	}
+
+	public int memberInsert(Map<String, Object> pMap) {
+		int result = 0;
+		result = sqlSessionTemplate.insert("memberInsert",pMap);
+		logger.info("result ====>" +result);
+		return result;
 	}
 
 }

@@ -1,0 +1,36 @@
+package com.example.demo.util;
+
+@RestController
+public class FileUploadController {
+
+    FileService fileService;
+
+    public FileUploadController(FileService fileService) {
+        this.fileService = fileService;
+    }
+
+    @PostMapping("/images")
+    public Long uploadImage(@RequestParam("imageFile") MultipartFile file) throws IOException {
+        Image image = new Image(file.getOriginalFilename(), file.getContentType(), compressBytes(file.getBytes()));
+        return fileService.addImage(image);
+    }
+
+    public static byte[] compressBytes(byte[] data) {
+        Deflater deflater = new Deflater();
+        deflater.setInput(data);
+        deflater.finish();
+
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream(data.length);
+        byte[] buffer = new byte[1024];
+        while (!deflater.finished()) {
+            int count = deflater.deflate(buffer);
+            outputStream.write(buffer, 0, count);
+
+            try {
+                outputStream.close();
+            } catch (IOException e) {
+            }
+        }
+        return outputStream.toByteArray();
+    }
+}

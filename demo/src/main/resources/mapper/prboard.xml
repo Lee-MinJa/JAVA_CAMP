@@ -4,7 +4,7 @@
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
 <mapper namespace="com.mybatis.mapper.PrBoardMapper"> 
  <select id="PrBoardList" parameterType="map" resultType="map">
-SELECT p.PROMO_NUM,p.PROMO_REGION,p.PROMO_CAMPSITE,
+<!-- SELECT p.PROMO_NUM,p.PROMO_REGION,p.PROMO_CAMPSITE,
 p.PROMO_MAIN_CONTENT,p.PROMO_ZZIM,p.PROMO_VIEWS,
 p.PROMO_REGDATE, t.tag_name, i.image_filename, r.review_rated
 FROM promo_board p, (
@@ -18,10 +18,20 @@ AND c.image_clsfc_code=1)
 i , review r
 WHERE p.promo_num = t.promo_num
 AND i.promo_num = p.promo_num
-AND r.promo_num = p.promo_num
-<if test="tag_name!=null">
+AND r.promo_num = p.promo_num -->
+SELECT p.PROMO_NUM, p.PROMO_REGION, p.PROMO_CAMPSITE, p.PROMO_MAIN_CONTENT, p.PROMO_ZZIM, p.PROMO_VIEWS
+, p.PROMO_REGDATE, r.review_rated , i.IMAGE_FILENAME, i.IMAGE_FILEPATH
+FROM PROMO_BOARD p ,REVIEW r, (SELECT IMAGE_FILENAME, IMAGE_FILEPATH , PROMO_NUM FROM IMAGE WHERE IMAGE_CLSFC_CODE=1) i
+WHERE p.PROMO_NUM = r.PROMO_NUM
+AND p.PROMO_NUM = i.PROMO_NUM
+
+<!-- <if test="tag_name!=null">
 AND t.tag_name = #{tag_name}
+</if> -->
+<if test="PROMO_REGION!=null">
+AND p.promo_region = #{PROMO_REGION}
 </if>
+<<<<<<< HEAD
 <if test="promo_region!=null">
 AND p.promo_region = #{promo_region}
 </if>
@@ -54,23 +64,57 @@ SELECT p.promo_num,p.promo_region,p.promo_campsite,p.promo_detail_content,
 p.promo_zzim, t.tag_name , i.image_filename
 
 FROM promo_board p , (
+=======
+<if test="start>0">
+<![CDATA[ AND promo_num >= #{start} ]]>
+</if>    
+<if test="end>0">
+<![CDATA[ AND promo_num >= #{end} ]]>
+</if>    
+ORDER BY promo_num
+ </select>
+  <select id="totalRecord" parameterType="map" resultType="int">
+<!--  	SELECT count(p.PROMO_NUM)
+FROM promo_board p, (
+>>>>>>> ac37c98 (Login)
     SELECT t.tag_name, g.promo_num
     FROM tag t , tagging g
-    WHERE t.tag_code = g.tag_code    
+    WHERE t.tag_code = g.tag_code
 )t , (SELECT m.image_filename , m.promo_num
 FROM image m , image_clsfc c
 WHERE m.image_clsfc_code = c.image_clsfc_code
+AND c.image_clsfc_code=1)
+i , review r
+WHERE p.promo_num = t.promo_num
+AND i.promo_num = p.promo_num
+AND r.promo_num = p.promo_num -->
+
+SELECT count(PROMO_NUM) FROM PROMO_BOARD
+ </select>
+ 
+<select id = "PrBoardDetail" parameterType ="map" resultType="map">
+SELECT p.promo_num,p.promo_region,p.promo_campsite,p.promo_detail_content,
+p.promo_zzim, t.tag_name , i.image_filename
+FROM 
+	 promo_board p , (
+    SELECT t.tag_name, g.promo_num
+    FROM tag t , tagging g
+    WHERE t.tag_code = g.tag_code )t 
+    , (SELECT m.image_filename , m.promo_num
+        FROM image m , image_clsfc c
+        WHERE m.image_clsfc_code = c.image_clsfc_code
 AND c.image_clsfc_code=2)i
 WHERE p.promo_num = t.promo_num
 AND p.promo_num = i.promo_num
 AND p.promo_num = #{PROMO_NUM}
-<!-- promoboard 시퀀스값 변경하기 -->
 </select>
+
 <select id="PrBoardTagList" parameterType="map" resultType="map">
 SELECT tag_name
 FROM tag
 WHERE tag_name= #{TAG_NAME} 
 </select>
+
 
 <select id="PrBoardTagCodeList" parameterType="map" resultType="map">
 SELECT tag_code
@@ -92,6 +136,14 @@ VALUES(SEQ_PROMO_BOARD.NEXTVAL, #{MEM_NUM}, #{PROMO_REGION},#{PROMO_CAMPSITE},
 INSERT INTO tag(tag_code,tag_name)
 VALUES((SELECT MAX(TAG_CODE)+1 FROM tag), #{TAG_NAME})
 </insert>
+
+
+<insert id ="ReviewDefault" parameterType="map">
+INSERT INTO REVIEW (REVIEW_NUM, PROMO_NUM, REVIEW_RATED,REVIEW_CONTENT, REVIEW_REGDATE)
+        VALUES (SEQ_REVIEW.nextval, (SELECT MAX(PROMO_NUM) FROM PROMO_BOARD),
+        0,'아직평가가 없습니다.' , TO_CHAR(sysdate,'YYYY-MM-DD'))
+</insert>
+
 
 <insert id ="PrBoardTngInsert" parameterType="map">
       INSERT INTO TAGGING(TAGGING_NUM, PROMO_NUM, TAG_CODE)

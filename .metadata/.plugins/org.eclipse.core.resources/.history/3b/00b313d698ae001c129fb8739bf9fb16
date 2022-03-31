@@ -1,0 +1,14 @@
+package com.example.demo.util;
+
+@Service
+public class FileService {
+    ImageRepository imageRepository;
+
+    public FileService(ImageRepository imageRepository) {
+        this.imageRepository = imageRepository;
+    }
+
+    public Long addImage (Image image) {
+        return imageRepository.addImage(image);
+    }
+}

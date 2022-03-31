@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="com.mybatis.mapper.PrBoardMapper"> 
+ <select id="PrBoardList" parameterType="map" resultType="map">
+SELECT p.PROMO_NUM,p.PROMO_REGION,p.PROMO_CAMPSITE,
+p.PROMO_MAIN_CONTENT,p.PROMO_ZZIM,p.PROMO_VIEWS,
+p.PROMO_REGDATE, t.tag_name, i.image_filename, r.review_rated
+FROM promo_board p, (
+    SELECT t.tag_name, g.promo_num
+    FROM tag t , tagging g
+    WHERE t.tag_code = g.tag_code
+)t , (SELECT m.image_filename , m.promo_num
+FROM image m , image_clsfc c
+WHERE m.image_clsfc_code = c.image_clsfc_code
+AND c.image_clsfc_code=1)
+i , review r
+WHERE p.promo_num = t.promo_num
+AND i.promo_num = p.promo_num
+AND r.promo_num = p.promo_num
+<!-- <if test="tag_name!=null">
+AND t.tag_name = #{tag_name}
+</if> -->
+<if test="promo_region!=null">
+WHERE promo_region = #{promo_region}
+</if>
+<if test="start>0">
+<![CDATA[ AND promo_num >= #{start} ]]>
+</if>    
+<if test="end>0">
+<![CDATA[ AND promo_num >= #{end} ]]>
+</if>    
+ORDER BY p.promo_num
+ </select>
+  <select id="totalRecord" parameterType="map" resultType="int">
+ 	SELECT count(p.PROMO_NUM)
+FROM promo_board p, (
+    SELECT t.tag_name, g.promo_num
+    FROM tag t , tagging g
+    WHERE t.tag_code = g.tag_code
+)t , (SELECT m.image_filename , m.promo_num
+FROM image m , image_clsfc c
+WHERE m.image_clsfc_code = c.image_clsfc_code
+AND c.image_clsfc_code=1)
+i , review r
+WHERE p.promo_num = t.promo_num
+AND i.promo_num = p.promo_num
+AND r.promo_num = p.promo_num
+ </select>
+ 
+<select id = "PrBoardDetail" parameterType ="map" resultType="map">
+SELECT p.promo_num,p.promo_region,p.promo_campsite,p.promo_detail_content,
+p.promo_zzim, t.tag_name , i.image_filename
+FROM 
+	 promo_board p , (
+    SELECT t.tag_name, g.promo_num
+    FROM tag t , tagging g
+    WHERE t.tag_code = g.tag_code )t 
+    , (SELECT m.image_filename , m.promo_num
+        FROM image m , image_clsfc c
+        WHERE m.image_clsfc_code = c.image_clsfc_code
+AND c.image_clsfc_code=2)i
+WHERE p.promo_num = t.promo_num
+AND p.promo_num = i.promo_num
+AND p.promo_num = #{PROMO_NUM}
+</select>
+
+<select id="PrBoardTagList" parameterType="map" resultType="map">
+SELECT tag_name
+FROM tag
+WHERE tag_name= #{TAG_NAME} 
+</select>
+
+
+<select id="PrBoardTagCodeList" parameterType="map" resultType="map">
+SELECT tag_code
+FROM tag
+WHERE tag_name= #{TAG_NAME} 
+</select>
+
+
+<!--mem_num 은 로그인을 통해서 값을 받아와야함  -->
+<insert id ="PrBoardInsert" parameterType ="map">
+INSERT INTO PROMO_BOARD (PROMO_NUM, MEM_NUM, PROMO_REGION, 
+PROMO_CAMPSITE, PROMO_MAIN_CONTENT, 
+PROMO_DETAIL_CONTENT, PROMO_REGDATE)
+VALUES(SEQ_PROMO_BOARD.NEXTVAL, #{MEM_NUM}, #{PROMO_REGION},#{PROMO_CAMPSITE}, 
+#{PROMO_MAIN_CONTENT}, #{PROMO_DETAIL_CONTENT}, TO_CHAR(sysdate,'YYYY-MM-DD'))
+</insert>
+
+<insert id ="PrBoardTInsert" parameterType="map">
+INSERT INTO tag(tag_code,tag_name)
+VALUES((SELECT MAX(TAG_CODE)+1 FROM tag), #{TAG_NAME})
+</insert>
+
+
+<insert id ="ReviewDefault" parameterType="map">
+INSERT INTO REVIEW (REVIEW_NUM, PROMO_NUM, REVIEW_RATED,REVIEW_CONTENT, REVIEW_REGDATE)
+        VALUES (SEQ_REVIEW.nextval, (SELECT MAX(PROMO_NUM) FROM PROMO_BOARD),
+        0,'아직평가가 없습니다.' , TO_CHAR(sysdate,'YYYY-MM-DD'))
+</insert>
+
+
+<insert id ="PrBoardTngInsert" parameterType="map">
+      INSERT INTO TAGGING(TAGGING_NUM, PROMO_NUM, TAG_CODE)
+     VALUES (SEQ_TAGGING.nextval, (SELECT MAX(PROMO_NUM) FROM PROMO_BOARD) , (SELECT TAG_CODE FROM TAG WHERE TAG_NAME=#{TAG_NAME}))
+</insert>
+
+<insert id ="PrBoardImgInsert" parameterType="map">
+INSERT INTO image(image_num,image_clsfc_code,promo_num,image_filename,image_filepath,image_regdate,image_size)
+     values(seq_image.nextval,1,(SELECT max(promo_num) FROM PROMO_BOARD),#{IMAGE_FILENAME},#{IMAGE_FILEPATH},TO_CHAR(sysdate,'YYYY-MM-DD'),#{IMAGE_SIZE})
+</insert>
+<insert id ="PrBoardImgInsert2" parameterType="map">
+INSERT INTO image(image_num,image_clsfc_code,promo_num,image_filename,image_filepath,image_regdate,image_size)
+     values(seq_image.nextval,2,(SELECT max(promo_num) FROM PROMO_BOARD),#{IMAGE_FILENAME},#{IMAGE_FILEPATH},TO_CHAR(sysdate,'YYYY-MM-DD'),#{IMAGE_SIZE})
+</insert>
+<!--mem_num 은 로그인을 통해서 값을 받아와야함  -->
+
+<update id ="PrBoardUpdate" parameterType ="map">
+UPDATE PROMO_BOARD 
+SET PROMO_REGION = #{PROMO_REGION}
+, PROMO_CAMPSITE = #{PROMO_CAMPSITE}
+, PROMO_MAIN_CONTENT= #{PROMO_CAMPSITE}
+, PROMO_REGDATE = TO_CHAR(sysdate,'YYYY-MM-DD')
+WHERE PROMO_NUM = #{PROMO_NUM}
+AND MEM_NUM = #{MEM_NUM}
+</update>
+
+<delete id ="PrBoardTaggingDelete" parameterType="map">
+   DELETE  FROM tagging 
+   WHERE PROMO_NUM = #{PROMO_NUM}
+</delete>
+
+<insert id ="PrBoardTaggingInsert" parameterType="map">
+ INSERT INTO TAGGING(TAGGING_NUM, PROMO_NUM, TAG_CODE)
+  VALUES (SEQ_TAGGING.nextval, 
+  (SELECT PROMO_NUM FROM PROMO_BOARD WHERE PROMO_NUM =#{PROMO_NUM}) 
+  , (SELECT TAG_CODE FROM TAG WHERE TAG_NAME=#{TAG_NAME}))
+</insert>
+
+<update id ="PrBoardImgUpdate" parameterType="map">
+UPDATE IMAGE 
+	SET 
+	 image_filename = #{IMAGE_FILENAME},
+	 image_filepath = #{IMAGE_FILEPATH},
+	 image_size = #{IMAGE_SIZE},
+	 IMAGE_REGDATE =  TO_CHAR(sysdate,'YYYY-MM-DD')
+	 WHERE PROMO_NUM = #{PROMO_NUM} 
+</update>
+
+<delete id="PrBoardDelete" parameterType="map">
+	DELETE FROM PROMO_BOARD 
+	WHERE PROMO_NUM= #{PROMO_NUM}
+</delete>
+
+</mapper>

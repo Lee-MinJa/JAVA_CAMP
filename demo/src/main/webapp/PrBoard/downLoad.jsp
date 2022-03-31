@@ -8,7 +8,11 @@
 	//out.print("b_file: 8->euc"+b_file);		
 	//out.print("<br>");	
 	
+<<<<<<< HEAD
 	String filePath = "C:\\workspace_jsp\\dev_bootstrap\\WebContent\\pds\\"; // 절대경로.	
+=======
+	String filePath = "C:\\Users\\gk478\\Desktop\\demo\\demo\\src\\main\\webapp\\image\\"; // 절대경로.	
+>>>>>>> ac37c98 (Login)
 	//가져온 파일이름을 객체화 시켜줌. - 파일이 있는 물리적인 경로가 필요함.
 	File file = new File(filePath,b_file.trim());
  	String mimeType = getServletContext().getMimeType(file.toString());

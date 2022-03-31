@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="com.mybatis.mapper.PrBoardMapper"> 
+ <select id="ReviewList" parameterType="map" resultType="map">
+  SELECT r.REVIEW_NUM,r.REVIEW_RATED,r.REVIEW_CONTENT,r.REVIEW_CMNT_YN
+    ,r.REVIEW_REGDATE, i.image_filename 
+    FROM review r,(
+    SELECT image_filename, review_num FROM image  
+    WHERE IMAGE_CLSFC_CODE=4
+    AND PROMO_NUM=#{PROMO_NUM}
+    ) i
+    WHERE r.promo_num=#{PROMO_NUM}
+ <!--리뷰 디테일 댓글달때 사용하려고 걸어 놓음  -->
+<if test="REVIEW_NUM!=null">
+   AND r.review_num=i.review_num
+</if>
+</select>
+
+ <insert id="ReviewInsert" parameterType="map" >
+INSERT INTO REVIEW(REVIEW_NUM, PROMO_NUM, REVIEW_RATED, REVIEW_CONTENT, REVIEW_REGDATE)
+            VALUES(seq_review.nextval,
+            (SELECT PROMO_NUM FROM PROMO_BOARD WHERE PROMO_NUM=#{PROMO_NUM})
+            ,#{REVIEW_RATED}
+            ,#{REVIEW_CONTENT}
+            ,TO_CHAR(sysdate,'YYYY-MM-DD'))
+</insert>
+<insert id ="ReviewImgInsert" parameterType="map">
+          INSERT INTO image(image_num,image_clsfc_code,promo_num,review_num
+            ,image_filename,image_filepath
+            ,image_regdate,image_size)
+     values(seq_image.nextval,4,(SELECT PROMO_NUM 
+     FROM PROMO_BOARD 
+     WHERE PROMO_NUM= #{PROMO_NUM})
+     , seq_review.currval
+     ,#{IMAGE_FILENAME},#{IMAGE_FILEPATH}
+     ,TO_CHAR(sysdate,'YYYY-MM-DD'),#{IMAGE_SIZE})
+</insert>
+
+<update id="ReviewUpdate" parameterType="map">
+     UPDATE REVIEW
+     SET
+     REVIEW_RATED = #{REVIEW_RATED}
+     ,REVIEW_CONTENT= #{REVIEW_CONTENT}
+     ,REVIEW_REGDATE=TO_CHAR(sysdate,'YYYY-MM-DD')
+     WHERE REVIEW_NUM= #{REVIEW_NUM}
+
+</update>
+
+</mapper>

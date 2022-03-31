@@ -3,8 +3,13 @@
     <%@page import="java.util.*" %>
     <%@page import= "com.example.demo.util.PageBar" %>
     <%
+<<<<<<< HEAD
     List<Map<String,Object>> PrBoardList=(List)request.getAttribute("PrBoardList");
    // out.print(PrBoardList);
+=======
+   /*  List<Map<String,Object>> PrBoardList=(List)request.getAttribute("PrBoardList");
+    out.print(PrBoardList); */
+>>>>>>> ac37c98 (Login)
     %>
 <!DOCTYPE html>
 <html>
@@ -18,7 +23,7 @@
     <!--
         파일업로드를 위해선 반드시 method="post" enctype="Multipart/form-data"여야함!
      -->
-    <form action="./PrBoardInsert" method="post" enctype="Multipart/form-data">
+    <form action="./PrBoardInsert" method="post" enctype="Multipart/form-data"  meta charset="UTF-8">
         <!-- 올린 사람 : <input type="text" name="name" /><br/>
         제목        : <input type="text" name="subject" /><br/> -->
         <!--
