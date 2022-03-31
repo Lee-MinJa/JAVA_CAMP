@@ -128,15 +128,9 @@ function Biz_info() {
             mb: 8,
           }}
         >
-          <Typography variant="h2" sx={{ mt: 8 }}>
-            <Link href="/" underline="none" color="inherit">
-              Hi, Camping
-            </Link>
-          </Typography>
           <Typography variant="h5" sx={{ mt: 2 }}>
             사업자 가입하기
           </Typography>
-
           <Box
             component="form"
             // onSubmit={handleSubmit}
@@ -227,7 +221,7 @@ function Biz_info() {
                   label="비밀번호 확인"
                   name="signupPwCk"
                   inputRef={signupPwCk}
-                  onClick={pwMatch}
+                  onChange={pwMatch}
                   helperText={pwMsg}
                 />
               </Grid>
@@ -290,7 +284,6 @@ function Biz_info() {
                   sx={{
                     color: "000",
                     bgcolor: "palette.lo",
-                    "&:hover": { bgcolor: "palette.no" },
                   }}
                 >
                   가입하기
@@ -299,7 +292,6 @@ function Biz_info() {
             </Grid>
           </Box>
         </Box>
-        <Footer />
       </ThemeProvider>
     </div>
   );

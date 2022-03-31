@@ -39,18 +39,49 @@ export default function FindAcctPw() {
     });
   };
 
-  /* ////// 변경한 비밀번호 일치여부 확인 ////// */
+  /* 변경한 비밀번호 일치여부 helperText 이벤트 ////// */
+  const [pwMsg, setPwMsg] = useState('');
   const updatedPw = useRef("");
   const updatedPwCk = useRef("");
-  const onSubmit = (event) => {
-    event.preventDefault();
+  const pwMatch = (e) => {
+    e.preventDefault(); 
     const updatedPwFin = updatedPw.current.value;
     const updatedPwCkFin = updatedPwCk.current.value;
-    return (updatedPwFin !== updatedPwCkFin
-           ? alert("비밀번호가 일치하지 않습니다.")
-          :window.confirm("비밀번호가 변경되었습니다."),
-          setOpenForm(false),
-          (window.location.href = "/signin"));
+    (
+      updatedPwFin!==updatedPwCkFin
+      ? setPwMsg("비밀번호가 일치하지 않습니다.")
+      : setPwMsg("")
+    )
+  return pwMsg;
+ };
+
+ /* 입력창 채워야 버튼 활성화 이벤트 */
+ const [btnOff, setBtnOff] = useState(true);
+const btnAble = (e) => {
+  e.preventDefault(); 
+  const updatedPwFin = updatedPw.current.value;
+  const updatedPwCkFin = updatedPwCk.current.value;
+  (
+    updatedPwFin!==updatedPwCkFin
+    ? setBtnOff(true)
+    : setBtnOff(false)
+  )
+return btnOff;
+}
+/* onChange에 대한 비밀번호 일치 및 변경 버튼 이벤트  */
+const btnChange = e => {
+  pwMatch(e) // return pwMsg
+  btnAble(e) // return btn
+}
+
+/* 제출 버튼 이벤트 */
+  const onSubmit = (e) => {
+    e.preventDefault();
+    const updatedPwFin = updatedPw.current.value;
+    const updatedPwCkFin = updatedPwCk.current.value;
+    return window.confirm("비밀번호가 변경되었습니다.")
+          ,setOpenForm(false)
+          ,(window.location.href = "/signin");
         };
 
   return (
@@ -166,10 +197,13 @@ export default function FindAcctPw() {
                           id="updatedPwCk"
                           inputRef={updatedPwCk}
                           label="비밀번호 확인"
+                          onChange={btnChange}
+                          helperText={pwMsg}
                         />
                       </Grid>
                     </Grid>
                     <Button
+                      disabled={btnOff}
                       onClick={onSubmit}
                       href="/signin"
                       variant="contained"

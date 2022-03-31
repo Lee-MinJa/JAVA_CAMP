@@ -10,7 +10,6 @@ import {
   ThemeProvider,
   Typography,
 } from "@mui/material";
-import Footer from "../components/main/Footer";
 import MainCarousel from "../components/main/MainCarousel";
 import BestPlace from "../components/main/BestPlace";
 import BestPosting from "../components/main/BestPosting";
@@ -31,20 +30,7 @@ function Home() {
   return (
     <div>
       <ThemeProvider theme={theme}>
-        <Box>
-          <Typography
-            align="left"
-            variant="h2"
-            gutterBottom
-            sx={{ mb: 4, ml: 4 }}
-          >
-            <Link href="/" underline="none" color="inherit">
-              <br />
-              Hi, Camping
-            </Link>
-          </Typography>
-        </Box>
-        {<MainCarousel />}
+        <MainCarousel />
         <Grid container spacing={4} sx={{ pt: 10, pr: 7, pb: 15, pl: 7 }}>
           <Grid item xs={6}>
             <Card variant="outlined" sx={{ padding: 2 }}>
@@ -85,7 +71,6 @@ function Home() {
             </Card>
           </Grid>
         </Grid>
-        <Footer />
       </ThemeProvider>
     </div>
   );

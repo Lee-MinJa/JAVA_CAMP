@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   Box,
   Card,
@@ -14,22 +14,9 @@ import {
 function promoList(props) {
   return (
     <div>
-       <ThemeProvider>
-        <Box>
-          <Typography
-            align="left"
-            variant="h2"
-            gutterBottom
-            sx={{ mb: 4, ml: 4 }}
-          >
-            <Link href="/" underline="none" color="inherit">
-              <br />
-              Hi, Camping
-            </Link>
-          </Typography>
-        </Box>
+      <ThemeProvider>
         <Typography>홍보페이지</Typography>
-        </ThemeProvider>
+      </ThemeProvider>
     </div>
   );
 }
