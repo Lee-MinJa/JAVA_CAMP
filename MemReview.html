@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MemReview</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css'/>
+</head>
+<body>
+  <div id="mypage">마이페이지</div><br>
+  <div id="review">캠핑장 리뷰</div><br><hr>
+<!-- *************리뷰시작**************** -->
+  <div class='RatingStar'>
+    <div class='RatingScore'>
+      <div class='outer-star'><div class='inner-star'></div></div>
+    </div>
+  </div>
+
+  <table>
+    <thead>
+      <tr>홍길동 </tr>
+      <tr>2022-01-01</tr><br>
+    </thead>
+    <tbody>
+      <tr>텐트가 크고 깨끗함. 사장님이 친절함. 벌레가 많음.</tr><hr>
+    </tbody>
+  </table>
+<!-- *************리뷰끝***************** -->
+<!-- *************리뷰시작**************** -->
+<div class='RatingStar'>
+  <div class='RatingScore'>
+    <div class='outer-star'><div class='inner-star'></div></div>
+  </div>
+</div>
+
+<table>
+  <thead>
+    <tr>김개똥 </tr>
+    <tr>2022-01-05</tr><br>
+  </thead>
+  <tbody>
+    <tr>바베큐세트 가성비 굿굿</tr><hr>
+  </tbody>
+</table>
+<!-- *************리뷰끝***************** -->
+  <div class="pagination">
+    <ul>
+      <li><a href="#">1</a></li>
+      <li><a href="#">2</a></li>
+      <li><a href="#">3</a></li>
+      <li><a href="#">4</a></li>
+      <li><a href="#">5</a></li>
+    </ul>
+  </div>
+
+  <style>
+  .inner-star::before{color: #FF9600;}
+  .outer-star {position: relative;display: inline-block;color: #CCCCCC;}
+  .inner-star {position: absolute;left: 0;top: 0;width: 0%;overflow: hidden;white-space: nowrap;}
+  .outer-star::before, .inner-star::before {content: '\f005 \f005 \f005 \f005 \f005';font-family: 'Font Awesome 5 free';font-weight: 900;}
+  ul{
+    list-style: none;
+  }
+  li{
+    float: left;
+    padding: 10px;
+  }
+  </style>
+
+</body>
+</html>
