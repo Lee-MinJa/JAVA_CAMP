@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from "react-router-dom";
 import {
   Box,
   Link,
@@ -6,6 +7,7 @@ import {
 } from "@mui/material";
 
 function Header(props) {
+  const navigate = useNavigate();
   return (
     <div>
        <Box>
@@ -15,7 +17,9 @@ function Header(props) {
             gutterBottom
             sx={{ mb: 4, ml: 4 }}
           >
-            <Link href="/" underline="none" color="inherit">
+            <Link underline="none" color="inherit"
+             onClick={() => navigate("/")}
+            >
               <br />
               Hi, Camping
             </Link>

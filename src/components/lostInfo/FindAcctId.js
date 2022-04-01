@@ -51,6 +51,8 @@ const btnChange = (e) => {
       ? setFillForm(true)
       : setFillForm(false)
     );
+    /* 조건2. 입력값에 맞는 id 유무 확인 */
+    
 
  /* 모든 조건이 맞을때 버튼 활성화 하기 */
   ( 
