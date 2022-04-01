@@ -1,7 +1,6 @@
 import React, { Suspense, useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import BoardCommentList from '../../components/board/BoardCommentList'
-import { fviewCount, pjPort, fBoardMain } from '../../components/board/MappingDB'
 import {
   Box,
   Divider,
@@ -11,14 +10,18 @@ import {
   CircularProgress,
 } from '@mui/material'
 import axios from 'axios'
-import { commentCount } from '../../components/board/RecoilAtom'
-import { useRecoilValue } from 'recoil'
+import { commentCount, fBoardDetailState, fBoardDetailContent } from '../../components/board/RecoilAtom'
+import { useRecoilValue, useSetRecoilState } from 'recoil'
 import BoardAuth from '../../components/board/boardComponent/BoardAuth'
+import AlertMessage from '../../components/board/boardComponent/AlertMessage'
+import { viewCountUrl } from '../../components/board/MappingDB'
 
 function BoardDetail() {
   const location = useLocation();
   const navigate = useNavigate();
   const commentCountValue = useRecoilValue(commentCount)
+  const detailData = useSetRecoilState(fBoardDetailState)
+  const updateContent = useSetRecoilState(fBoardDetailContent)
 
   const {
     boardNumber,
@@ -30,11 +33,10 @@ function BoardDetail() {
     boardWriter
   } = location.state
 
-
   const viewState = Number(boardView + 1)
 
   const viewCount = () => {
-    const url = "http://localhost:" + pjPort + "/" + fBoardMain + "/" + fviewCount + "/" + boardNumber
+    const url = viewCountUrl + boardNumber //완료
     const data = {
       countViews : viewState,
       free_num : boardNumber
@@ -45,13 +47,19 @@ function BoardDetail() {
 
   useEffect(() => {
     viewCount()
+    detailData(location.state)
+    updateContent({value : boradContent})
+    console.log()
   })
 
   return (
-        <Box paddingLeft={'80px'}>
+    <Box paddingLeft={'80px'}>
     <Box
       className='boardHeader'
       sx={{height: '7vh',}}>
+    </Box>
+    <Box>
+      <AlertMessage />
     </Box>
     <h2>자유게시판</h2>
     <Divider variant="inset"
@@ -161,7 +169,7 @@ function BoardDetail() {
       alignItems={'center'}
       display={'flex'}
       position={'relative'}>
-      <Button onClick={() => navigate(-1)}>목록으로</Button>
+      <Button onClick={() => navigate('/BoardList')}>목록으로</Button>
     </Box>
     </Stack>
     <Box width={'80vw'}>

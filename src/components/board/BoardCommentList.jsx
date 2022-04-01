@@ -9,10 +9,11 @@ import {
     Typography
 } from '@mui/material'
 import BoardCommentWrite from '../../components/board/BoardCommentWrite'
-import { fCmtList, fBoardCm, pjPort } from '../board/MappingDB'
+import { commentGetUrl } from '../board/MappingDB'
 import axios from 'axios'
 import { useSetRecoilState } from 'recoil'
 import { commentCount } from './RecoilAtom'
+import BoardCommnetDelete from './BoardCommnetDelete'
 
 function BoardCommentList( props ) {
 
@@ -34,7 +35,7 @@ function BoardCommentList( props ) {
   }
 
   const fetchData = () => {
-    const url = 'http://localhost:' + pjPort + '/' + fBoardCm + '/' + fCmtList + '/' + boardNum
+    const url = commentGetUrl + boardNum
     const data = {
     free_num : boardNum
     }
@@ -42,7 +43,7 @@ function BoardCommentList( props ) {
       setBoardCommnet(res.data)
       const str = res.data[0]
       commentCountValue(boardComment.length)
-      if(str === [] || typeof str !== 'undefined'){
+      if(boardComment.length !== 0){
         setValueEmpty('true')
         // console.log(str)
       }else{
@@ -52,9 +53,11 @@ function BoardCommentList( props ) {
   }
 
   useEffect(() => {
+    console.log(valueEmpty)
     fetchData()
   }, [valueEmpty])
-  
+
+  if(valueEmpty === 'true')
     return (
       <Box
           sx={{
@@ -104,12 +107,12 @@ function BoardCommentList( props ) {
                     fontSize={'16px'}
                     variant="body2"
                     color="text.primary"
-                  >
+                  > 
                     {element.free_cmnt_content} <br/>
                   </Typography>
                 </React.Fragment>
               }
-            />
+            /><BoardCommnetDelete auth={element.mem_nick} commentNum={element.free_cmnt_num}/>
           </ListItem>
           <Divider
           sx={{
@@ -123,6 +126,42 @@ function BoardCommentList( props ) {
           ))}
       </Box>
     )
+else return (
+  <Box
+          sx={{
+            width : '80vw',
+            minHeight : '200px',
+            paddingBottom : '50px'
+          }}
+          >
+          <Stack
+          alignItems={'center'}
+          direction={'row'}>
+          <h3>전체댓글</h3>
+          <Box
+          marginLeft={'10px'}
+          >
+          <BoardCommentWrite boardNum={boardNum} modalState={modalState}/>
+          </Box>
+          </Stack>
+          <Box
+          sx={{
+            marginTop : '-6px',
+            width : '70vw',
+          }}
+          >
+            <Divider 
+            sx={{       
+            width : '80vw', 
+            borderColor : '#00B4D8',
+            color : 'black'}}
+            />
+        </Box>
+  <Box padding={'20px'}>
+  등록된 댓글이 없습니다.
+  </Box>
+  </Box>
+)
 }
 
 export default BoardCommentList;

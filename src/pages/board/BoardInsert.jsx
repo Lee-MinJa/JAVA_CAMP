@@ -14,7 +14,7 @@ import axios from 'axios';
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import BoardEditor from '../../components/board/boardComponent/BoardEditor';
-import { fBoardInsert, pjPort, fBoardMain } from '../../components/board/MappingDB'
+import { boardInsertUrl } from '../../components/board/MappingDB'
 import { userInfoState } from '../../components/board/RecoilAtom';
 import { useRecoilValue } from 'recoil';
 
@@ -59,7 +59,7 @@ const BoardInsert = () => {
   }
 
   const handleSubmit = () => {
-    const url = 'http://localhost:'+ pjPort +'/' + fBoardMain + '/'+ fBoardInsert
+    const url = boardInsertUrl //완료
     const data = {
       writer : userInfo[0].mem_num,
       categoryValue : categoryValue,

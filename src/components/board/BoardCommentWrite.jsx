@@ -6,19 +6,15 @@ import {
   Modal,
   TextField
 } from '@mui/material'
-import {pjPort, fBoardCm, fCmtWrite} from './MappingDB'
+import {commentWriteUrl} from './MappingDB'
 import axios from 'axios';
 import { useRecoilValue } from 'recoil'
 import { userInfoState } from './RecoilAtom'
-import { useRecoilState } from 'recoil'
-import { commentCount } from './RecoilAtom'
 
 function BoardCommentWrite(props) {
-
-    const [commentInput, setCommentInput] = useState('')
-    const [dateValue, setDateValue] = useState('')
-    const [commentCountValue, setCommentCountValue] = useRecoilState(commentCount)
-    const userInfo = useRecoilValue(userInfoState)
+  const [commentInput, setCommentInput] = useState('')
+  const [dateValue, setDateValue] = useState('')
+  const userInfo = useRecoilValue(userInfoState)
 
   const boardNum = props.boardNum
   const style = {
@@ -61,7 +57,7 @@ function BoardCommentWrite(props) {
       if(commentInput === '') {
         alert('입력된 값이 없습니다.')
       }else {
-        const url = 'http://localhost:'+ pjPort +'/' + fBoardCm + '/'+ fCmtWrite
+        const url = commentWriteUrl
         const data = {
           free_num : boardNum,
           commentValue : commentInput,
@@ -72,8 +68,9 @@ function BoardCommentWrite(props) {
         handleClose()
         axios.post(url, data).then((res) => {
           // console.log(res)
+          window.location.replace('/BoardDetail/'+ boardNum)
           props.modalState('true')
-        })
+          })
       }
     }
     return (
@@ -90,7 +87,6 @@ function BoardCommentWrite(props) {
             <Typography id="modal-modal-title" variant="h6" component="h2">
               댓글 쓰기
             </Typography>
-            <form onSubmit={handleSubmit}>
               <Box>
             <TextField
               sx={{
@@ -111,10 +107,9 @@ function BoardCommentWrite(props) {
             right={'20px'}
             bottom={'15px'}
             >
-            <Button type='submit' onClick={handleSubmit}>확인</Button>
+            <Button onClick={handleSubmit}>확인</Button>
             <Button onClick={handleClose}>취소</Button>
             </Box>
-            </form>
           </Box>
         </Modal>
       </Box>

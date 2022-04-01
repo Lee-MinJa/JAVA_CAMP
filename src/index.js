@@ -19,9 +19,9 @@ const theme = createTheme({
     secondary: {
       main: '#00B4D8',
     },
-    success: {
-      main: '#023E8A',
-    },
+    // success: {
+    //   main: '#023E8A',
+    // },
     blueFirst: {
       main: '#00B4D8',
     },

@@ -8,6 +8,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import BorderColorSharpIcon from '@mui/icons-material/BorderColorSharp';
 import { Box, Button, Pagination, PaginationItem } from '@mui/material';
 // import { useDispatch, useSelector } from 'react-redux';
 import { pageState } from '../RecoilAtom';
@@ -126,7 +127,11 @@ export default function CustomizedTables(props) {
       }
     }}
     onClick={() => navigate('/BoardInsert')}
-    >글쓰기</Button>
+    ><BorderColorSharpIcon 
+    sx={{
+      marginRight : '3px',
+      fontSize : '16px'}}/>
+    글쓰기</Button>
     {/* </Box> */}
     </Box>
     </>

@@ -1,4 +1,4 @@
-import { atom } from 'recoil';
+import { atom, selector } from 'recoil';
 
 export const btnState = atom({
   key : 'btnState',
@@ -16,6 +16,23 @@ export const fBoardState = atom({
     free_views : 0,
     mem_nick : "",
   }]
+})
+
+export const fBoardDetailState = atom({
+  key : 'fBoardDetailState',
+  default : {
+    boardNumber : 0,
+    boardTitle : "",
+    boardDate : "",
+    boardView : 0,
+    boardCategory : "",
+    boardWriter : "",
+  }
+})
+
+export const fBoardDetailContent = atom({
+  key : "fBoardDetailContent",
+  default : {value : null}
 })
 
 export const pageState = atom({
@@ -58,4 +75,14 @@ export const userInfoState = atom({
     mem_code : 1,
     mem_nick : '걱정이많은자',
   }]
+})
+
+export const alertState = atom({
+  key : 'alertState',
+  default : false
+})
+
+export const alertMessegeState = atom({
+  key : 'alertMessegeState',
+  default : ""
 })

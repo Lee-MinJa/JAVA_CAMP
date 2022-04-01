@@ -7,14 +7,11 @@ import AssignmentIcon from '@mui/icons-material/Assignment';
 import { useRecoilValue } from 'recoil'
 import { userInfoState } from '../RecoilAtom'
 import BoardDelete from '../BoardDelete'
-import BoardUpdate from '../../../pages/board/BoardUpdate'
 import { useNavigate } from 'react-router-dom'
 
-function BoardAuth(props) {
+function CommnetDelete(props) {
   
-  const userInfo = useRecoilValue(userInfoState)
-  const writerAuth = props.auth
-  const boardNum = props.boardNum
+  
   useEffect(() => {
     
   })
@@ -49,4 +46,4 @@ function BoardAuth(props) {
 }
 }
 
-export default BoardAuth;
+export default BoardCommnetDelete;

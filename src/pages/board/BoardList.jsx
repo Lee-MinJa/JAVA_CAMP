@@ -10,18 +10,19 @@ import BoardTable from '../../components/board/table/BoardTable'
 import Search from '../../components/board/table/Search'
 import BtnGroup from '../../components/board/boardComponent/BtnGroup'
 import { fBoardState, btnState, pageState } from '../../components/board/RecoilAtom'
-import { fBoardGet, fBoardMain, pjPort } from '../../components/board/MappingDB'
 import { useRecoilValue, useSetRecoilState, useRecoilState } from 'recoil'
 import axios from 'axios';
+import AlertMessage from '../../components/board/boardComponent/AlertMessage'
+import { boardListUrl } from '../../components/board/MappingDB'
 
 function BoardList() {
   
   const btnValue = useRecoilValue(btnState)
-  const [BoardData, setBoardData] = useRecoilState(fBoardState)
+  const [boardData, setBoardData] = useRecoilState(fBoardState)
   const setPage = useSetRecoilState(pageState);
 
   useEffect(() => {
-    axios.get(`http://localhost:${pjPort}/${fBoardMain}/${fBoardGet}`).then((res) => {
+    axios.get(boardListUrl).then((res) => {
       if(btnValue === 'question'){
         setBoardData(res.data.filter(data => data.free_subject === '질문' ))
         setPage(0)
@@ -54,6 +55,7 @@ function BoardList() {
       sx={{
         height: '7vh',
       }}>
+      <AlertMessage/>
     </Box>
     {/* ------------------- Header End ------------------------*/}
 
@@ -75,7 +77,7 @@ function BoardList() {
         <Search />
         </Stack>
       </Box>
-    <BoardTable data={BoardData}/>
+    <BoardTable data={boardData}/>
     </Box>
 
     {/* ------------------- Body End ------------------------*/}

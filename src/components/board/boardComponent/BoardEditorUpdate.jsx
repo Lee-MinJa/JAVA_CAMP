@@ -1,28 +1,28 @@
-import React, { useState, useRef, useMemo } from "react";
+import React, { useRef, useMemo, useEffect } from "react";
 import { imgInsertUrl } from '../MappingDB'
 import ReactQuill, {Quill} from "react-quill";
 import EditorToolbar, { formats } from "./EditorToolbar";
 import axios from "axios";
+import { fBoardDetailContent } from "../RecoilAtom";
+import { useRecoilState } from "recoil";
 import "react-quill/dist/quill.snow.css";
 import ImageResize from 'quill-image-resize-module-react'
 import "./styles.css";
-Quill.register('modules/imageResize', ImageResize);
+// Quill.register('modules/imageResize', ImageResize);
 
-const BoardEditor = (props) => {
+const BoardEditor = () => {
   const QuillRef = useRef()
-  const [state, setState] = useState({value : null});
+  const [state, setState] = useRecoilState(fBoardDetailContent);
   const handleChange = (value) => {
-    setState({ value });
-    postValue()
+    setState({ value : value });
+    console.log(state.value)
   };
-
-  const postValue = () => {
-    props.editorValue(state)
-    // console.log(state)
-  }
 
   const placeholder = "Hi.Camping 약관 규정상 적절하지 않은 내용을 게시할 경우 통보없이 삭제될 수 있음을 안내드립니다."
 
+  useEffect(() => {
+    console.log('editor : ', state)
+  }) 
   const imgHandler = () => {
     const input = document.createElement("input")
     const formData = new FormData();

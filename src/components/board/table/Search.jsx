@@ -4,7 +4,7 @@ import { Stack, Input, IconButton } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
 import axios from 'axios'
-import { pjPort, fBoardMain, fSearchGet } from '../../board/MappingDB'
+import { searchUrl } from '../../board/MappingDB'
 import { btnState, searchState, pageState } from '../RecoilAtom'
 
 function Search() {
@@ -17,7 +17,7 @@ function Search() {
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log('submit', state)
-    const url = `http://localhost:${pjPort}/${fBoardMain}/${fSearchGet}/`+state
+    const url = searchUrl +state
     const params = {
       state : state,
     }

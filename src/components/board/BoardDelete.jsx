@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { 
         Button,
         Dialog,
@@ -7,24 +7,29 @@ import {
         DialogContentText,
         DialogTitle
         } from '@mui/material'
+import DeleteIcon from '@mui/icons-material/Delete'
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom'
-import {pjPort, fBoardMain, fBoardDelete} from './MappingDB'
+import { boardDeleteUrl } from './MappingDB'
+import { alertState } from './RecoilAtom'
+import { useRecoilState } from 'recoil'
 
 function BoardDelete(props) {
 
   const boardNum = props.boardNum
   const navigate = useNavigate()
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
+  const [state, setState] = useRecoilState(alertState);
 
   const handleClickOpen = () => {
     setOpen(true);
   };
 
   const handleDelete = () => {
-    const url = 'http://localhost:'+pjPort+'/'+fBoardMain+'/'+fBoardDelete+'/'+boardNum
+    const url = boardDeleteUrl +boardNum
     axios.delete(url).then(() => {
       setOpen(false)
+      setState(true)
       navigate('/BoardList')
     });
   }
@@ -32,7 +37,6 @@ function BoardDelete(props) {
   const handleClose = () => {
     setOpen(false);
   };
-
   return (
     <div>
       <Button 
@@ -47,7 +51,7 @@ function BoardDelete(props) {
       }}
       variant="contained"
       onClick={handleClickOpen}>
-        삭제
+        <DeleteIcon sx={{marginRight : '2px'}} /> 삭제
       </Button>
       <Dialog
         fullWidth={true}
@@ -56,7 +60,7 @@ function BoardDelete(props) {
         onClose={handleClose}
       >
         <DialogTitle color='crimson'>
-          {"삭제하기"}
+          {"게시글 삭제"}
         </DialogTitle>
         <DialogContent>
           <DialogContentText>
