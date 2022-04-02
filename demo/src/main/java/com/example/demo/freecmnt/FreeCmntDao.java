@@ -17,11 +17,11 @@ public class FreeCmntDao {
 	@Autowired
 	private SqlSession sqlSession = null;
 	
-	public List<Map<String, Object>> getFreeCmntList(Map<String,Object> pMap) {
+	public List<Map<String, Object>> getFreeCmntList(int free_num) {
 		logger.info("FreeCmntDao getFreeCmntList 호출 성공");
 		List<Map<String,Object>> freeCmntList = null;
 		try {
-			freeCmntList = sqlSession.selectList(NAMESPACE+"getFreeCmntList",pMap);
+			freeCmntList = sqlSession.selectList(NAMESPACE+"getFreeCmntList",free_num);
 			logger.info("freeCmntList : " + freeCmntList);
 		} catch (Exception e) {
 			logger.info("Exception : "+e.toString());
@@ -31,15 +31,18 @@ public class FreeCmntDao {
 	
 	public int insertFreeCmnt(Map<String,Object> pMap) {
 		logger.info("FreeBoardDao insertFreeCmnt 호출 성공");
+		logger.info("FreeBoardDao insertFreeCmnt pMap : "+pMap);
 		int result = 0;
 		result = sqlSession.insert(NAMESPACE+"insertFreeCmnt",pMap);
 		return result;
 	}
 
-	public int deleteFreeCmnt(Map<String, Object> pMap) {
+	public int deleteFreeCmnt(int free_cmnt_num) {
 		logger.info("FreeBoardDao deleteFreeCmnt 호출 성공");
 		int result = 0;
-		result = sqlSession.delete(NAMESPACE+"deleteFreeCmnt",pMap);
+		result = sqlSession.delete(NAMESPACE+"deleteFreeCmnt",free_cmnt_num);
 		return result;
+		
 	}
 }
+

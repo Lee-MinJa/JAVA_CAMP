@@ -15,24 +15,26 @@ public class FreeCmntLogic {
 	@Autowired
 	private FreeCmntDao freeCmntDao = null;
 	
-	public List<Map<String, Object>> getFreeCmntList(Map<String, Object> pMap) {
+	public List<Map<String, Object>> getFreeCmntList(int free_num) {
 		logger.info("FreeCmntLogic getFreeCmntList 호출 성공");
 		List<Map<String,Object>> freeCmntList = null;
-		freeCmntList = freeCmntDao.getFreeCmntList(pMap);
+		freeCmntList = freeCmntDao.getFreeCmntList(free_num);
 		return freeCmntList;
 	}
 	
 	public int insertFreeCmnt(Map<String,Object> pMap) {
 		logger.info("FreeBoardLogic insertFreeCmnt 호출 성공");
+		logger.info("FreeBoardLogic insertFreeCmnt pMap : "+pMap);
 		int result = 0;
 		result = freeCmntDao.insertFreeCmnt(pMap);
 		return result;
 	}
 
-	public int deleteFreeCmnt(Map<String, Object> pMap) {
+	public int deleteFreeCmnt(int free_cmnt_num) {
 		logger.info("FreeBoardLogic deleteFreeCmnt 호출 성공");
 		int result = 0;
-		result = freeCmntDao.deleteFreeCmnt(pMap);
+		result = freeCmntDao.deleteFreeCmnt(free_cmnt_num);
 		return result;
 	}
 }
+
