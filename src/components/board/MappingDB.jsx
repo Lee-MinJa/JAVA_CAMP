@@ -29,7 +29,7 @@ export const fCmtDelete = "freeCmntDelete" //free_cmnt delete
 
 //inSpring
 
-const inSpring = ""
+const inSpring = "?"
 
 //paramiter
 const free_num = inSpring+"free_num"
