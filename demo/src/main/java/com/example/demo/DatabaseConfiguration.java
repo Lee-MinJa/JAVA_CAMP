@@ -20,25 +20,27 @@ import com.zaxxer.hikari.HikariDataSource;
 
 
 @Configuration
-@EnableTransactionManagement //트랜잭션
+@EnableTransactionManagement
 @PropertySource("classpath:/application.properties")
 public class DatabaseConfiguration {
 	private static final Logger logger = LogManager.getLogger(DatabaseConfiguration.class);
+	
 	@Bean
 	@ConfigurationProperties(prefix = "spring.datasource.hikari")
 	public HikariConfig hikariConfig() {
 		return new HikariConfig();
 	}
-
+	
 	@Bean
-	public DataSource dataSource() {
+	public DataSource dataSource() throws Exception{
 		DataSource dataSource = new HikariDataSource(hikariConfig());
 		logger.info("datasource : {}", dataSource);
 		return dataSource;
 	}
+	
 	@Autowired
 	private ApplicationContext applicationContext;
-
+	
 	@Bean
 	public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {
 		SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
@@ -52,3 +54,4 @@ public class DatabaseConfiguration {
 		return new SqlSessionTemplate(sqlSessionFactory);
 	}
 }
+
