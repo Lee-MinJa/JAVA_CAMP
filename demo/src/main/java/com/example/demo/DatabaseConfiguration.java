@@ -54,4 +54,3 @@ public class DatabaseConfiguration {
 		return new SqlSessionTemplate(sqlSessionFactory);
 	}
 }
-
