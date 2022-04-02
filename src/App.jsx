@@ -10,6 +10,7 @@ import BoardListSearch from "./pages/board/BoardListSearch"
 import BoardInsert from "./pages/board/BoardInsert"
 import BoardDetail from './pages/board/BoardDetail'
 import BoardUpdate from './pages/board/BoardUpdate'
+import BoardUpdateDetail from './pages/board/BoardUpdateDetail';
 import Certification from './pages/join/Certification'
 import JoinConditionsPerson from './pages/join/JoinConditions_person'
 import PersonalInfo from './pages/join/Personal_info'
@@ -38,6 +39,7 @@ function App() {
       <Route path='/BoardInsert' element={<BoardInsert />} />
       <Route path='/BoardDetail/:id' element={<BoardDetail />} />
       <Route path='/BoardUpdate/:boardNum' element={<BoardUpdate />} />
+      <Route path='/BoardUpdateDetail/:boardNum' element={<BoardUpdateDetail />} />
 
       {/* 개인 회원가입 */}
       <Route path='/Certification' element={<Certification />} />

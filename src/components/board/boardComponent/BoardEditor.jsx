@@ -5,21 +5,23 @@ import EditorToolbar, { formats } from "./EditorToolbar";
 import axios from "axios";
 import "react-quill/dist/quill.snow.css";
 import ImageResize from 'quill-image-resize-module-react'
+import { fBoardInsertContent } from "../RecoilAtom";
+import { useRecoilState } from "recoil";
 import "./styles.css";
 Quill.register('modules/imageResize', ImageResize);
 
 const BoardEditor = (props) => {
   const QuillRef = useRef()
-  const [state, setState] = useState({value : null});
+  const [state, setState] = useRecoilState(fBoardInsertContent);
   const handleChange = (value) => {
-    setState({ value });
-    postValue()
+    setState({ value : value });
+    console.log(state.value)
   };
 
-  const postValue = () => {
-    props.editorValue(state)
-    // console.log(state)
-  }
+  // const postValue = () => {
+  //   props.editorValue(state)
+  //   // console.log(state)
+  // }
 
   const placeholder = "Hi.Camping 약관 규정상 적절하지 않은 내용을 게시할 경우 통보없이 삭제될 수 있음을 안내드립니다."
 
@@ -41,7 +43,7 @@ const BoardEditor = (props) => {
 
         try {
           const res = await axios.post(imgInsertUrl, formData)
-          console.log('success : ' ,res.data.url)
+          console.log('백엔드로부터 받은값 : ' ,res.data.url)
           url = res.data.url;
 
         const editor = QuillRef.current.getEditor();

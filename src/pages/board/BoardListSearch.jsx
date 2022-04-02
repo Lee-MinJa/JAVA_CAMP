@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import axios from 'axios'
 import { 
           Container, 
           Box,
@@ -9,16 +10,12 @@ import BoardTable from '../../components/board/table/BoardTable'
 import Search from '../../components/board/table/Search'
 // import BtnGroup from '../../components/board/boardComponent/BtnGroup'
 import { searchState } from '../../components/board/RecoilAtom'
-import { useRecoilValue } from 'recoil'
+import { useRecoilState } from 'recoil'
 
 
-function BoardList() {
+function BoardListSearch() {
   
-  const data = useRecoilValue(searchState)
-
-  useEffect(() => {
-    
-  })
+  const [data, setData] = useRecoilState(searchState)
 
   // const navigate = useNavigate();
   // onClick={navigate('/Home')}
@@ -62,4 +59,4 @@ function BoardList() {
   )
 }
 
-export default BoardList;
+export default BoardListSearch;

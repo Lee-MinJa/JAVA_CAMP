@@ -16,7 +16,7 @@ import BoardAuth from '../../components/board/boardComponent/BoardAuth'
 import AlertMessage from '../../components/board/boardComponent/AlertMessage'
 import { viewCountUrl } from '../../components/board/MappingDB'
 
-function BoardDetail() {
+function BoardUpdateDetail() {
   const location = useLocation();
   const navigate = useNavigate();
   const commentCountValue = useRecoilValue(commentCount)
@@ -168,7 +168,7 @@ function BoardDetail() {
       alignItems={'center'}
       display={'flex'}
       position={'relative'}>
-      <Button onClick={() => navigate(-1)}>목록으로</Button>
+      <Button onClick={() => navigate('/BoardList')}>목록으로</Button>
     </Box>
     </Stack>
     <Box width={'80vw'}>
@@ -179,4 +179,4 @@ function BoardDetail() {
   )
 };
 
-export default BoardDetail;
+export default BoardUpdateDetail;

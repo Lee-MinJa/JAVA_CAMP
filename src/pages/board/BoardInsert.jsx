@@ -15,8 +15,8 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import BoardEditor from '../../components/board/boardComponent/BoardEditor';
 import { boardInsertUrl } from '../../components/board/MappingDB'
-import { userInfoState } from '../../components/board/RecoilAtom';
-import { useRecoilValue } from 'recoil';
+import { userInfoState, fBoardInsertContent } from '../../components/board/RecoilAtom';
+import { useRecoilValue, useResetRecoilState } from 'recoil';
 
 const BoardInsert = () => {
 
@@ -24,7 +24,8 @@ const BoardInsert = () => {
 
   const [categoryValue, setCategoryValue] = useState('');
   const [titleValue, setTitleValue] = useState('')
-  const [contentValue, setContentValue] = useState({})
+  const contentValue = useRecoilValue(fBoardInsertContent)
+  const contentReset = useResetRecoilState(fBoardInsertContent)
   const [dateValue, setDateValue] = useState('')
   const userInfo = useRecoilValue(userInfoState)
   const [error, setError] = useState(false);
@@ -53,10 +54,10 @@ const BoardInsert = () => {
     // console.log('value = ', JSON.stringify(contentValue))
   }
 
-  const editorValue = (state) => {
-    setContentValue(state.value + '')
-    // console.log('content', contentValue)
-  }
+  // const editorValue = (state) => {
+  //   setContentValue(state.value + '')
+  //   // console.log('content', contentValue)
+  // }
 
   const handleSubmit = () => {
     const url = boardInsertUrl //완료
@@ -64,7 +65,7 @@ const BoardInsert = () => {
       writer : userInfo[0].mem_num,
       categoryValue : categoryValue,
       titleValue : titleValue,
-      contentValue : contentValue,
+      contentValue : contentValue.value,
       dateValue : dateValue
     }
 
@@ -79,6 +80,7 @@ const BoardInsert = () => {
             && JSON.stringify(contentValue) !== '{}') {
         axios.post(url, data).then(() => {
           navigate('/BoardList')
+          contentReset()
         })
       }
   };
@@ -126,6 +128,7 @@ return (
         <TextField
           onChange={handleTitleChange}
           value={titleValue}
+          autoComplete='off'
           sx={{
             width : '400px',
             color : 'none'
@@ -136,7 +139,7 @@ return (
         />
         </Box>
         <Box>
-        <BoardEditor editorValue={editorValue}/>
+        <BoardEditor />
         </Box>
         <Box
         display={'flex'}>

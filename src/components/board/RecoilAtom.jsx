@@ -10,12 +10,17 @@ export const fBoardState = atom({
   default : [{
     free_num : 0,
     free_subject : "",
-    free_content : "",
+    // free_content : "",
     free_regdate : "",
     free_title : "",
     free_views : 0,
     mem_nick : "",
   }]
+})
+
+export const fBoardInsertContent = atom({
+  key : "fBoardInsertContent",
+  default : {value : null}
 })
 
 export const fBoardDetailState = atom({

@@ -15,8 +15,8 @@ import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 import BoardEditorUpdate from '../../components/board/boardComponent/BoardEditorUpdate';
 import { boardUpdateUrl } from '../../components/board/MappingDB'
-import { fBoardDetailState, fBoardDetailContent } from '../../components/board/RecoilAtom';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { fBoardDetailState, fBoardDetailContent, alertState, alertMessegeState } from '../../components/board/RecoilAtom';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 
 function BoardUpdate() {
 
@@ -27,11 +27,14 @@ function BoardUpdate() {
   const [error, setError] = useState(false);
   const [exData, setExData] = useRecoilState(fBoardDetailState)
   const contents = useRecoilValue(fBoardDetailContent)
+  const setAlter = useSetRecoilState(alertState)
+  const setMessage = useSetRecoilState(alertMessegeState)
 
   const handleChange = (e) => {
     setExData({...exData,
       [e.target.name] : e.target.value
     })
+    setMessage('')
   }
 
   const dateSet = () => {
@@ -66,7 +69,7 @@ function BoardUpdate() {
             && exData.boardTitle !== '' 
             && JSON.stringify(contents) !== '{}') {
         axios.put(url, data).then(() => {
-          navigate('/BoardDetail/'+boardNum ,{state:{
+          navigate('/BoardUpdateDetail/'+boardNum ,{state:{
             boardNumber : boardNum,
             boardTitle : exData.boardTitle,
             boradContent : contents.value,
@@ -75,7 +78,8 @@ function BoardUpdate() {
             boardCategory : exData.boardCategory,
             boardWriter : exData.boardWriter
           }})
-          
+          setMessage('수정이 완료되었습니다.')
+          setAlter(true)
         })
       }
   };

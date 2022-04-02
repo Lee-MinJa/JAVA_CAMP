@@ -11,23 +11,26 @@ import DeleteIcon from '@mui/icons-material/Delete'
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom'
 import { boardDeleteUrl } from './MappingDB'
-import { alertState } from './RecoilAtom'
-import { useRecoilState } from 'recoil'
+import { alertState, alertMessegeState } from './RecoilAtom'
+import { useSetRecoilState } from 'recoil'
 
 function BoardDelete(props) {
 
   const boardNum = props.boardNum
   const navigate = useNavigate()
   const [open, setOpen] = useState(false);
-  const [state, setState] = useRecoilState(alertState);
+  const setState = useSetRecoilState(alertState);
+  const setMessage = useSetRecoilState(alertMessegeState)
 
   const handleClickOpen = () => {
+    setMessage('')
     setOpen(true);
   };
 
   const handleDelete = () => {
     const url = boardDeleteUrl +boardNum
     axios.delete(url).then(() => {
+      setMessage('삭제가 완료되었습니다.')
       setOpen(false)
       setState(true)
       navigate('/BoardList')

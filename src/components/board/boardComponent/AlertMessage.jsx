@@ -21,9 +21,9 @@ export default function AlertMessage() {
 
   return (
     <Stack spacing={2} sx={{ width: '100%' }}>
-      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+      <Snackbar open={open} autoHideDuration={5000} onClose={handleClose}>
         <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
-          삭제가 완료되었습니다.
+          {message}
         </Alert>
       </Snackbar>
       {/* <Alert severity="error">-</Alert>

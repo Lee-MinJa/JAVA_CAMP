@@ -2,21 +2,27 @@
 export const pjPort = "9000" //포트번호
 
 //게시판
-export const fBoardMain = "freeboard" //free_board 테이블분류
-export const fBoardGet = "jsonFreeBoarList" //free_board select *
+const freeBoard = "freeboard"
+
+//댓글
+export const freecmnt = "freecmnt" //free_cmnt 테이블분류
+
+// export const fBoardMain = "freeboard" //free_board 테이블분류
+// export const fBoardGet = "jsonFreeBoarList" //free_board select *
 
 export const memberGet = "memberGet" //회원정보(글상세-닉네임)
 
-export const fSearchGet = "searchGet" //검색
+export const fSearchGet = "search" //검색
+export const freeImg = "image" //이미지 업로드
 
-export const freeImg = "freeImg" //이미지 업로드
-export const fBoardInsert = "fBoardInsert" //insert
-export const fviewCount = "fviewCount" //조회수 업데이트
-export const fBoardEdit = "fBoardEdit" //게시글 수정
-export const fBoardDelete = "fBoardDelete" //게시글 삭제
+//order
+export const dbWrite = "write" //insert
+export const dbViews = "views" //조회수 업데이트
+export const dbUpdate = "update" //게시글 수정
+export const dbDelete = "delete" //게시글 삭제
 
 //댓글
-export const fBoardCm = "freecmnt" //free_cmnt 테이블분류
+
 export const fCmtList = "jsonFreeCmntList" //free_cmnt select *
 export const fCmtWrite = "freeCmntWrite" //free_cmnt insert
 export const fCmtDelete = "freeCmntDelete" //free_cmnt delete
@@ -34,48 +40,48 @@ const free_cmnt_num = inSpring+"free_cmnt_num"
 
 //BoardList get
 export const boardListUrl = 
-`http://localhost:${pjPort}/${fBoardMain}/${fBoardGet}`
+`http://localhost:${pjPort}/`+ freeBoard
 
 
 //BoardList Search
 export const searchUrl =
-`http://localhost:${pjPort}/${fBoardMain}/${fSearchGet}/`
+`http://localhost:${pjPort}/${freeBoard}/${fSearchGet}/`
 
 //viewCount update
 export const viewCountUrl = 
-"http://localhost:" + pjPort + "/" + fBoardMain + "/" + fviewCount + "/" + free_num +"/"// + boardNum
+"http://localhost:" + pjPort + "/" + freeBoard + "/" + dbViews + "/" + free_num +"/"// + boardNum
 
 //BoardInsert - Image upload
 export const imgInsertUrl =
-`http://localhost:${pjPort}/${fBoardMain}/${freeImg}`
+`http://localhost:${pjPort}/${freeBoard}/${freeImg}`
 
 //BoardInsert
 export const boardInsertUrl =
-'http://localhost:'+ pjPort +'/' + fBoardMain + '/'+ fBoardInsert
+'http://localhost:'+ pjPort +'/' + freeBoard + '/'+ dbWrite
 
 
 //BoardUpdate
 export const boardUpdateUrl =
-'http://localhost:'+ pjPort +'/' + fBoardMain + '/'+ fBoardEdit + '/' + free_num + '/' //+ boardNum
+'http://localhost:'+ pjPort +'/' + freeBoard + '/'+ dbUpdate + '/' + free_num + '/' //+ boardNum
 
 
 //BoardDelete
 export const boardDeleteUrl =
-'http://localhost:'+pjPort+'/'+fBoardMain+'/'+fBoardDelete+'/'+ free_num +'/'
+'http://localhost:'+pjPort+'/'+freeBoard+'/'+ dbDelete +'/'+ free_num +'/'
 
 
 //commentList get
 export const commentGetUrl =
-'http://localhost:' + pjPort + '/' + fBoardCm + '/' + fCmtList + '/' + free_num +'/'
+'http://localhost:' + pjPort + '/' + freecmnt + '/' + free_num +'/'
 
 
 //commentWrite
 export const commentWriteUrl =
-'http://localhost:'+ pjPort +'/' + fBoardCm + '/'+ fCmtWrite
+'http://localhost:'+ pjPort +'/' + freecmnt + '/'+ dbWrite
 
 //commentDelete
 export const commentDeleteUrl =
-'http://localhost:'+ pjPort +'/' + fBoardCm + '/'+ fCmtDelete + '/' + free_cmnt_num +'/'
+'http://localhost:'+ pjPort +'/' + freecmnt + '/'+ dbDelete + '/' + free_cmnt_num +'/'
 
 
 
