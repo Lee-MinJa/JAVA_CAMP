@@ -179,7 +179,7 @@ function NavBar(props) {
         <List>
           <ListItem>
             <ListItemButton component="a" 
-            onClick={() => navigate("/mypage")}
+            onClick={() => navigate("/signin")}
             >
               <ListItemText align="center" primary="마이페이지" />
             </ListItemButton>

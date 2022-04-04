@@ -21,10 +21,11 @@ import JoinCompl from "./pages/join_business/JoinCompl";
 import SignIn from "./pages/signin/SignIn";
 import FindAcct from "./pages/lostInfo/FindAcct";
 import NavBar from "./components/nav/NavBar";
-import PromoList from "./pages/promo/PromoList";
+import PromoList from "./pages/promo/PromoBoard";
 import MyPage from "./pages/mypage/MyPage";
 import Header from "./components/main/Header";
 import Footer from "./components/main/Footer";
+import PromoBoard from "./pages/promo/PromoBoard";
 
 function App() {
   // const [boards,setBoards] = useState('');
@@ -55,6 +56,7 @@ function App() {
         <Route path="/mypage" element={<MyPage />} />
 
         {/* 홍보 게시판 */}
+        <Route path="/promoboard" element={<PromoBoard />} />
         <Route path="/promolist" element={<PromoList />} />
 
         {/*----- 로한 End-----------------------------*/}
