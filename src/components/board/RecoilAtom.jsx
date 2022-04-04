@@ -116,3 +116,17 @@ export const emailState = atom({
   key : 'emailState',
   default : ''
 })
+
+export const regUserState = atom({
+  key : 'regUserState',
+  default : {
+    userCode : 1,
+    userId : '',
+    userPw : '',
+    passwordConfirm: '',
+    birth : '',
+    userName : '',
+    phoneNumber : '',
+    nickName : '',
+  }
+})

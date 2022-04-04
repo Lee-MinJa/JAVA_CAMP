@@ -4,28 +4,36 @@ import {
         TextField,
         } from '@mui/material'
 import { useRecoilState } from 'recoil'
-import { domainSelectState, domainDirectState } from '../board/RecoilAtom'
+import { domainSelectState } from '../board/RecoilAtom'
 
 function DomainSelect() {
 
   const [value, setValue] = useRecoilState(domainSelectState)
-  const [inputValue, setInputValue] = useRecoilState(domainDirectState);
-  const options = ['daum.net', 'naver.com', 'kakao.net', 'gmail.com']
+  // const [inputValue, setInputValue] = useRecoilState(domainDirectState);
+  const options = [
+  'daum.net', 
+  'dreamwiz.com',
+  'hanmail.net',
+  'naver.com', 
+  'nate.com', 
+  'kakao.net', 
+  'gmail.com']
 
 
   return (
     <div>
       <Autocomplete
         freeSolo
+        disableClearable
         value={value}
         onChange={(event, newValue) => {
           setValue('')
           setValue(newValue);
         }}
-        inputValue={inputValue}
+        inputValue={value}
         onInputChange={(event, newInputValue) => {
-          setInputValue('');
-          setInputValue(newInputValue);
+          setValue('');
+          setValue(newInputValue);
         }}
         id="controllable-states-demo"
         options={options}

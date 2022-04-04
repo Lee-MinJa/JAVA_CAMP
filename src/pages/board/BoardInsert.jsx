@@ -15,8 +15,8 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import BoardEditor from '../../components/board/boardComponent/BoardEditor';
 import { boardInsertUrl } from '../../components/board/MappingDB'
-import { userInfoState, fBoardInsertContent } from '../../components/board/RecoilAtom';
-import { useRecoilValue, useResetRecoilState } from 'recoil';
+import { userInfoState, fBoardInsertContent, pageState } from '../../components/board/RecoilAtom';
+import { useRecoilValue, useResetRecoilState, useSetRecoilState } from 'recoil';
 
 const BoardInsert = () => {
 
@@ -30,6 +30,7 @@ const BoardInsert = () => {
   const userInfo = useRecoilValue(userInfoState)
   const [error, setError] = useState(false);
   const [helperText, setHelperText] = useState('');
+  const setPage = useSetRecoilState(pageState);
 
   const handleRadioChange = (event) => {
     setCategoryValue(event.target.value)
@@ -81,6 +82,7 @@ const BoardInsert = () => {
         axios.post(url, data).then(() => {
           navigate('/BoardList')
           contentReset()
+          setPage(0)
         })
       }
   };

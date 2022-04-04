@@ -12,7 +12,7 @@ import {
 import CertificationConfirm from '../../components/join/CertificationConfirm';
 import { emailOverlap } from '../../components/board/MappingDB'
 import { domainSelectState, emailInputState, emailState, domainDirectState } from '../../components/board/RecoilAtom'
-import { useRecoilState } from 'recoil'
+import { useRecoilState, useRecoilValue } from 'recoil'
 import axios from 'axios';
 import DomainSelect from '../../components/join/DomainSelect';
 
@@ -36,10 +36,8 @@ function Certification() {
   const overlapCheck = async() => {
     const res = await axios.get(emailOverlap + state)
       if(typeof res.data[0] === 'undefined'){
-        if(selectState === null || selectState === '' || directState === '' || directState === null){
-          setCheckResult('이메일 형식이 아니거나 잘못된 도메인 입니다.')}
-      else{
-      setCheckResult('입력하신 이메일로 가입이 가능합니다.')}}
+        setCheckResult('입력하신 이메일로 가입이 가능합니다.')
+      }
       else {
       setCheckResult('입력하신 이메일로 가입된 아이디가 있습니다.')}
       // console.log('결과값 : ', res.data[0])
@@ -47,14 +45,18 @@ function Certification() {
   }
 
   const handleClick = () => {
-    setState(inputState + '@' + selectState + directState)
+    if(inputState !== '' && selectState !== ''){
+    setState(inputState + '@' + selectState + directState)}
+  else {
+    setCheckResult('유효하지 않은 이메일입니다.')
   }
+}
 
   useEffect(() => {
     console.log(state)
-    if(state !== ''){
-    overlapCheck()}
-  }, [state || selectState])
+    if(state !== '' && selectState !== '' && inputState !== '')
+    overlapCheck()
+  }, [state])
 
   return (
     <Stack
@@ -112,7 +114,7 @@ function Certification() {
       <h3>{checkResult}</h3>
     </Box>
     <Box>
-      <CertificationConfirm />
+      <CertificationConfirm result={checkResult}/>
     </Box>
     </Stack>
   )
