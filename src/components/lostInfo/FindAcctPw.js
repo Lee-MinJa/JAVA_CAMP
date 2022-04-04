@@ -18,6 +18,48 @@ const style = {
 };
 
 export default function FindAcctPw() {
+  /* ====== 버튼 활성화 종합 조건 ============================================= */
+const [fillForm, setFillForm] = useState(false);
+const id = useRef("");
+const email = useRef("");
+const birthdate = useRef("");
+const fullName = useRef("");
+const mobile = useRef("");
+const [btnOff, setBtnOff] = useState(true);
+
+const btnChange = (e) => {
+  e.preventDefault(); 
+    const idFin = id.current.value;
+    const emailFin = email.current.value;
+    const birthdateFin = birthdate.current.value;
+    const fullNameFin = fullName.current.value;
+    const mobileFin = mobile.current.value;
+
+    /* 조건1. Form 채웠는지 여부 확인 */
+    ( 
+      idFin.length > 0 
+      && emailFin.length > 0 
+      && birthdateFin.length > 0 
+      && fullNameFin.length > 0 
+      && mobileFin.length > 0 
+      ? setFillForm(true)
+      : setFillForm(false)
+    );
+    /* 조건2: 입력값에 대한 계정 확인 */
+
+ /* 모든 조건이 맞을때 버튼 활성화 하기 */
+  ( 
+    fillForm
+    ? setBtnOff(false) // btn on 
+    // console.log("setFillForm이 true입니다.")
+    : setBtnOff(true) // btn off
+    // console.log("setFillForm이 False") 
+ );
+ return btnOff;
+}
+/* ====== 버튼 활성화 종합 조건 End ============================================= */
+
+/* ===={ Modal 이벤트}======================================================== */
   /* ////// 찾기 Modal창 여닫기 ////// */
   const [openForm, setOpenForm] = React.useState(false);
   const handleOpenForm = () => setOpenForm(true);
@@ -39,25 +81,52 @@ export default function FindAcctPw() {
     });
   };
 
-  /* ////// 변경한 비밀번호 일치여부 확인 ////// */
+  /* (모달)변경한 비밀번호 일치여부 helperText 이벤트 ////// */
+  const [pwMsg, setPwMsg] = useState('');
   const updatedPw = useRef("");
   const updatedPwCk = useRef("");
-  const onSubmit = (event) => {
-    event.preventDefault();
+  const pwMatch = (e) => {
+    e.preventDefault(); 
     const updatedPwFin = updatedPw.current.value;
     const updatedPwCkFin = updatedPwCk.current.value;
-    if (updatedPwFin !== updatedPwCkFin) {
-      return alert("비밀번호가 일치하지 않습니다.");
-    } else {
-      return (
-        window.confirm("비밀번호가 변경되었습니다."),
-        setOpenForm(false),
-        (window.location.href = "/signin")
-      );
-    }
-  };
+    (
+      (updatedPwCkFin.length > 0) && (updatedPwFin!==updatedPwCkFin)
+      ? setPwMsg("비밀번호가 일치하지 않습니다.")
+      : setPwMsg("")
+    )
+  return pwMsg;
+ };
 
-  return (
+ /* (모달)입력창 채워야 버튼 활성화 이벤트 */
+ const [mBtnOff, setMBtnOff] = useState(true);
+const mBtnAble = (e) => {
+  e.preventDefault(); 
+  const updatedPwFin = updatedPw.current.value;
+  const updatedPwCkFin = updatedPwCk.current.value;
+  (
+    updatedPwFin!==updatedPwCkFin
+    ? setMBtnOff(true)
+    : setMBtnOff(false)
+  )
+return mBtnOff;
+}
+/* onChange에 대한 비밀번호 일치 및 변경 버튼 이벤트  */
+const mBtnChange = e => {
+  pwMatch(e) // return pwMsg
+  mBtnAble(e) // return btn
+}
+
+/* 제출 버튼 이벤트 */
+  const onSubmit = (e) => {
+    e.preventDefault();
+    const updatedPwFin = updatedPw.current.value;
+    const updatedPwCkFin = updatedPwCk.current.value;
+    return window.confirm("비밀번호가 변경되었습니다.")
+          ,setOpenForm(false)
+          ,(window.location.href = "/signin");
+        };
+/* ===={ Modal 이벤트 END }======================================================== */
+  return ( 
     <div>
       <Box onClick={handleOpenForm}>
         <Typography align="center" variant="h5">
@@ -78,52 +147,62 @@ export default function FindAcctPw() {
                 autoFocus
                 required
                 fullWidth
-                id="id"
                 label="아이디"
+                id="id"
                 name="id"
+                inputRef={id}
+                onChange={btnChange}
               />
             </Grid>
             <Grid item xs={12}>
               <TextField
                 required
                 fullWidth
-                id="email"
                 label="이메일"
+                id="email"
                 name="email"
+                inputRef={email}
+                onChange={btnChange}
               />
             </Grid>
             <Grid item xs={12}>
               <TextField
                 required
                 fullWidth
-                id="birthdate"
                 label="생년월일"
+                id="birthdate"
                 name="birthdate"
+                inputRef={birthdate}
+                onChange={btnChange}
               />
             </Grid>
             <Grid item xs={12}>
               <TextField
-                name="fullName"
                 required
                 fullWidth
-                id="fullName"
                 label="성명"
+                id="fullName"
+                name="fullName"
+                inputRef={fullName}
+                onChange={btnChange}
               />
             </Grid>
             <Grid item xs={12}>
               <TextField
-                name="mobile"
                 required
                 fullWidth
-                id="mobile"
                 label="연락처"
+                id="mobile"
+                name="mobile"
+                inputRef={mobile}
+                onChange={btnChange}
               />
             </Grid>
           </Grid>
           <Grid container>
             <Grid item xs>
               <Button
-                type="submit"
+                disabled={btnOff}
                 variant="contained"
                 onClick={handleOpenResult}
                 sx={{
@@ -136,7 +215,7 @@ export default function FindAcctPw() {
               >
                 비밀번호 찾기
               </Button>
-              {/* /// 결과있음: 비밀번호 수정 Modal  ////////////////////////*/}
+{/* ////// 결과있음: 비밀번호 수정 Modal  ////////////////////////*/}
               <Modal open={openResult} onClose={handleCloseForm}>
                 <Box sx={style}>
                   <Box
@@ -159,6 +238,7 @@ export default function FindAcctPw() {
                           id="updatedPw"
                           inputRef={updatedPw}
                           label="새 비밀번호"
+                          helperText={"영문대소문자, 숫자, 특수문자 조합으로 10~17자, 공백불가"}
                         />
                       </Grid>
                       <Grid item xs={12}>
@@ -169,11 +249,13 @@ export default function FindAcctPw() {
                           id="updatedPwCk"
                           inputRef={updatedPwCk}
                           label="비밀번호 확인"
+                          onChange={mBtnChange}
+                          helperText={pwMsg}
                         />
                       </Grid>
                     </Grid>
-                    {/* R: 비번과 비번확인 일치하는지 확인메시지 필요 */}
                     <Button
+                      disabled={mBtnOff}
                       onClick={onSubmit}
                       href="/signin"
                       variant="contained"

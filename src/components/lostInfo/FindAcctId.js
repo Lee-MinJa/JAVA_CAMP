@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useRef, useState } from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
@@ -24,8 +24,48 @@ export default function FindAcctId() {
 
   const [openResult, setOpenResult] = React.useState(false);
   const handleOpenResult = () => setOpenResult(true);
-  const handleCloseResult = () => setOpenResult(false);
 
+  /* 입력창 채워야 버튼 활성화 이벤트 */
+  const email = useRef("");
+  const birthdate = useRef("");
+  const fullName = useRef("");
+  const mobile = useRef("");
+  const [btnOff, setBtnOff] = useState(true);
+
+/* ====== 버튼 활성화 종합 조건(1func) ============================================= */
+const [fillForm, setFillForm] = useState(false);
+const btnChange = (e) => {
+  e.preventDefault(); 
+    const emailFin = email.current.value;
+    const birthdateFin = birthdate.current.value;
+    const fullNameFin = fullName.current.value;
+    const mobileFin = mobile.current.value;
+
+    /* 조건1. Form 채웠는지 여부 확인 */
+    ( 
+      emailFin.length > 0 
+      && birthdateFin.length > 0 
+      && fullNameFin.length > 0 
+      && mobileFin.length > 0 
+      ? setFillForm(true)
+      : setFillForm(false)
+    );
+    /* 조건2. 입력값에 맞는 id 유무 확인 */
+    
+
+ /* 모든 조건이 맞을때 버튼 활성화 하기 */
+  ( 
+    fillForm
+    ? setBtnOff(false) // btn on 
+    // console.log("setFillForm이 true입니다.")
+    : setBtnOff(true) // btn off
+    // console.log("setFillForm이 False") 
+ );
+ return btnOff;
+}
+/* ====== 버튼 활성화 종합 조건(1func) End ============================================= */
+
+ /* 제출 이벤트 */
   const handleSubmit = (event) => {
     const findInfo = new FormData(event.currentTarget);
     console.log({
@@ -58,42 +98,51 @@ export default function FindAcctId() {
                 autoFocus
                 required
                 fullWidth
-                id="email"
                 label="이메일"
+                id="email"
                 name="email"
+                inputRef={email}
+                onChange={btnChange}
               />
             </Grid>
             <Grid item xs={12}>
               <TextField
                 required
                 fullWidth
-                id="birthdate"
                 label="생년월일"
+                id="birthdate"
                 name="birthdate"
+                inputRef={birthdate}
+                onChange={btnChange}
               />
             </Grid>
             <Grid item xs={12}>
               <TextField
-                name="fullName"
                 required
                 fullWidth
-                id="fullName"
                 label="성명"
+                id="fullName"
+                name="fullName"
+                inputRef={fullName}
+                onChange={btnChange}
               />
             </Grid>
             <Grid item xs={12}>
               <TextField
-                name="mobile"
                 required
                 fullWidth
-                id="mobile"
                 label="연락처"
+                id="mobile"
+                name="mobile"
+                inputRef={mobile}
+                onChange={btnChange}
               />
             </Grid>
           </Grid>
           <Grid container>
             <Grid item xs>
               <Button
+                disabled={btnOff}
                 onClick={handleOpenResult}
                 type="submit"
                 variant="contained"
@@ -126,6 +175,7 @@ export default function FindAcctId() {
                       variant="contained"
                       sx={{
                         bgcolor: "palette.lo",
+                        mt:3,
                         "&:hover": { bgcolor: "palette.no" },
                       }}
                     >
@@ -160,7 +210,6 @@ export default function FindAcctId() {
                   mt: 3,
                   mb: 2,
                   bgcolor: "palette.lo",
-                  "&:hover": { bgcolor: "palette.no" },
                 }}
               >
                 취소
