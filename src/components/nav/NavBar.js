@@ -148,7 +148,7 @@ function NavBar(props) {
       onClick={toggleDrawer(anchor, false)}
     >
       {/* <LogFormRender isLoggedIn={isLoggedIn}/> */}
-      {/* <Box> 
+<Box> 
         {signinNick === "" ? (
           <Typography align="center" sx={{ mt: 2, mb: 2 }}>
             로그인을 해주세요.
@@ -158,7 +158,7 @@ function NavBar(props) {
             {signinNick}님 환영합니다
           </Typography>
         )}
-      </Box> */}
+      </Box> 
 
       <Divider />
       <Grid container spaxing={2} align="center" sx={{ padding: 2 }}>

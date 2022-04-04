@@ -42,16 +42,16 @@ function Biz_info() {
     const [valId, setValId] = useState('');
     const [valPw, setValPw] = useState('');
 
-    const onChange = (e) => {
-      const valValue = e.target.value;
-      //console.log(e.target.name)
-      if(e.target.name = "signupId") {
-        let check = /[~!@#$%^&*()_+|<>?:{}.,/;='"ㄱ-ㅎ | ㅏ-ㅣ |가-힣]/;
-        return check.test(value);
-       } if(e.target.name = "signupPw"){
-        return console.log(`비번: ${valValue}`);
-      }
-    }
+    // const onChange = (e) => {
+    //   const valValue = e.target.value;
+    //   //console.log(e.target.name)
+    //   if(e.target.name = "signupId") {
+    //     let check = /[~!@#$%^&*()_+|<>?:{}.,/;='"ㄱ-ㅎ | ㅏ-ㅣ |가-힣]/;
+    //     return check.test(value);
+    //    } if(e.target.name = "signupPw"){
+    //     return console.log(`비번: ${valValue}`);
+    //   }
+    // }
     const validation = () => {
       let check = /[~!@#$%^&*()_+|<>?:{}.,/;='"ㄱ-ㅎ | ㅏ-ㅣ |가-힣]/;
       return check.test(value);
@@ -97,6 +97,7 @@ function Biz_info() {
     };
     return console.log(signupInfo);  
   };
+
   /* 중복확인 모달 이벤트 */
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
@@ -115,6 +116,49 @@ function Biz_info() {
     )
   return pwMsg;
  };
+
+   /* 입력창 채워야 버튼 활성화 이벤트 */
+   const [btnOff, setBtnOff] = useState(true);
+ 
+ /* ====== 3. 버튼 활성화 종합 조건(1func) ============================================= */
+ const [fillForm, setFillForm] = useState(false);
+ const btnChange = (e) => {
+   e.preventDefault(); 
+     const signupIdFin = signupId.current.value;
+     const signupPwFin = signupPw.current.value;
+     const signupBiznumFin = signupBiznum.current.value;
+     const signupBiznameFin = signupBizname.current.value;
+     const signupBizownerFin = signupBizowner.current.value;
+     const signupMobileFin = signupMobile.current.value;
+     const signupEmailFin = signupEmail.current.value;
+ 
+     /* 조건1. Form 채웠는지 여부 확인 */
+     ( 
+      signupIdFin.length > 0 
+       && signupPwFin.length > 0 
+       && signupBiznumFin.length > 0 
+       && signupBiznameFin.length > 0 
+       && signupBizownerFin.length > 0 
+       && signupMobileFin.length > 0 
+       && signupEmailFin.length > 0 
+
+       ? setFillForm(true)
+       : setFillForm(false)
+     );
+     /* 조건2. 입력값에 맞는 id 유무 확인 */
+     
+ 
+  /* 모든 조건이 맞을때 버튼 활성화 하기 */
+   ( 
+     fillForm
+     ? setBtnOff(false) // btn on 
+     // console.log("setFillForm이 true입니다.")
+     : setBtnOff(true) // btn off
+     // console.log("setFillForm이 False") 
+  );
+  return btnOff;
+ }
+ /* ====== 3. 버튼 활성화 종합 조건(1func) End ============================================= */
 
 
   return (
@@ -142,11 +186,11 @@ function Biz_info() {
                   autoFocus
                   required
                   fullWidth
-                  id="signupId"
                   label="아이디"
+                  id="signupId"
                   name="signupId"
                   inputRef={signupId}
-                  onChange={onChange}
+                  onChange={btnChange}
                   helperText={"영문 소문자,숫자 조합, 4~16자, 공백 불가"}
                   />
               </Grid>
@@ -204,11 +248,11 @@ function Biz_info() {
                   required
                   fullWidth
                   type="password"
-                  id="signupPw"
                   label="비밀번호"
+                  id="signupPw"
                   name="signupPw"
                   inputRef={signupPw}
-                  onChange={onChange}
+                  onChange={btnChange}
                   helperText={"영문 대소문자, 숫자, 특수문자 중 2가지 이상 조합, 10~17자, 공백불가"}
                 />
               </Grid>
@@ -217,8 +261,8 @@ function Biz_info() {
                   required
                   fullWidth
                   type="password"
-                  id="signupPwCk"
                   label="비밀번호 확인"
+                  id="signupPwCk"
                   name="signupPwCk"
                   inputRef={signupPwCk}
                   onChange={pwMatch}
@@ -229,40 +273,44 @@ function Biz_info() {
                 <TextField
                   required
                   fullWidth
-                  id="signupBiznum"
                   label="사업자번호"
+                  id="signupBiznum"
                   name="signupBiznum"
                   inputRef={signupBiznum}
+                  onChange={btnChange}
                 />
               </Grid>
               <Grid item xs={11}>
                 <TextField
                   required
                   fullWidth
-                  id="signupBizname"
                   label="사업장명"
+                  id="signupBizname"
                   name="signupBizname"
                   inputRef={signupBizname}
+                  onChange={btnChange}
                 />
               </Grid>
               <Grid item xs={11}>
                 <TextField
                   required
                   fullWidth
-                  id="signupBizowner"
                   label="사업자명"
+                  id="signupBizowner"
                   name="signupBizowner"
                   inputRef={signupBizowner}
+                  onChange={btnChange}
                 />
               </Grid>
               <Grid item xs={11}>
                 <TextField
                   required
                   fullWidth
-                  id="signupMobile"
                   label="연락처"
+                  id="signupMobile"
                   name="signupMobile"
                   inputRef={signupMobile}
+                  onChange={btnChange}
                 />
               </Grid>
               <Grid item xs={11}>
@@ -281,6 +329,8 @@ function Biz_info() {
                   type="submit"
                   variant="contained"
                   onClick={sendValue}
+                  disabled={btnOff}
+                  href="/joinCompl"
                   sx={{
                     color: "000",
                     bgcolor: "palette.lo",

@@ -203,7 +203,6 @@ const mBtnChange = e => {
             <Grid item xs>
               <Button
                 disabled={btnOff}
-                type="submit"
                 variant="contained"
                 onClick={handleOpenResult}
                 sx={{
@@ -216,7 +215,7 @@ const mBtnChange = e => {
               >
                 비밀번호 찾기
               </Button>
-              {/* /// 결과있음: 비밀번호 수정 Modal  ////////////////////////*/}
+{/* ////// 결과있음: 비밀번호 수정 Modal  ////////////////////////*/}
               <Modal open={openResult} onClose={handleCloseForm}>
                 <Box sx={style}>
                   <Box

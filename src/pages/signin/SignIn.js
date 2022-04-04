@@ -66,7 +66,7 @@ function SignIn(props) {
     // })
     /* ////외부작성 종료///////////////////// */
     /* 로그인시 입력된 정보 확인 */
-    return alert(`ID: ${signinIdFin} / PW: ${signinPwFin}`);
+    return alert(`${signinIdFin} 회원님 환영합니다!`);
   };
   
    /* 입력창 채워야 버튼 활성화 이벤트 */

@@ -43,7 +43,7 @@ function Home() {
                 <Box
                   sx={{ display: "flex", flexDirection: "row-reverse", pt: 2 }}
                 >
-                  <Link href="./promotionpage" underline="hover" color="palette.db">
+                  <Link href="./promoList" underline="hover" color="palette.db">
                     {" "}
                     더 많은 캠핑장 보기👉{" "}
                   </Link>
