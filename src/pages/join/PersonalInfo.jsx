@@ -1,9 +1,9 @@
 import React from 'react'
 
-function Personal_info() {
+function PersonalInfo() {
   return (
     <div>Personal_info</div>
   )
 }
 
-export default Personal_info;
+export default PersonalInfo;

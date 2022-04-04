@@ -12,8 +12,8 @@ import BoardDetail from './pages/board/BoardDetail'
 import BoardUpdate from './pages/board/BoardUpdate'
 import BoardUpdateDetail from './pages/board/BoardUpdateDetail';
 import Certification from './pages/join/Certification'
-import JoinConditionsPerson from './pages/join/JoinConditions_person'
-import PersonalInfo from './pages/join/Personal_info'
+import TermsConditions from './pages/join/TermsConditions'
+import PersonalInfo from './pages/join/PersonalInfo'
 
 //로한님 작업 page
 import Biz_info from './pages/join_business/Biz_info';
@@ -27,7 +27,7 @@ function App() {
 
   return (
     <RecoilRoot>
-      <NavBar />   
+      <NavBar />
     <Routes>
       {/* ------------ 지훈 작업 -------------*/}
       {/* 메인 페이지 */}
@@ -41,9 +41,10 @@ function App() {
       <Route path='/BoardUpdate/:boardNum' element={<BoardUpdate />} />
       <Route path='/BoardUpdateDetail/:boardNum' element={<BoardUpdateDetail />} />
 
+      {/* 약관 */}
+      <Route path='/TermsConditions' element={<TermsConditions />} />
       {/* 개인 회원가입 */}
       <Route path='/Certification' element={<Certification />} />
-      <Route path='/JoinConditionsPerson' element={<JoinConditionsPerson />} />
       <Route path='/PersonalInfo' element={<PersonalInfo />} />
       {/* ------------ 지훈 작업 end-------------*/}
 

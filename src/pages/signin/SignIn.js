@@ -116,7 +116,7 @@ function SignIn(props) {
           </Link>
           </Grid>
           <Grid item alignItems="center" justify="flex-end">
-          <Link href="./Biz_info" >
+          <Link href="./TermsConditions" >
             가입하기
           </Link>
           </Grid>

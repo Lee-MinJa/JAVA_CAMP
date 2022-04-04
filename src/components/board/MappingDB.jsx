@@ -24,12 +24,12 @@ export const dbDelete = "delete" //게시글 삭제
 //댓글
 
 export const fCmtList = "jsonFreeCmntList" //free_cmnt select *
-export const fCmtWrite = "freeCmntWrite" //free_cmnt insert
-export const fCmtDelete = "freeCmntDelete" //free_cmnt delete
+// export const fCmtWrite = "freeCmntWrite" //free_cmnt insert
+// export const fCmtDelete = "freeCmntDelete" //free_cmnt delete
 
 //inSpring
 
-const inSpring = "?"
+const inSpring = ""
 
 //paramiter
 const free_num = inSpring+"free_num"
@@ -83,7 +83,8 @@ export const commentWriteUrl =
 export const commentDeleteUrl =
 'http://localhost:'+ pjPort +'/' + freecmnt + '/'+ dbDelete + '/' + free_cmnt_num +'/'
 
-
+//memberJoin - email overlap check
+export const emailOverlap = 'http://localhost:' + pjPort + '/join/email/'
 
 
 

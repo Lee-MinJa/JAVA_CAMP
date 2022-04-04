@@ -91,3 +91,28 @@ export const alertMessegeState = atom({
   key : 'alertMessegeState',
   default : ""
 })
+
+export const conditionsAcceptState = atom({
+  key : 'ConditionsAcceptState',
+  default : false
+})
+
+export const emailInputState = atom({
+  key : 'emailInputState',
+  default : ''
+})
+
+export const domainSelectState = atom({
+  key : 'domainSelectState',
+  default : ''
+})
+
+export const domainDirectState = atom({
+  key : 'domainDirectState',
+  default : ''
+})
+
+export const emailState = atom({
+  key : 'emailState',
+  default : ''
+})
