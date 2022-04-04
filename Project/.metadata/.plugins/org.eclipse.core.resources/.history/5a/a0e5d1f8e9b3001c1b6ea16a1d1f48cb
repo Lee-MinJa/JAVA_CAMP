@@ -1,0 +1,24 @@
+package project.config.oauth;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
+import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
+import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
+import org.springframework.security.oauth2.core.user.OAuth2User;
+import org.springframework.stereotype.Service;
+
+@Service
+public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
+	Logger logger = LogManager.getLogger(PrincipalOauth2UserService.class);
+
+	@Override
+	public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
+		logger.info("userRequest : "+userRequest);
+		logger.info("userRequest.getClientRegistration : "+userRequest.getClientRegistration());
+		logger.info("userRequest.getAccessToken().getTokenValue() : "+userRequest.getAccessToken().getTokenValue());
+		logger.info("super.loadUser(userRequest).getAttributes() : "+super.loadUser(userRequest).getAttributes());
+		return super.loadUser(userRequest);
+	}
+	
+}

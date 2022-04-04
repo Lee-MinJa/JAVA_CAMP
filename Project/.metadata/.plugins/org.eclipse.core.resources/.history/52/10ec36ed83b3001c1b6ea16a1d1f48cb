@@ -1,0 +1,35 @@
+package project.service;
+
+import java.util.Map;
+
+import org.springframework.stereotype.Service;
+
+import project.repository.FreeBoardDao;
+import project.repository.ImageDao;
+
+
+@Service
+public class ImageLogic {
+
+	public int imageUpload(Map<String,Object> pMap) {
+		
+		@Override
+		FreeBoardDao freeBoardDao;
+		
+		@Override
+		ImageDao imageDao;
+		
+		int result = 0;
+		int freeNum = 0;
+		
+		freeNum = freeBoardDao.getFreeNum();
+				
+		pMap.put("free_num", freeNum);
+		
+		imageDao.imageUpload(pMap);
+		
+		return result;
+			
+	}
+	
+}

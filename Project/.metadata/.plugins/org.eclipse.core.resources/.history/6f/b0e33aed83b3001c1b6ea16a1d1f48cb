@@ -1,0 +1,23 @@
+package project.repository;
+
+import java.util.Map;
+
+import org.apache.ibatis.session.SqlSession;
+
+public class ImageDao {
+	
+	SqlSession sqlSession;
+
+	public int imageUpload(Map<String,Object> pMap) {
+		
+		int result = 0;
+		try {
+			result = sqlSession.insert("insertImageInfo", pMap);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+	
+}
