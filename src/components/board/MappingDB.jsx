@@ -34,6 +34,9 @@ const inSpring = ""
 //paramiter
 const free_num = inSpring+"free_num"
 const free_cmnt_num = inSpring+"free_cmnt_num"
+const mem_email = inSpring+"mem_email"
+const mem_id  = inSpring+"mem_id"
+const mem_nick = inSpring+"mem_nick"
 
 
 //request url =============================================================
@@ -84,9 +87,14 @@ export const commentDeleteUrl =
 'http://localhost:'+ pjPort +'/' + freecmnt + '/'+ dbDelete + '/' + free_cmnt_num +'/'
 
 //memberJoin - email overlap check
-export const emailOverlap = 'http://localhost:' + pjPort + '/join/email/'
+export const emailOverlap = 'http://localhost:' + pjPort + '/join/email/' + mem_email + '/'
 
+//memberJoin - userId overlap check
+export const idOverlap = 'http://localhost:' + pjPort + '/join/id/' + mem_id + '/'
 
+export const nickOverlap = "http://localhost:" + pjPort + '/join/nick/' + mem_nick + '/'
+
+export const userRegist = "http://localhost:" + pjPort + '/join/regist/'
 
 
 

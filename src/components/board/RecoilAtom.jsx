@@ -117,6 +117,11 @@ export const emailState = atom({
   default : ''
 })
 
+export const userIdState = atom({
+  key : 'userIdState',
+  default : ''
+})
+
 export const regUserState = atom({
   key : 'regUserState',
   default : {
