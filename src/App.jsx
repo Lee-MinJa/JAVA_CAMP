@@ -30,16 +30,9 @@ import PromoBoard from "./pages/promo/PromoBoard";
 function App() {
 
   return (
-<<<<<<< HEAD
     <RecoilRoot>
       <NavBar />
     <Routes>
-=======
-    <Provider store={store}>
-      <NavBar />
-      <Header />
-      <Routes>
->>>>>>> 221ad6dbe50276a07bcf0ce21aee58aaf1d8231e
       {/* ------------ 지훈 작업 -------------*/}
       {/* 메인 페이지 */}
       {/* <Route path='/' element={<Home />} /> */}
@@ -78,12 +71,7 @@ function App() {
       {/*------------ 로한 End------------*/}
 
     </Routes>
-<<<<<<< HEAD
     </RecoilRoot>
-=======
-    <Footer />
-    </Provider>
->>>>>>> 221ad6dbe50276a07bcf0ce21aee58aaf1d8231e
   );
 };
 

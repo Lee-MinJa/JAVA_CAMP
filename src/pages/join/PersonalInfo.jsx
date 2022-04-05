@@ -67,10 +67,12 @@ function PersonalInfo() {
         }
         else {
           setUserIdMsg('이미 가입된 아이디가 있어요.')
+          setIsUserId(false)
         setResultColor('red')
       }
     })}else{
       setUserIdMsg('4자 이상 10자 미만으로 입력해주세요.')
+      setIsUserId(false)
       setResultColor('red')
     }
   }

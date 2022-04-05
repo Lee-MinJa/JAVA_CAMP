@@ -2,7 +2,7 @@ import React from 'react';
 import Carousel from 'react-material-ui-carousel'
 import { Button, Card, CardMedia, Grid, Link, Paper, Typography} from '@mui/material'
 import { createTheme } from "@mui/material"
-import "../../image/camp1.jpg"
+// import "../../image/camp1.jpg"
 
 
 const theme = createTheme({
