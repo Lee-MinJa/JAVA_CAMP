@@ -16,19 +16,30 @@ import TermsConditions from './pages/join/TermsConditions'
 import PersonalInfo from './pages/join/PersonalInfo'
 
 //로한님 작업 page
-import Biz_info from './pages/join_business/Biz_info';
-import Home from './pages/Home'
-import JoinCompl from './pages/join_business/JoinCompl';
-import SignIn from './pages/signin/SignIn'
-import FindAcct from './pages/lostInfo/FindAcct'
-import NavBar from './components/nav/NavBar';
+import Biz_info from "./pages/join_business/Biz_info";
+import Home from "./pages/Home";
+import JoinCompl from "./pages/join_business/JoinCompl";
+import SignIn from "./pages/signin/SignIn";
+import FindAcct from "./pages/lostInfo/FindAcct";
+import NavBar from "./components/nav/NavBar";
+import PromoList from "./pages/promo/PromoBoard";
+import Header from "./components/main/Header";
+import Footer from "./components/main/Footer";
+import PromoBoard from "./pages/promo/PromoBoard";
 
 function App() {
 
   return (
+<<<<<<< HEAD
     <RecoilRoot>
       <NavBar />
     <Routes>
+=======
+    <Provider store={store}>
+      <NavBar />
+      <Header />
+      <Routes>
+>>>>>>> 221ad6dbe50276a07bcf0ce21aee58aaf1d8231e
       {/* ------------ 지훈 작업 -------------*/}
       {/* 메인 페이지 */}
       {/* <Route path='/' element={<Home />} /> */}
@@ -50,20 +61,29 @@ function App() {
 
 
       {/*------------ 로한 작업 ------------*/}
-      {/* 메인 페이지 */}
-      <Route path='/' element={<Home />}/>
+        {/* 메인 페이지 */}
+        <Route path="/" element={<Home />} />
 
-      {/* 로그인 및 회원정보 찾기 */}
-      <Route path='/signin' element={<SignIn />}/>
-      <Route path='/findacct' element={<FindAcct />}/>
+        {/* 로그인 및 회원정보 찾기 */}
+        <Route path="/signin" element={<SignIn />} />
+        <Route path="/findacct" element={<FindAcct />} />
 
-      {/* 가입 */}
-      <Route path='/biz_info' element={<Biz_info />}/>
-      <Route path='/joincompl' element={<JoinCompl />}/>
+        {/* 가입 */}
+        <Route path="/biz_info" element={<Biz_info />} />
+        <Route path="/joincompl" element={<JoinCompl />} />
+
+        {/* 홍보 게시판 */}
+        <Route path="/promoboard" element={<PromoBoard />} />
+        <Route path="/promolist" element={<PromoList />} />
       {/*------------ 로한 End------------*/}
 
     </Routes>
+<<<<<<< HEAD
     </RecoilRoot>
+=======
+    <Footer />
+    </Provider>
+>>>>>>> 221ad6dbe50276a07bcf0ce21aee58aaf1d8231e
   );
 };
 

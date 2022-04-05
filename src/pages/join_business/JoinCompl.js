@@ -29,22 +29,23 @@ function JoinCompl() {
             alignItems: "center",
             flexDirection: "column",
             mt: 8,
+            mb: 10,
             display: "flex",
           }}
         >
-          <Typography variant="h2">Hi, Camping</Typography>
-          <Typography align="center" variant="h5" sx={{ mt: 8, mb: 4 }}>
+          <Typography align="center" variant="h5">
             Hi. Camping 에 가입해 주셔서 감사합니다.
             <br />
             제휴를 위해 담당 부서에서 검토 후 연락 드리겠습니다.
-            <br />※ 평균 2 ~ 5 영업일 소요
+          </Typography>
+          <Typography align="center" variant="h6"  sx={{ mb: 4 }}>
+            ※ 평균 2 ~ 5 영업일 소요
           </Typography>
           <Button
             variant="contained"
             href="./"
             sx={{
               mt: 3,
-              mb: 2,
               bgcolor: "palette.lo",
               "&:hover": { bgcolor: "palette.no" },
             }}
