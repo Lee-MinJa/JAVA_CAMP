@@ -29,7 +29,7 @@ export const fCmtList = "jsonFreeCmntList" //free_cmnt select *
 
 //inSpring
 
-const inSpring = ""
+const inSpring = "?"
 
 //paramiter
 const free_num = inSpring+"free_num"
