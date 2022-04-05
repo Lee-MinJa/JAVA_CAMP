@@ -99,7 +99,6 @@ function SignIn(props) {
           {/*
           <Typography variant='h6' sx={{color: 'palette.no'}}>
          존재하지 않는 계정입니다.
-<<<<<<< HEAD
         </Typography> */}
         <Box component="form" 
         // onSubmit={handleSubmit} 
@@ -139,9 +138,7 @@ function SignIn(props) {
           </Link>
           </Grid>
           </Grid>
-=======
-          </Typography> 
-        */}
+          {/* </Typography>  */}
           <Box
             component="form"
             sx={{ width: 400 }}
@@ -189,7 +186,7 @@ function SignIn(props) {
               </Grid>
             </Grid>
           </Box>
->>>>>>> 221ad6dbe50276a07bcf0ce21aee58aaf1d8231e
+          </Box>
         </Box>
       </ThemeProvider>
     </div>
