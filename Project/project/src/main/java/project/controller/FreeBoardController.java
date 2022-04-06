@@ -86,6 +86,33 @@ public class FreeBoardController {
 		logger.info("deleteFreeBoard 호출 성공");
 		freeBoardLogic.deleteFreeBoard(free_num);
 		return "삭제완료";
-	}	
+	}
+
+	@PostMapping("/images")
+	public String insertImageFileList(MultipartHttpServletRequest multipartHttpServletRequest) throws Exception {
+		logger.info("FreeBoardController insertImageFileList 호출 성공");
+		
+		List<Map<String, Object>> list = fileUtils.parseFileInfo(freeBoardDao.getFreeNum(), multipartHttpServletRequest);
+		
+		List<String> urlList = new ArrayList<>();
+		
+		for(int i=0; i<list.size();i++) {
+			logger.info("pathList에 담을값 : "+list.get(i).get("image_url").toString());
+			urlList.add(i,list.get(i).get("image_url").toString());
+		}
+		logger.info("RestFreeBoardController insertFreeBoard urlList : "+urlList);
+		
+		String result = null;
+		Gson g = new Gson();
+		result = g.toJson(urlList);
+		logger.info("RestFreeBoardController insertFreeBoard result : "+result);
+		
+		if(CollectionUtils.isEmpty(list) == false) {
+			logger.info("RestFreeBoardController insertImageFileList list : "+list);
+			freeBoardLogic.insertImageFileList(list);
+		}
+		
+		return result;		
+	}
 
 }

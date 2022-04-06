@@ -73,6 +73,27 @@ public class FreeBoardDao {
 		int result = 0;
 		result = sqlSession.delete(NAMESPACE+"deleteFreeBoard",free_num);
 		return result;
+	}
+
+	public void insertImageFileList(List<Map<String, Object>> list) {
+		logger.info("FreeBoardDao insertImageFileList 호출 성공");
+		logger.info("FreeBoardDao insertImageFileList list : "+list);
+		
+		for(int i=0; i<list.size();i++) {
+			Map<String,Object> rMap = list.get(i);
+			int free_num = (int)list.get(i).get("free_num");
+			String image_filename = list.get(i).get("image_filename").toString();
+			String image_filepath = list.get(i).get("image_filepath").toString();
+			String image_url = list.get(i).get("image_url").toString();
+			float image_size = (long)list.get(i).get("image_size");
+			rMap.put("free_num", free_num);			
+			rMap.put("image_filename", image_filename);			
+			rMap.put("image_filepath", image_filepath);			
+			rMap.put("image_url", image_url);			
+			rMap.put("image_size", image_size);
+			logger.info("rMap : "+rMap);
+			sqlSession.insert(NAMESPACE+"insertImageFileList",rMap);
+		}
 	}	
 	
 }

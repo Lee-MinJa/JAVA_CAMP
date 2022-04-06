@@ -41,6 +41,8 @@ dependencies {
 	implementation 'com.google.code.gson:gson:2.8.9'
 	implementation 'commons-io:commons-io:2.11.0'
 	implementation 'commons-fileupload:commons-fileupload:1.4'
+	implementation platform('com.amazonaws:aws-java-sdk-bom:1.11.1000')
+	implementation 'com.amazonaws:aws-java-sdk-s3'
 	implementation fileTree(dir: '/src/main/webapp/WEB-INF/lib', includes: ['*.jar'])
 	
 }

@@ -58,6 +58,10 @@ public class FreeBoardLogic {
 		int result = 0;
 		result = freeBoardDao.deleteFreeBoard(free_num);
 		return result;		
+	}
+
+	public void insertImageFileList(List<Map<String, Object>> list) {
+		freeBoardDao.insertImageFileList(list);		
 	}	
 	
 }

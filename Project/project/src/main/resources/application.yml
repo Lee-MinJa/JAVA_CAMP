@@ -1,3 +1,17 @@
+cloud:
+  aws:
+    credentials:
+      access-key:  
+      secret-key: 
+    region:
+      static: us-west-2
+    stack:
+      auto: false
+
+application:
+  bucket:
+    name: spring-boot-project-storage
+
 server:
   port: 9000
   servlet:
@@ -26,8 +40,8 @@ spring:
       client:
         registration:
           google:
-            client-id: 398930234086-14da43k2m0gdbk9r3k12pa87stpuofp2.apps.googleusercontent.com
-            client-secret: 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
+            client-id: 
+            client-secret: 
             scope:
             - email
             - profile
