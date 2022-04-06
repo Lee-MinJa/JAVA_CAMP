@@ -87,14 +87,14 @@ export const commentDeleteUrl =
 'http://localhost:'+ pjPort +'/' + freecmnt + '/'+ dbDelete + '/' + free_cmnt_num +'/'
 
 //memberJoin - email overlap check
-export const emailOverlap = 'http://localhost:' + pjPort + '/join/email/' + mem_email + '/'
+export const emailOverlap = 'http://localhost:' + pjPort + '/email' + mem_email + '='
 
 //memberJoin - userId overlap check
-export const idOverlap = 'http://localhost:' + pjPort + '/join/id/' + mem_id + '/'
+export const idOverlap = 'http://localhost:' + pjPort + '/id' + mem_id + '='
 
-export const nickOverlap = "http://localhost:" + pjPort + '/join/nick/' + mem_nick + '/'
+export const nickOverlap = "http://localhost:" + pjPort + '/nick' + mem_nick + '='
 
-export const userRegist = "http://localhost:" + pjPort + '/join/regist/'
+export const userRegist = "http://localhost:" + pjPort + '/regist'
 
 
 

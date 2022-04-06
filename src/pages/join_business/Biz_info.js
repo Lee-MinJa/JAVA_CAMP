@@ -10,6 +10,7 @@ import {
 } from "@mui/material";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import Footer from "../../components/main/Footer";
+import axios from 'axios'
 
 const theme = createTheme({
   palette: {
@@ -85,7 +86,7 @@ function Biz_info() {
  const idCk = signupId.current.value;
 
 /* 제출 */
-  const sendValue = () => {
+  const sendValue = (event) => {
     const signupInfo = {
       signupId: signupId.current.value,
       signupPw: signupPw.current.value,
@@ -95,6 +96,12 @@ function Biz_info() {
       signupMobile: signupMobile.current.value,
       signupEmail: signupEmail.current.value,
     };
+    axios.get(`http://localhost:9000/memberBizInsert?mem_id=${signupInfo.signupId}&mem_pw=${signupInfo.signupPw}
+    &mem_biznum=${signupInfo.signupBiznum}&mem_bizname=${signupInfo.signupBizname}&mem_name=${signupInfo.signupBizowner}
+    &mem_tel=${signupInfo.signupMobile}&mem_email=${signupInfo.signupEmail}`)
+    .then((response) => {
+        console.log(response.data)
+    })
     return console.log(signupInfo);  
   };
 
@@ -102,6 +109,7 @@ function Biz_info() {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const [IdCheckName, setIdCheckName] = useState('');
   
   /* //////비밀번호 일치여부 확인 ////// */
   const [pwMsg, setPwMsg] = useState('');
@@ -131,7 +139,6 @@ function Biz_info() {
      const signupBizownerFin = signupBizowner.current.value;
      const signupMobileFin = signupMobile.current.value;
      const signupEmailFin = signupEmail.current.value;
- 
      /* 조건1. Form 채웠는지 여부 확인 */
      ( 
       signupIdFin.length > 0 

@@ -45,26 +45,23 @@ function SignIn(props) {
       signinId: signinId.current.value,
       signinPw: signinPw.current.value,
     };
-    axios
-      .get("/memberList", {
-        params: {
-          mem_id: signinIdFin,
-          mem_pw: signinPwFin,
-        },
-      })
-      .then((window.location.href = "/"))
-      .catch();
-
-    /* /// 외부 작성(작성자 미상) ///////////// */
-    // axios.get(`http://localhost:8000/member/login?MEM_ID=${signinInfo.signinId}&MEM_PW=${signinInfo.signinPw}`)
-    // .then(response => {
-    //   console.log(response.data);
-    //   alert(response.data[0].MEM_NICK);
-    //   setCookie('MEM_NICK',response.data[0].MEM_NICK,3);
-    //   window.location.href='/'
-    // })
-    /* ////외부작성 종료///////////////////// */
-    /* 로그인시 입력된 정보 확인 */
+    axios.get(`http://localhost:9000/memberLogin?mem_id=${signinInfo.signinId}&mem_pw=${signinInfo.signinPw}`)
+    .then(response => {
+      console.log(response.data.mem_id);
+      console.log(response.data.mem_num);
+      window.sessionStorage.setItem("mem_id",response.data.mem_id);
+      window.sessionStorage.setItem("mem_num",response.data.mem_num);
+      if(response.data.mem_num == -2) {
+          alert('아이디가 틀립니다')
+      }     
+      else if(response.data.mem_num == -1){
+        alert('비밀번호가 틀립니다.')
+      }
+      else{
+        alert(`${response.data.mem_id}님 환영합니다.`);
+        window.location.href='/'
+      }
+    })
     return alert(`${signinIdFin} 회원님 환영합니다!`);
   };
   
@@ -182,7 +179,7 @@ function SignIn(props) {
                 <Link href="./FindAcct">아이디/비밀번호찾기</Link>
               </Grid>
               <Grid item alignItems="center" justify="flex-end">
-                <Link href="./Biz_info">가입하기</Link>
+                <Link href="./TermsConditions">가입하기</Link>
               </Grid>
             </Grid>
           </Box>

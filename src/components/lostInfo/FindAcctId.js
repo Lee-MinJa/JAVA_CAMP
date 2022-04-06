@@ -1,10 +1,10 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { Grid, TextField } from "@mui/material";
-
+import axios from "axios";
 const style = {
   position: "absolute",
   top: "50%",
@@ -24,6 +24,7 @@ export default function FindAcctId() {
 
   const [openResult, setOpenResult] = React.useState(false);
   const handleOpenResult = () => setOpenResult(true);
+  // const handleCloseResult = () => setOpenResult(false);
 
   /* 입력창 채워야 버튼 활성화 이벤트 */
   const email = useRef("");
@@ -32,7 +33,7 @@ export default function FindAcctId() {
   const mobile = useRef("");
   const [btnOff, setBtnOff] = useState(true);
 
-/* ====== 버튼 활성화 종합 조건(1func) ============================================= */
+/* ====== 3. 버튼 활성화 종합 조건(1func) ============================================= */
 const [fillForm, setFillForm] = useState(false);
 const btnChange = (e) => {
   e.preventDefault(); 
@@ -63,10 +64,60 @@ const btnChange = (e) => {
  );
  return btnOff;
 }
-/* ====== 버튼 활성화 종합 조건(1func) End ============================================= */
+/* ====== 3. 버튼 활성화 종합 조건(1func) End ============================================= */
+/* ====== 1. Form만 채우면 버튼 활성화되는 이벤트 ============================================= */
+//  const btnAble = (e) => {
+  //    e.preventDefault(); 
+//    const emailFin = email.current.value;
+//    const birthdateFin = birthdate.current.value;
+//    const fullNameFin = fullName.current.value;
+//    const mobileFin = mobile.current.value;
+//    ( 
+//      emailFin.length > 0 
+//     && birthdateFin.length > 0 
+//     && fullNameFin.length > 0 
+//     && mobileFin.length > 0 
+//     ? setBtnOff(false)
+//     : setBtnOff(true)
+//    )
+//  return btnOff;
+//  }
+/* ==== 1. Form만 채우면 버튼 활성화되는 조건 End ============================================= */
+/* ======================= 2. 버튼 활성화 복합 조건(Nfunc) ========================= */
+//  const [fillForm, setFillForm] = useState(false);
 
+//  const isFormFilled = (e) => {
+//   e.preventDefault(); 
+//   const emailFin = email.current.value;
+//   const birthdateFin = birthdate.current.value;
+//   const fullNameFin = fullName.current.value;
+//   const mobileFin = mobile.current.value;
+//   ( 
+//    emailFin.length > 0 
+//   && birthdateFin.length > 0 
+//   && fullNameFin.length > 0 
+//   && mobileFin.length > 0 
+//   ? setFillForm(true)
+//   : setFillForm(false)
+//  )
+//  return fillForm;
+//  }
+// /* onChange에 대한 비밀번호 일치 및 변경 버튼 이벤트  */
+// const btnChange = (e) => {
+//   isFormFilled(e)
+//   (
+//     fillForm
+//     ? setBtnOff(false) // btn on 
+//     : setBtnOff(true) // btn off
+//   )
+//   return btnOff;
+// }
+/* ====== 2. 버튼 활성화 복합 조건 End ============================================= */
+  const [id,SetId] = React.useState('');
+  const [idCheck,SetIdCheck] = React.useState('');
  /* 제출 이벤트 */
   const handleSubmit = (event) => {
+    event.preventDefault(); 
     const findInfo = new FormData(event.currentTarget);
     console.log({
       email: findInfo.get("email"),
@@ -74,6 +125,18 @@ const btnChange = (e) => {
       fullName: findInfo.get("fullName"),
       mobile: findInfo.get("mobile"),
     });
+    axios.get(`http://localhost:9000/findId?mem_email=${findInfo.get("email")}&mem_name=${findInfo.get("fullName")}&mem_tel=${findInfo.get("mobile")}`)
+    .then(response => {
+      console.log(response.data);
+      if(response.data == '찾으시는 아이디가 없습니다.' ){
+        SetIdCheck('');
+        SetId(response.data)
+      }else{
+        SetIdCheck('회원님의 아이디입니다.');
+        SetId(response.data)
+      }
+    })
+
   };
 
   return (
@@ -166,10 +229,13 @@ const btnChange = (e) => {
                       flexDirection: "column",
                     }}
                   >
+                    {/* if ({id !== '찾으시는 아이디가 없습니다.'}) {
+                      
+                    } */}
                     <Typography align="center">
-                      회원님의 아이디입니다.
+                                {idCheck}
                     </Typography>
-                    <Typography align="center">Camper111</Typography>
+                    <Typography align="center">{id}</Typography>
                     <Button
                       href="/signin"
                       variant="contained"
@@ -184,7 +250,7 @@ const btnChange = (e) => {
                   </Box>
                 </Box>
               </Modal>
-              {/* //// 결과없음 modal: DB연결후 조건부로 수정 ///////////////////////////////
+              {/* //// 결과없음 modal: DB연결후 조건부로 수정 /////////////////////////////// else
               <Modal
               open={openResult}
               onClose={handleCloseResult}
@@ -201,6 +267,7 @@ const btnChange = (e) => {
                  </Box>
               </Modal> 
               ////////////////////////////////////////////////////////////////////////////*/}
+            
             </Grid>
             <Grid item>
               <Button

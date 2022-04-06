@@ -35,11 +35,12 @@ function Certification() {
 
   const overlapCheck = async() => {
     const res = await axios.get(emailOverlap + state)
-      if(typeof res.data[0] === 'undefined'){
+      if(res.data[0].MEM_EMAIL == 'undefined'){
         setCheckResult('입력하신 이메일로 가입이 가능합니다.')
       }
       else {
-      setCheckResult('입력하신 이메일로 가입된 아이디가 있습니다.')}
+        setCheckResult('입력하신 이메일로 가입된 아이디가 있습니다.')}
+        console.log(res.data[0].MEM_EMAIL)
       // console.log('결과값 : ', res.data[0])
       // console.log(checkResult)
   }
