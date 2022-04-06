@@ -1,2 +1,8 @@
 /.metadata/
 node_modules
+<<<<<<< HEAD
+src/components/join/Config.jsx
+public/upload
+=======
+public/upload
+>>>>>>> 221ad6dbe50276a07bcf0ce21aee58aaf1d8231e
