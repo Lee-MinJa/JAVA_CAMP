@@ -70,8 +70,9 @@ const btnChange = (e) => {
   const handleOpenResult = () => setOpenResult(true);
 
   /* (임시)비번찾기시 입력한 정보 제출하기 */
-  const handleSubmit = (event) => {
-    const findInfo = new FormData(event.currentTarget);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const findInfo = new FormData(e.currentTarget);
     console.log({
       id: findInfo.get("id"),
       email: findInfo.get("email"),
