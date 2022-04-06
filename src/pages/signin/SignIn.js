@@ -24,15 +24,6 @@ var setCookie = function (name, value, exp) {
 
 /* SignIn 함수 //////////////////////////////////////////////////////////////////////////// */
 function SignIn(props) {
-  /* 회원정보가 없는 경우 메시지 보이기 */
-  // form과 submit이용하는 경우
-  // const handleSubmit = (event) => {
-  //   const signInData = new FormData(event.currentTarget);
-  //   console.log({
-  //     id: signInData.get('signinid')
-  //     , pw: signInData.get('signinpw')
-  //   });
-  // }
 
   /* ref이용해서 데이터 전달하는 경우 */
   const signinId = useRef("");
@@ -45,6 +36,7 @@ function SignIn(props) {
       signinId: signinId.current.value,
       signinPw: signinPw.current.value,
     };
+    /* 로한 작성중 */
     axios
       .get("/memberList", {
         params: {
@@ -99,46 +91,8 @@ function SignIn(props) {
           {/*
           <Typography variant='h6' sx={{color: 'palette.no'}}>
          존재하지 않는 계정입니다.
-        </Typography> */}
-        <Box component="form" 
-        // onSubmit={handleSubmit} 
-        sx={{width: 400}}>
-          <TextField
-          required
-          fullWidth
-          id="signinId"
-          inputRef={signinId}
-          label="아이디"
-          autoFocus
-          sx={{ mt: 3, mb: 2,  }}
-          />
-          <TextField
-          required
-          fullWidth
-          type="password"
-          id="signinPw"
-          inputRef={signinPw}
-          label="비밀번호"
-          />
-          <Button type="submit"  
-          onClick={onClickSignIn}
-          variant="contained" 
-          fullWidth  
-          sx={{ mt: 3, mb: 2, bgcolor:"palette.lo",'&:hover': {bgcolor: 'palette.no'}}}>
-          로그인</Button>
-          <Grid container spacing={2}>
-          <Grid item xs style={{ display: "flex", alignItems: "center" }}>
-          <Link href="./FindAcct" >
-            아이디/비밀번호찾기
-          </Link>
-          </Grid>
-          <Grid item alignItems="center" justify="flex-end">
-          <Link href="./TermsConditions" >
-            가입하기
-          </Link>
-          </Grid>
-          </Grid>
-          {/* </Typography>  */}
+          </Typography> 
+        */}
           <Box
             component="form"
             sx={{ width: 400 }}
@@ -185,7 +139,6 @@ function SignIn(props) {
                 <Link href="./Biz_info">가입하기</Link>
               </Grid>
             </Grid>
-          </Box>
           </Box>
         </Box>
       </ThemeProvider>
