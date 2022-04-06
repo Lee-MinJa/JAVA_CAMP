@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
@@ -10,7 +10,6 @@ import {Box} from '@mui/material'
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil'
 import { emailState } from '../board/RecoilAtom'
-import { width } from '@mui/system';
 
 function CertificationConfirm(props) {
 

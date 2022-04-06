@@ -52,7 +52,7 @@ function BoardDetail() {
   })
 
   return (
-    <Box paddingLeft={'80px'}>
+    <Box paddingLeft={'6vw'}>
     <Box
       className='boardHeader'
       sx={{height: '7vh',}}>
@@ -153,7 +153,7 @@ function BoardDetail() {
       display={'flex'}
       >
       <Suspense fallback={<CircularProgress color="primary" />}>
-      <Box dangerouslySetInnerHTML={{__html:boradContent}}></Box>
+      <Box width={'80vw'} dangerouslySetInnerHTML={{__html:boradContent}}></Box>
       </Suspense>
       </Box>
       <Stack

@@ -15,7 +15,7 @@ const BoardEditor = (props) => {
   const [state, setState] = useRecoilState(fBoardInsertContent);
   const handleChange = (value) => {
     setState({ value : value });
-    console.log(state.value)
+    // console.log(state.value)
   };
 
   // const postValue = () => {
@@ -43,8 +43,8 @@ const BoardEditor = (props) => {
 
         try {
           const res = await axios.post(imgInsertUrl, formData)
-          console.log('백엔드로부터 받은값 : ' ,res.data.url)
-          url = res.data.url;
+          console.log('백엔드로부터 받은값 : ' ,res.data)
+          url = res.data;
 
         const editor = QuillRef.current.getEditor();
         const range = editor.getSelection();

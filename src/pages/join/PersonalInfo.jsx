@@ -210,8 +210,13 @@ function PersonalInfo() {
     setUserNameMsg('')
     setUserPhoneNumberMsg('')
     setUserNickMsg('')
-      
-  if(isUserId !== false 
+
+    if(isUserId === false) {alert('아이디를 확인해주세요.')}
+    else if(isUserPass === false) {alert('비밀번호를 확인해주세요.')}
+    else if(isUserName === false) {alert('성함을 확인해주세요.')}
+    else if(isUserPhoneNumber === false) {alert('성함을 확인해주세요.')}
+    else if(isUserNick === false) {alert('닉네임을 확인해주세요.')}
+    else if(isUserId !== false 
     && isUserPass !== false
     && isUserName !== false 
     && isUserPhoneNumber !== false
@@ -369,6 +374,7 @@ function PersonalInfo() {
               <Grid marginBottom={1} item xs={12}>
                 <TextField
                   value={userPhoneNumber}
+                  inputProps={{maxlength : 13}}
                   required
                   fullWidth
                   label="연락처"

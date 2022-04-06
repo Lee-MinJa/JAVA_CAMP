@@ -41,8 +41,8 @@ const BoardEditor = () => {
 
         try {
           const res = await axios.post(imgInsertUrl, formData)
-          console.log('success : ' ,res.data.url)
-          url = res.data.url;
+          console.log('success : ' ,res.data)
+          url = res.data;
 
         const editor = QuillRef.current.getEditor();
         const range = editor.getSelection();
