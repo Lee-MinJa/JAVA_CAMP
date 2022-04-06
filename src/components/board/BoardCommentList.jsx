@@ -92,7 +92,7 @@ function BoardCommentList( props ) {
   {boardComment.map(element => (
             <List key={element.free_cmnt_num} 
             sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
-          <ListItem alignItems="flex-start">
+          <ListItem sx={{width : '80vw',}} alignItems="flex-start">
             <ListItemText
             sx={{
               marginTop : '-6px'
@@ -112,7 +112,10 @@ function BoardCommentList( props ) {
                   </Typography>
                 </React.Fragment>
               }
-            /><BoardCommnetDelete auth={element.mem_nick} commentNum={element.free_cmnt_num}/>
+            />
+            <Box left={'170px'} position={'absolute'}>
+            <BoardCommnetDelete auth={element.mem_nick} commentNum={element.free_cmnt_num}/>
+            </Box>
           </ListItem>
           <Divider
           sx={{

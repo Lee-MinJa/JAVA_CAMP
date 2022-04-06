@@ -74,12 +74,13 @@ function BoardCommentWrite(props) {
       }
     }
     return (
-      <Box>
+      <Box >
         <Button 
         variant='outlined'
 
         onClick={handleOpen}>댓글쓰기</Button>
         <Modal
+          sx={{width : '-20vw'}}
           open={open}
           onClose={handleClose}
         >

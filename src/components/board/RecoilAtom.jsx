@@ -1,8 +1,12 @@
 import { atom, selector } from 'recoil';
+import { recoilPersist } from 'recoil-persist'
+
+const { persistAtom } = recoilPersist()
 
 export const btnState = atom({
   key : 'btnState',
-  default : 'all'
+  default : 'all',
+  effects_UNSTABLE : [persistAtom],
 })
 
 export const fBoardState = atom({
@@ -43,6 +47,7 @@ export const fBoardDetailContent = atom({
 export const pageState = atom({
   key : 'pageState',
   default : 0,
+  effects_UNSTABLE : [persistAtom],
 })
 
 export const searchPageState = atom({
@@ -70,16 +75,18 @@ export const searchState = atom({
     free_title : "",
     free_views : 0,
     mem_nick : "",
-  }]
+  }],
+  effects_UNSTABLE : [persistAtom],
 })
 
 export const userInfoState = atom({
   key : 'userInfoState',
   default : [{
-    mem_num : 1,
+    mem_num : 16,
     mem_code : 1,
-    mem_nick : '걱정이많은자',
-  }]
+    mem_nick : '구원자',
+  }],
+  effects_UNSTABLE : [persistAtom],
 })
 
 export const alertState = atom({
@@ -114,7 +121,8 @@ export const domainDirectState = atom({
 
 export const emailState = atom({
   key : 'emailState',
-  default : ''
+  default : '',
+  effects_UNSTABLE : [persistAtom],
 })
 
 export const userIdState = atom({
