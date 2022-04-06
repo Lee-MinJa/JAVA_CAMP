@@ -4,7 +4,7 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { Grid, TextField } from "@mui/material";
-
+import axios from "axios";
 const style = {
   position: "absolute",
   top: "50%",
@@ -68,8 +68,8 @@ const btnChange = (e) => {
   /* ////// 결과 Modal창 여닫기 ////// */
   const [openResult, setOpenResult] = React.useState(false);
   const handleOpenResult = () => setOpenResult(true);
-
-  /* (임시)비번찾기시 입력한 정보 제출하기 */
+  const [SerchId, SetSerchId] = React.useState();
+  /* 비번찾기시 입력한 정보 제출하기 */
   const handleSubmit = (e) => {
     e.preventDefault();
     const findInfo = new FormData(e.currentTarget);
@@ -80,7 +80,21 @@ const btnChange = (e) => {
       fullName: findInfo.get("fullName"),
       mobile: findInfo.get("mobile"),
     });
+    axios.get(`http://localhost:9000/findPw?mem_id=${findInfo.get("id")}&mem_email=${findInfo.get("email")}&mem_name=${findInfo.get("fullName")}&mem_tel=${findInfo.get("mobile")}`)
+    .then(response => {
+      console.log(response.data);
+     if(response.data.MEM_ID == '찾으시는 아이디가 없습니다.'){
+      setOpenResult(false);
+      alert('찾으시는 아이디가 없습니다.')
+     }
+     else{
+      SetSerchId(response.data.MEM_ID)
+      }
+      
+    })
+    
   };
+  console.log(SerchId);
 
   /* (모달)변경한 비밀번호 일치여부 helperText 이벤트 ////// */
   const [pwMsg, setPwMsg] = useState('');
@@ -122,9 +136,14 @@ const mBtnChange = e => {
     e.preventDefault();
     const updatedPwFin = updatedPw.current.value;
     const updatedPwCkFin = updatedPwCk.current.value;
+    console.log(SerchId);
+    axios.get(`http://localhost:9000/UpdatePw?mem_id=${SerchId}&mem_pw=${updatedPwCkFin}`)
+    .then(response => {
+      console.log(response.data);
+    })
     return window.confirm("비밀번호가 변경되었습니다.")
           ,setOpenForm(false)
-          ,(window.location.href = "/signin");
+          // ,(window.location.href = "/signin");
         };
 /* ===={ Modal 이벤트 END }======================================================== */
   return ( 
@@ -204,6 +223,7 @@ const mBtnChange = e => {
             <Grid item xs>
               <Button
                 disabled={btnOff}
+                type="submit"
                 variant="contained"
                 onClick={handleOpenResult}
                 sx={{

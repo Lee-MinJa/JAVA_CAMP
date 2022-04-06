@@ -61,7 +61,7 @@ function PersonalInfo() {
     const url = idOverlap + userId
     if(isUserId !== false) {
     axios.get(url).then((res) => {
-        if(typeof res.data[0] === 'undefined'){
+        if(res.data[0].MEM_ID == 'undefined'){
           setUserIdMsg('사용이 가능한 아이디에요.')
           setResultColor('blue')
         }
@@ -186,7 +186,7 @@ function PersonalInfo() {
     const url = nickOverlap + userNick
     if(isUserNick !== false) {
     axios.get(url).then((res) => {
-        if(typeof res.data[0] === 'undefined'){
+        if(res.data[0].MEM_NICK == 'undefined'){
           setUserNickMsg('사용이 가능한 닉네임이에요.')
           setIsUserNick(true)
           setResultColor('blue')
@@ -227,8 +227,17 @@ function PersonalInfo() {
         mem_email : email,
         mem_tel : userPhoneNumber,
       }
-
-      axios.post(url, data).then((res) => {
+      
+      // axios.post(url, data).then((res) => {
+      //   alert(email);
+        
+      //   console.log(res.data)
+      //   navigate('/signin')
+      //   setEmail('')
+      // })
+      axios.post(url+`?mem_code=${data.mem_code}&mem_id=${data.mem_id}&mem_pw=${data.mem_pw}&mem_nick=${data.mem_nick}&mem_email=${email}
+      &mem_tel=${data.mem_tel}&mem_name=${data.mem_name}`)
+      .then((res) => {
         console.log(res.data)
         navigate('/signin')
         setEmail('')
